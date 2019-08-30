@@ -9,8 +9,8 @@ SRC_FILES= \
 
 CFLAGS = -g -Wall -std=c11
 LDFLAGS = -lm
-$(PROJECT):	quadr.o main.o
-	$(CC) quadr.o main.o -o $(LDFLAGS) $@
+quadr:	quadr.o main.o
+	$(CC) quadr.o main.o -o  $@ $(LDFLAGS)
 dist: $(PROJECT).tar.gz
 $(PROJECT).tar.gz:		$(SRC_FILES)
 	tar -cf $(PROJECT).tar $(SRC_FILES)
