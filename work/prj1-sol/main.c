@@ -19,6 +19,12 @@ do_file_bits(FILE *in, const char *inName, int nBits, FILE *out)
   } while (!isDone);
 }
 
+static int count_ones(unsigned n) {
+  int count = 0;
+  while (n > 0) { n &= n - 1; count++; }
+  return count;
+}
+
 int
 main(int argc, const char *argv[])
 {
@@ -31,9 +37,9 @@ main(int argc, const char *argv[])
     fatal("invalid N_BITS '%s'", argv[1]);
   }
   else if (nBits < 8 || nBits > sizeof(BitsValue)*CHAR_BIT ||
-           nBits%CHAR_BIT != 0) {
-    fatal("N_BITS must be a multiple of %d between 8 and %d",
-          CHAR_BIT, sizeof(BitsValue)*CHAR_BIT);
+           count_ones(nBits) != 1) {
+    fatal("N_BITS must be a power of 2 between 8 and %d",
+           sizeof(BitsValue)*CHAR_BIT);
   }
   if (argc == 2) {
     do_file_bits(stdin, "<stdin>", nBits, stdout);

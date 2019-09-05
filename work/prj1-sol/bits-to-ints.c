@@ -49,5 +49,6 @@ bits_to_ints(FILE *inFile, const char *inName, int nBits, bool *isEof)
   assert(0 < nBits && nBits <= CHAR_BIT*sizeof(BitsValue));
   BitsValue value = 0;
   //@TODO
+  *isEof = true;
   return value;
 }
