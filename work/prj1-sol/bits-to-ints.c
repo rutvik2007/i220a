@@ -6,7 +6,7 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
-
+#include <math.h>
 //@TODO: auxiliary definitions
 
 /** This function should be called with inFile set to an input FILE
@@ -42,13 +42,42 @@
  *  in inFile, then a suitable error message should be printed and the
  *  function should return with *isEof set to true.
  */
-BitsValue
-bits_to_ints(FILE *inFile, const char *inName, int nBits, bool *isEof)
-{
+BitsValue val_of_little_endian_byte(char *byte){
+  BitsValue val=0;
+  for(int i=0;i<CHAR_BIT;i++){
+    if(byte[i]=='1') val+=(BitsValue)pow(2,i);
+  }
+  return val;
+}
+BitsValue bits_to_ints(FILE *inFile, const char *inName, int nBits, bool *isEof){
   //nBits value should make sense
   assert(0 < nBits && nBits <= CHAR_BIT*sizeof(BitsValue));
   BitsValue value = 0;
-  //@TODO
-  *isEof = true;
+  char byte[CHAR_BIT];
+  int i=0;
+  int j=nBits/CHAR_BIT-1;
+  while(i<nBits){
+    char c=fgetc(inFile);
+    if(c!='0' && c!='1' && !isspace(c)){
+      if(c==EOF){
+      *isEof=true;
+      fatal("Unexpected EOF");
+      }
+      else{
+         *isEof=true;
+         fatal("Unexpected character: only whitespace, '0', and '1' permitted");
+      }
+    }
+    if(isspace(c)){
+      continue;
+    }
+    byte[i%CHAR_BIT]=c;
+    if((i%CHAR_BIT)==(CHAR_BIT-1)){
+      value+=pow(256,j)*val_of_little_endian_byte(byte);
+      j--;
+    }
+    i++;
+  }
   return value;
 }
+

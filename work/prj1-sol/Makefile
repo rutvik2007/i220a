@@ -6,7 +6,7 @@ OFILES = \
   errors.o
 
 CFLAGS = -g -Wall -std=c11
-
+LDFLAGS = -lm
 $(TARGET): 	$(OFILES)
 		$(CC) $(OFILES) $(LDFLAGS) -o $@
 
