@@ -56,8 +56,12 @@ BitsValue bits_to_ints(FILE *inFile, const char *inName, int nBits, bool *isEof)
   char byte[CHAR_BIT];
   int i=0;
   int j=nBits/CHAR_BIT-1;
+  char c=fgetc(inFile);
+  if(c==EOF){
+  	*isEof=true;
+  	return -1;
+  }
   while(i<nBits){
-    char c=fgetc(inFile);
     if(c!='0' && c!='1' && !isspace(c)){
       if(c==EOF){
       *isEof=true;
@@ -69,6 +73,7 @@ BitsValue bits_to_ints(FILE *inFile, const char *inName, int nBits, bool *isEof)
       }
     }
     if(isspace(c)){
+    	c=fgetc(inFile);
       continue;
     }
     byte[i%CHAR_BIT]=c;
@@ -77,6 +82,7 @@ BitsValue bits_to_ints(FILE *inFile, const char *inName, int nBits, bool *isEof)
       j--;
     }
     i++;
+    c=fgetc(inFile);
   }
   return value;
 }
