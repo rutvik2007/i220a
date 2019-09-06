@@ -6,7 +6,7 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <math.h>
+//#include <math.h>
 //@TODO: auxiliary definitions
 
 /** This function should be called with inFile set to an input FILE
@@ -42,13 +42,21 @@
  *  in inFile, then a suitable error message should be printed and the
  *  function should return with *isEof set to true.
  */
+BitsValue my_pow(BitsValue i, BitsValue j){
+	BitsValue prod=1;
+	for(int k=0;k<j;k++){
+		prod*=i;
+	}
+	return prod;
+}
 BitsValue val_of_little_endian_byte(char *byte){
   BitsValue val=0;
   for(int i=0;i<CHAR_BIT;i++){
-    if(byte[i]=='1') val+=(BitsValue)pow(2,i);
+    if(byte[i]=='1') val+=(BitsValue)my_pow(2,i);
   }
   return val;
 }
+
 BitsValue bits_to_ints(FILE *inFile, const char *inName, int nBits, bool *isEof){
   //nBits value should make sense
   assert(0 < nBits && nBits <= CHAR_BIT*sizeof(BitsValue));
@@ -78,7 +86,7 @@ BitsValue bits_to_ints(FILE *inFile, const char *inName, int nBits, bool *isEof)
     }
     byte[i%CHAR_BIT]=c;
     if((i%CHAR_BIT)==(CHAR_BIT-1)){
-      value+=pow(256,j)*val_of_little_endian_byte(byte);
+      value+=my_pow(256,j)*val_of_little_endian_byte(byte);
       j--;
     }
     i++;
