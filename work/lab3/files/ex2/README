@@ -1,4 +1,0 @@
-Print out a line saying hello to each command-line argument.  Try to be
-intelligent by upcasing the first character of each word in each
-command-line argument.
-
