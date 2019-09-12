@@ -1,0 +1,168 @@
+EX1-
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex1$ ./uints 
+65535
+uint = 65535 (0xffff); ushort = 65535 (0xffff)
+65536
+uint = 65536 (0x10000); ushort = 0 (0x0)
+2147483648
+uint = 2147483648 (0x80000000); ushort = 0 (0x0)
+4294967295
+uint = 4294967295 (0xffffffff); ushort = 65535 (0xffff)
+4294967296
+uint = 0 (0x0); ushort = 0 (0x0)
+4294967297
+uint = 1 (0x1); ushort = 1 (0x1)
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex1$ cd ../ex2
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex2$ make
+cc -g -Wall -std=c11    ints.c   -o ints
+
+EX2-
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex2$ ./ex2
+bash: ./ex2: No such file or directory
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex2$ ./ints 
+4294967295
+int = -1 (0xffffffff); short = -1 (0xffffffff)
+32767
+int = 32767 (0x7fff); short = 32767 (0x7fff)
+32768
+int = 32768 (0x8000); short = -32768 (0xffff8000)
+655135
+int = 655135 (0x9ff1f); short = -225 (0xffffff1f)
+655136
+int = 655136 (0x9ff20); short = -224 (0xffffff20)
+65535
+int = 65535 (0xffff); short = -1 (0xffffffff)
+65536
+int = 65536 (0x10000); short = 0 (0x0)
+2147483647
+int = 2147483647 (0x7fffffff); short = -1 (0xffffffff)
+2147483648  
+int = -2147483648 (0x80000000); short = 0 (0x0)
+2147483649
+int = -2147483647 (0x80000001); short = 1 (0x1)
+4294967295
+int = -1 (0xffffffff); short = -1 (0xffffffff)
+
+EX3-
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex2$ cd ../ex3
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex3$ ls
+identify.c  Makefile  mystery.h  mystery.o
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex3$ make
+cc -g -Wall -std=c11   -c -o identify.o identify.c
+cc   identify.o mystery.o   -o identify
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex3$ ./identify 
+a
+mystery = 10 (0xa)
+abcdef 
+mystery = 2870767 (0x2bcdef)
+aaaaaa
+mystery = 2796202 (0x2aaaaa)
+aaaaaaa
+mystery = 2796202 (0x2aaaaa)
+ffffff
+mystery = 8388607 (0x7fffff)
+fffff
+mystery = 1048575 (0xfffff)
+efffff        
+mystery = 7340031 (0x6fffff)
+eeffff
+mystery = 7274495 (0x6effff)
+eefffff
+mystery = 7340031 (0x6fffff)
+ffffff
+mystery = 8388607 (0x7fffff)
+Since the lower 23 bits are returned, the mask is 7fffff 
+
+EX4-
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex4$ ./negeq 
+0
+0 == -0
+ffffffff
+-1 != --1
+fffffffe
+-2 != --2
+-ffffffff
+1 != -1
+-fffffffe
+2 != -2
+100000000
+0 == -0
+-10000000
+-268435456 != --268435456
+-100000000
+0 == -0
+
+EX5-
+rsaptar2@g7-26:/import/linux/home1/rsaptar2$ irb
+irb(main):001:0> 10**1000-1
+=> 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+irb(main):002:0> 
+
+EX6-
+rsaptar2@g7-26:~/i220a/work/lab4/files$ cd ex6/
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex6$ make
+cc -g -Wall -std=c11    0.1.c   -o 0.1
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex6$ ./0.1 
+0.99999999999999988898 0
+
+
+EX7-
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex7$ ./nan 
+1
+x = 1
+loop exit
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex7$ ./nan 
+0
+x = -nan
+4
+^C
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex7$ ./nan 
+-0
+x = -nan
+^C
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex7$ 
+
+
+EX8-
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex8$ ./ulp data >ulp.data
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex8$ gnuplot -p ulp.gp
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex8$ ./ulp data >ulp-lg.data
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex8$ gnuplot -p ulp-lg.gp
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex8$ ./ulp lg-data >ulp-lg.data
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex8$ gnuplot -p ulp-lg.gp
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex8$ gedit ulp.c
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex8$ 
+
+EX9-
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex9$ ./loop
+1.1920928955078e-08
+loop exited with x = 2000
+0.00000000000000000000000001
+loop exited with x = 2000
+0.000000000000000000000000000000000000000000000000000000000000000000000000001
+loop exited with x = 2000
+1.1920928955078e-07
+loop exited with x = 2000
+^C
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex9$ make
+cc -g -Wall -std=c11    loop.c   -o loop
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex9$ ./loop
+1.1920928955078e-08
+0.000000
+loop exited with x = 2000
+^C
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex9$ ./loop
+0.000001
+0.000001
+loop exited with x = 2000
+^[[A^C
+rsaptar2@g7-26:~/i220a/work/lab4/files/ex9$ ./loop
+5.960464477539063e-08
+0.000000
+loop exited with x = 2000
+1.1920928955078125e-07
+0.000000
+loop exited with x = 2000
+1099511627776
+1099511627776.000000
+1099511627776

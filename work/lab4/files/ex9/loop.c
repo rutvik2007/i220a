@@ -6,6 +6,7 @@ int main() {
     float d;
     scanf("%f", &d);
     float x;
+	printf("%f\n",d);
     for (x = d; x <= d + 1000.0; x = x + 1000.0) {
     }
     printf("loop exited with x = %.14g\n", x);
