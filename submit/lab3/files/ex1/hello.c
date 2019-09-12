@@ -15,7 +15,7 @@ main(int argc, const char *argv[])
     exit(1);
   }
   else {
-    for (int i = 1; i <= argc; i++) {
+    for (int i = 1; i <= argc-1; i++) {
       say_hello(argv[i]);
     }
   }
