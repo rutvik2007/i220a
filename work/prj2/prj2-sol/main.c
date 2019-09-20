@@ -93,7 +93,7 @@ getHex(const char *str, const char **end, SizedBuf *hex)
 static void
 showErrorPointer(const SizedBuf *line)
 {
-  fprintf(stderr, "%s%*s^\n", line->buf, (int)(line->index - 1), " ");
+  fprintf(stderr, "%s%*s^\n", line->buf, (int)(line->index), " ");
 }
 
 static bool
@@ -240,8 +240,8 @@ outHexString(const char *hex, FILE *out)
   }
 }
 
-/** Dump out big-bits on stack; more than one result indicates a missing
- *  operator.
+/** Dump out all big-bits contained in stack stk; more than one result
+ *  indicates a missing operator.
  */
 static void
 outResults(Stack *stk, FILE *out)

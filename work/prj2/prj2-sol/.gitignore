@@ -1,1 +1,4 @@
 big-bits
+*.o
+*.out
+

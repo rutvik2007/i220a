@@ -27,9 +27,10 @@ enum {
 Stack *
 newStack(void)
 {
-  //calloc() initialized everything to zero: hence size == index == 0
-  //and stk will be NULL.
-  return calloc(1, sizeof(Stack));
+  //calloc() initializes everything to zero: so size == index == stk == 0
+  Stack *stack = calloc(1, sizeof(Stack));
+  stack->stk = NULL; //necessary if NULL is not all 0 bits
+  return stack;
 }
 
 /** Free all resources used by stack. */
@@ -56,7 +57,7 @@ pushStack(Stack *stack, const void *entry)
 {
   if (stack->index >= stack->size) {
     stack->size += STACK_INC;
-    stack->stk = realloc(stack->stk, stack->size);
+    stack->stk = realloc(stack->stk, stack->size*sizeof(void *));
     if (!stack->stk) return NULL;
   }
   assert(stack->index < stack->size); //we have space

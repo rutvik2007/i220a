@@ -8,8 +8,7 @@
 
 
 /** Declare Stack as a type which is a synonym for the opaque
- *  structure struct Stack representing a big integer abstract
- *  data type.
+ *  structure struct Stack representing an abstract data type.
  */
 typedef struct Stack Stack;
 
