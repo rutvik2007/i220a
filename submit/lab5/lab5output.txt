@@ -1,0 +1,96 @@
+EX1:
+rutvik@rutvik-aspire-e5-575:~/cs220/i220a/work/lab5/files/ex1$ ./pointers 
+char pointer cp = 0x7ffc9fef2163, pointing at char a
+char pointer cp = 0x7ffc9fef2164, pointing at char b
+char pointer cp = 0x7ffc9fef2165, pointing at char c
+char pointer cp = 0x7ffc9fef2166, pointing at char d
+char pointer cp = 0x7ffc9fef2167, pointing at char e
+int pointer ip = 0x7ffc9fef2140, pointing at int 1
+int pointer ip = 0x7ffc9fef2144, pointing at int 2
+int pointer ip = 0x7ffc9fef2148, pointing at int 3
+int pointer ip = 0x7ffc9fef214c, pointing at int 4
+int pointer ip = 0x7ffc9fef2150, pointing at int 5
+
+EX2:
+rutvik@rutvik-aspire-e5-575:~/cs220/i220a/work/lab5/files/ex2$ ./in-pointers 
+is[] is at 0x7fff80e51250
+enter pointer to is[1]: 0x7fff80e51254
+ok
+is[] is at 0x7fff80e51250
+enter pointer to is[3]: 0x7fff80e5125C
+ok
+is[] is at 0x7fff80e51250
+enter pointer to is[2]: 0x7fff80e51258
+ok
+is[] is at 0x7fff80e51250
+enter pointer to is[4]: 0x7fff80e51261
+not ok
+is[] is at 0x7fff80e51250
+enter pointer to is[4]: 0x7fff80e51260
+ok
+is[] is at 0x7fff80e51250
+enter pointer to is[0]: 0x7fff80e51250
+ok
+is[] is at 0x7fff80e51250
+enter pointer to is[3]: 0x7fff80e5125C
+ok
+
+EX3:
+rutvik@rutvik-aspire-e5-575:~/cs220/i220a/work/lab5/files/ex3$ ./bad-types 
+char pointer cp = 0x7ffd6a8d26e0, pointing at char '' (0x1)
+char pointer cp = 0x7ffd6a8d26e1, pointing at char '' (0x0)
+char pointer cp = 0x7ffd6a8d26e2, pointing at char '' (0x0)
+char pointer cp = 0x7ffd6a8d26e3, pointing at char '' (0x0)
+char pointer cp = 0x7ffd6a8d26e4, pointing at char '' (0x2)
+int pointer ip = 0x7ffd6a8d2703, pointing at int 1684234849 (0x64636261)
+int pointer ip = 0x7ffd6a8d2707, pointing at int 1767243877 (0x69560065)
+int pointer ip = 0x7ffd6a8d270b, pointing at int -1860616407 (0x91193f29)
+int pointer ip = 0x7ffd6a8d270f, pointing at int 426225760 (0x1967b060)
+int pointer ip = 0x7ffd6a8d2713, pointing at int 5630738 (0x55eb12)
+
+EX4:
+rutvik@rutvik-aspire-e5-575:~/cs220/i220a/work/lab5/files/ex4$ ./cast-types 
+char pointer cp = 0x7ffe466669d0, pointing at int 1 (0x1)
+char pointer cp = 0x7ffe466669d4, pointing at int 2 (0x2)
+char pointer cp = 0x7ffe466669d8, pointing at int 3 (0x3)
+char pointer cp = 0x7ffe466669dc, pointing at int 4 (0x4)
+char pointer cp = 0x7ffe466669e0, pointing at int 5 (0x5)
+int pointer ip = 0x7ffe466669f3, pointing at char 'a' (0x64636261)
+int pointer ip = 0x7ffe466669f4, pointing at char 'b' (0x65646362)
+int pointer ip = 0x7ffe466669f5, pointing at char 'c' (0x656463)
+int pointer ip = 0x7ffe466669f6, pointing at char 'd' (0x9006564)
+int pointer ip = 0x7ffe466669f7, pointing at char 'e' (0xeb090065)
+
+EX5:
+rutvik@rutvik-aspire-e5-575:~/cs220/i220a/work/lab5/files/ex5$ ./void-pointers 
+void pointer p = 0x7fffdce58d73, pointing at char a
+void pointer p = 0x7fffdce58d74, pointing at char b
+void pointer p = 0x7fffdce58d75, pointing at char c
+void pointer p = 0x7fffdce58d76, pointing at char d
+void pointer p = 0x7fffdce58d77, pointing at char e
+void pointer p = 0x7fffdce58d50, pointing at int 1
+void pointer p = 0x7fffdce58d54, pointing at int 2
+void pointer p = 0x7fffdce58d58, pointing at int 3
+void pointer p = 0x7fffdce58d5c, pointing at int 4
+void pointer p = 0x7fffdce58d60, pointing at int 5
+
+EX6:
+rutvik@rutvik-aspire-e5-575:~/cs220/i220a/work/lab5/files/ex6$ ./in-voids 
+cs[] is at 0x7ffed6369d43; is[] is at 0x7ffed6369cc0
+enter pointer to is[2]: 0x7ffed6369cc8
+ok
+cs[] is at 0x7ffed6369d43; is[] is at 0x7ffed6369cc0
+enter pointer to cs[3]: 0x7ffed6369d46
+ok
+cs[] is at 0x7ffed6369d43; is[] is at 0x7ffed6369cc0
+enter pointer to is[4]: 0x7ffed6369cd0
+ok
+cs[] is at 0x7ffed6369d43; is[] is at 0x7ffed6369cc0
+enter pointer to cs[1]: 0x7ffed6369d44
+ok
+cs[] is at 0x7ffed6369d43; is[] is at 0x7ffed6369cc0
+enter pointer to cs[4]: 0x7ffed6369d47
+ok
+cs[] is at 0x7ffed6369d43; is[] is at 0x7ffed6369cc0
+enter pointer to is[1]: 0x7ffed6369cc4
+ok

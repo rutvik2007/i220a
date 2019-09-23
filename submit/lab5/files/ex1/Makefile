@@ -1,6 +1,6 @@
 TARGET = pointers
 
-CFLAGS = -g -Wall -std=c11 -m32
+CFLAGS = -g -Wall -std=c11 
 
 $(TARGET):
 
