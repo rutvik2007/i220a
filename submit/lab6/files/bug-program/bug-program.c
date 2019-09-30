@@ -5,7 +5,7 @@
 
 /** A struct used to form a linear chain of key-value pairs. */
 struct KeyValue {
-  const char *key;       /** string key */
+  char *key;       /** string key */
   int value;             /** integer value */
   struct KeyValue *succ; /** next key-value in chain */
 };
@@ -18,10 +18,10 @@ static struct KeyValue *
 add_key_value(struct KeyValue *keyValues, const char *k, int v)
 {
   //allocate storage for new KeyValue struct
-  struct KeyValue *kv = malloc(sizeof(struct KeyValue *));
+  struct KeyValue *kv = malloc(sizeof(struct KeyValue));
 
   //allocate storage for string pointed to by k
-  char *s = malloc(strlen(k));
+  char *s = malloc(strlen(k)+1);
 
   if (kv == NULL || s == NULL) { //check if allocations succeeded
     fprintf(stderr, "malloc failure: %s\n", strerror(errno));
@@ -40,7 +40,9 @@ static void
 free_key_values(struct KeyValue *keyValues)
 {
   //go thru chain of keyValues
-  for (struct KeyValue *p = keyValues; p != NULL; p = p->succ) {
+  for (struct KeyValue *p = keyValues, *temp; p != NULL; p = temp) {
+	temp=p->succ;
+    free(p->key);
     free(p); //free KeyValue struct
   }
 }
@@ -49,7 +51,7 @@ free_key_values(struct KeyValue *keyValues)
  *  Jabberwocky with value being the index of the word.
  */
 static struct KeyValue *
-make_key_values(void) {
+make_key_values(void) {	
   const char *keys[] = {
     "twas", "brillig", "and", "the", "slithy", "toves",
     "did", "gyre", "and", "gimble", "in", "the", "wabe",
