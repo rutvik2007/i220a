@@ -1,0 +1,1268 @@
+Script started on 2019-09-29 21:10:10-0400
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ gedi t[K[Kt lab6.log 
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ c d[K[Kd process-memory/
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ make
+make: Nothing to be done for 'all'.
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ ./proceess-memory 
+usage: ./process-memory NUM_MB
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ ./proceess-memory  =[K[K10 &
+[1] 28890
+10 MB allocated at 0x7f81baca6010
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ ./proceess-memory 10 &[K10 &[K[K[K00 &
+[2] 28892
+100 MB allocated at 0x7f1821ca7010
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ ps -Fp  28890
+UID        PID  PPID  C    SZ   RSS PSR STIME TTY          TIME CMD
+rutvik   28890 28863  0  3688   712   2 21:10 pts/3    00:00:00 ./process-memory
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ ps -Fp  28890[K2
+UID        PID  PPID  C    SZ   RSS PSR STIME TTY          TIME CMD
+rutvik   28892 28863  0 26728   772   1 21:10 pts/3    00:00:00 ./process-memory
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ &
+bash: syntax error near unexpected token `&'
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ kill - 9 28890 28892
+bash: kill: (28890) - No such process
+[1]-  Done                    ./process-memory 10
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ kill -99 28890 28892[C[C[1P28892[1P28892[1P28892[1P28892[1P28892[C[C[C[1P8892[C[C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/process-memory[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/process-memory[00m$ cd ../ bug-program/
+[2]+  Killed                  ./process-memory 100  (wd: ~/cs220/i220a/work/lab6/files/process-memory)
+(wd now: ~/cs220/i220a/work/lab6/files/bug-program)
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ make
+cc -g -Wall -std=c11 -O1    bug-program.c   -o bug-program
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ [K]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-programm[00m$ m[K./bug-program 
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1Script started on 2019-09-29 22:44:40-0400
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ gedit lab6.log 
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ cd [K[K[Kls
+[0m[01;34mbrk[0m  [01;34mbug-program[0m  lab6.log  [01;34mprocess-memory[0m
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ cd bug-program/
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ ./bug-proggram 
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1
+twas: 0
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ gedit bug--program.c
+^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ cd[K[Kokulat[Kr/[K .. /../lab6.pdf 
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/16/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/22/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/24/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/32/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/48/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/64/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/128/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/16/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/22/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/24/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/32/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/48/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/64/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/128/"
+^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$  ^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ okular ..//../lab6.pdf &
+[1] 2630
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/16/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/22/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/24/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/32/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/48/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/64/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/128/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/16/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/22/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/24/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/32/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/48/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/64/"
+Invalid Context= "stock" line for icon theme:  "/usr/share/icons/ubuntu-mono-light/stock/128/"
+^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ egdit[K[K[K[K[Kgedit bug -program
+bug-program    bug-program.c  
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ gedit bug--program.c
+^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ MALL[K[K[K[Kls
+[0m[01;32mbug-program[0m  bug-program.c  Makefile
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ MALLOC_CH ECK_1 [K[K[K=[K[Kk_=1 ./bug-program 
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1
+twas: 0
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ [K]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ [K]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-program[00m$ [K]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-programm[00m$ 
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ 
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ valgrin[K[K[K[K[K[K[Ksudo apt [K-get install valgrinf
+[sudo] password for rutvik: 
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ sudo apt-get install valgrinf[Kd
+[sudo] password for rutvik: 
+Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  libpkcs11-helper1 stunnel4 xsltproc
+Use 'sudo apt autoremove' to remove them.
+Suggested packages:
+  valgrind-dbg valgrind-mpi kcachegrind alleyoop valkyrie
+The following NEW packages will be installed:
+  valgrind
+0 upgraded, 1 newly installed, 0 to remove and 45 not upgraded.
+Need to get 14.3 MB of archives.
+After this operation, 74.0 MB of additional disk space will be used.
+0% [Working]            Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 valgrind amd64 1:3.13.0-2ubuntu2.1 [14.3 MB]
+0% [1 valgrind 2,271 B/14.3 MB 0%]                                  6% [1 valgrind 983 kB/14.3 MB 7%]17% [1 valgrind 3,080 kB/14.3 MB 22%]45% [1 valgrind 7,979 kB/14.3 MB 56%]                                     64% [1 valgrind 11.4 MB/14.3 MB 80%]80% [1 valgrind 14.3 MB/14.3 MB 100%]                                     100% [Working]              Fetched 14.3 MB in 3s (5,034 kB/s)
+Selecting previously unselected package valgrind.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 394537 files and directories currently installed.)
+Preparing to unpack .../valgrind_1%3a3.13.0-2ubuntu2.1_amd64.deb ...
+Unpacking valgrind (1:3.13.0-2ubuntu2.1) ...
+Setting up valgrind (1:3.13.0-2ubuntu2.1) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+Processing triggers for doc-base (0.10.8) ...
+Processing 1 added doc-base file...
+Registering documents with scrollkeeper...
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ valgrind -v --leak-check=yes ./bug-program 2>bug-programm valgrinf[Kd
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ gedi t[K[Kt bug-program.c 
+^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ gedit bug-program.c [C[C[C[C[C[C[C[Cvalgrind -v --leak-check=yes ./bug-program 2>bug-programm valgrind
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ ls
+[0m[01;32mbug-program[0m  bug-program.c  Makefile
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ ^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ ./bug-program 
+./bug-program: line 1: ==3578==: command not found
+./bug-program: line 2: syntax error near unexpected token `('
+./bug-program: line 2: `==3578== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.'
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ gedit bug-program
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ gedit bug-program[C[C[C[C[C[C[C[C[3P./bug-program [C[C[C[C[C[C[C[Cls[Kvalgrind -v --leak-check=yes ./bug-program 2>bug-programm valgrind[A[35Pgedit bug-program.c 
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ gedit bug-program.c [K[C[C[C[C[C[C[C[C[3P./bug-program 
+./bug-program: line 1: ==3578==: command not found
+./bug-program: line 2: syntax error near unexpected token `('
+./bug-program: line 2: `==3578== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.'
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ make
+cc -g -Wall -std=c11 -O1    bug-program.c   -o bug-program
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ make./bug-program [C[C[C[C[C[C[C[C[6@gedit bug-program.c[C[K[C[C[C[C[C[C[C[C[3P./bug-program [C[C[C[C[C[C[C[Cls[Kvalgrind -v --leak-check=yes ./bug-program 2>bug-programm valgrind[1Pvalgrind[C.valgrind[C[C
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1
+twas: 0
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ ls
+[0m[01;32mbug-program[0m  bug-program.c  bug-program.valgrind  Makefile
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ bu[K[Kge[K[Kcat bug-program.valgrind 
+==3638== Memcheck, a memory error detector
+==3638== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3638== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==3638== Command: ./bug-program
+==3638== 
+--3638-- Valgrind options:
+--3638--    -v
+--3638--    --leak-check=yes
+--3638-- Contents of /proc/version:
+--3638--   Linux version 4.15.0-64-generic (buildd@lgw01-amd64-038) (gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1)) #73-Ubuntu SMP Thu Sep 12 13:16:13 UTC 2019
+--3638-- 
+--3638-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--3638-- Page sizes: currently 4096, max supported 4096
+--3638-- Valgrind library directory: /usr/lib/valgrind
+--3638-- Reading syms from /home/rutvik/cs220/i220a/work/lab6/files/bug-program/bug-program
+--3638-- Reading syms from /lib/x86_64-linux-gnu/ld-2.27.so
+--3638--   Considering /lib/x86_64-linux-gnu/ld-2.27.so ..
+--3638--   .. CRC mismatch (computed 1b7c895e wanted 2943108a)
+--3638--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so ..
+--3638--   .. CRC is valid
+--3638-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--3638--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--3638--   .. CRC mismatch (computed c25f395c wanted 0a9602a8)
+--3638--    object doesn't have a symbol table
+--3638--    object doesn't have a dynamic symbol table
+--3638-- Scheduler: using generic scheduler lock implementation.
+--3638-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==3638== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-3638-by-rutvik-on-???
+==3638== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-3638-by-rutvik-on-???
+==3638== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-3638-by-rutvik-on-???
+==3638== 
+==3638== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==3638== don't want to do, unless you know exactly what you're doing,
+==3638== or are doing some strange experiment):
+==3638==   /usr/lib/valgrind/../../bin/vgdb --pid=3638 ...command...
+==3638== 
+==3638== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==3638==   /path/to/gdb ./bug-program
+==3638== and then give GDB the following command
+==3638==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=3638
+==3638== --pid is optional if only one valgrind process is running
+==3638== 
+--3638-- REDIR: 0x401f2f0 (ld-linux-x86-64.so.2:strlen) redirected to 0x58060901 (???)
+--3638-- REDIR: 0x401f0d0 (ld-linux-x86-64.so.2:index) redirected to 0x5806091b (???)
+--3638-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--3638--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--3638--   .. CRC mismatch (computed 4b63d83e wanted 670599e6)
+--3638--    object doesn't have a symbol table
+--3638-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--3638--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--3638--   .. CRC mismatch (computed a4b37bee wanted 8ad4dc94)
+--3638--    object doesn't have a symbol table
+==3638== WARNING: new redirection conflicts with existing -- ignoring it
+--3638--     old: 0x0401f2f0 (strlen              ) R-> (0000.0) 0x58060901 ???
+--3638--     new: 0x0401f2f0 (strlen              ) R-> (2007.0) 0x04c32db0 strlen
+--3638-- REDIR: 0x401d360 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c33ee0 (strcmp)
+--3638-- REDIR: 0x401f830 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c374f0 (mempcpy)
+--3638-- Reading syms from /lib/x86_64-linux-gnu/libc-2.27.so
+--3638--   Considering /lib/x86_64-linux-gnu/libc-2.27.so ..
+--3638--   .. CRC mismatch (computed b1c74187 wanted 042cc048)
+--3638--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so ..
+--3638--   .. CRC is valid
+--3638-- REDIR: 0x4edac70 (libc.so.6:memmove) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9d40 (libc.so.6:strncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edaf50 (libc.so.6:strcasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9790 (libc.so.6:strcat) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9d70 (libc.so.6:rindex) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edc7c0 (libc.so.6:rawmemchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edade0 (libc.so.6:mempcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edac10 (libc.so.6:bcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9d00 (libc.so.6:strncmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9800 (libc.so.6:strcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edad40 (libc.so.6:memset) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ef80f0 (libc.so.6:wcschr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9ca0 (libc.so.6:strnlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9870 (libc.so.6:strcspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edafa0 (libc.so.6:strncasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9840 (libc.so.6:strcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edb0e0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9da0 (libc.so.6:strpbrk) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed97c0 (libc.so.6:index) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ed9c70 (libc.so.6:strlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ee46c0 (libc.so.6:memrchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edaff0 (libc.so.6:strcasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edabe0 (libc.so.6:memchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4ef8eb0 (libc.so.6:wcslen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4eda050 (libc.so.6:strspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edaf20 (libc.so.6:stpncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edaef0 (libc.so.6:stpcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edc7f0 (libc.so.6:strchrnul) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4edb040 (libc.so.6:strncasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--3638-- REDIR: 0x4fca3c0 (libc.so.6:__strrchr_avx2) redirected to 0x4c32730 (rindex)
+--3638-- REDIR: 0x4ed3070 (libc.so.6:malloc) redirected to 0x4c2faa0 (malloc)
+--3638-- REDIR: 0x4fb7950 (libc.so.6:__strcpy_ssse3) redirected to 0x4c32dd0 (strcpy)
+--3638-- REDIR: 0x4fca1d0 (libc.so.6:__strchrnul_avx2) redirected to 0x4c37020 (strchrnul)
+--3638-- REDIR: 0x4fca590 (libc.so.6:__strlen_avx2) redirected to 0x4c32cf0 (strlen)
+--3638-- REDIR: 0x4fcaab0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c37130 (mempcpy)
+--3638-- REDIR: 0x4ed3950 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+==3638== Invalid read of size 8
+==3638==    at 0x108AEB: free_key_values (bug-program.c:43)
+==3638==    by 0x108AEB: main (bug-program.c:74)
+==3638==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==3638==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3638==    by 0x108AEA: free_key_values (bug-program.c:44)
+==3638==    by 0x108AEA: main (bug-program.c:74)
+==3638==  Block was alloc'd at
+==3638==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3638==    by 0x108A5B: add_key_value (bug-program.c:21)
+==3638==    by 0x108A5B: make_key_values (bug-program.c:61)
+==3638==    by 0x108A5B: main (bug-program.c:70)
+==3638== 
+==3638== 
+==3638== HEAP SUMMARY:
+==3638==     in use at exit: 123 bytes in 23 blocks
+==3638==   total heap usage: 47 allocs, 24 frees, 1,699 bytes allocated
+==3638== 
+==3638== Searching for pointers to 23 not-freed blocks
+==3638== Checked 70,328 bytes
+==3638== 
+==3638== 123 bytes in 23 blocks are definitely lost in loss record 1 of 1
+==3638==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3638==    by 0x108A7A: add_key_value (bug-program.c:24)
+==3638==    by 0x108A7A: make_key_values (bug-program.c:61)
+==3638==    by 0x108A7A: main (bug-program.c:70)
+==3638== 
+==3638== LEAK SUMMARY:
+==3638==    definitely lost: 123 bytes in 23 blocks
+==3638==    indirectly lost: 0 bytes in 0 blocks
+==3638==      possibly lost: 0 bytes in 0 blocks
+==3638==    still reachable: 0 bytes in 0 blocks
+==3638==         suppressed: 0 bytes in 0 blocks
+==3638== 
+==3638== ERROR SUMMARY: 24 errors from 2 contexts (suppressed: 0 from 0)
+==3638== 
+==3638== 23 errors in context 1 of 2:
+==3638== Invalid read of size 8
+==3638==    at 0x108AEB: free_key_values (bug-program.c:43)
+==3638==    by 0x108AEB: main (bug-program.c:74)
+==3638==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==3638==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3638==    by 0x108AEA: free_key_values (bug-program.c:44)
+==3638==    by 0x108AEA: main (bug-program.c:74)
+==3638==  Block was alloc'd at
+==3638==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3638==    by 0x108A5B: add_key_value (bug-program.c:21)
+==3638==    by 0x108A5B: make_key_values (bug-program.c:61)
+==3638==    by 0x108A5B: main (bug-program.c:70)
+==3638== 
+==3638== ERROR SUMMARY: 24 errors from 2 contexts (suppressed: 0 from 0)
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ gedit bug-program.c 
+./	  &
+^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ !! &
+gedit bug-program.c  &
+[2] 3691
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ ./bug-program 
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1
+twas: 0
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ ./bug-program [C[C[C[C[C[C[C[Cgedit bug-program.c  &[K[C[C[C[C[C[C[C[C[5@cat bug-program.valgrind[C[C[C[C[C[C[C[C[Cls[Kvalgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1
+twas: 0
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ valgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind[A./bug-program [K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgedit bug-program.c  &[K[C[C[C[C[C[C[C[C[5@cat bug-program.valgrind[C
+==4020== Memcheck, a memory error detector
+==4020== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4020== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==4020== Command: ./bug-program
+==4020== 
+--4020-- Valgrind options:
+--4020--    -v
+--4020--    --leak-check=yes
+--4020-- Contents of /proc/version:
+--4020--   Linux version 4.15.0-64-generic (buildd@lgw01-amd64-038) (gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1)) #73-Ubuntu SMP Thu Sep 12 13:16:13 UTC 2019
+--4020-- 
+--4020-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--4020-- Page sizes: currently 4096, max supported 4096
+--4020-- Valgrind library directory: /usr/lib/valgrind
+--4020-- Reading syms from /home/rutvik/cs220/i220a/work/lab6/files/bug-program/bug-program
+--4020-- Reading syms from /lib/x86_64-linux-gnu/ld-2.27.so
+--4020--   Considering /lib/x86_64-linux-gnu/ld-2.27.so ..
+--4020--   .. CRC mismatch (computed 1b7c895e wanted 2943108a)
+--4020--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so ..
+--4020--   .. CRC is valid
+--4020-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--4020--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--4020--   .. CRC mismatch (computed c25f395c wanted 0a9602a8)
+--4020--    object doesn't have a symbol table
+--4020--    object doesn't have a dynamic symbol table
+--4020-- Scheduler: using generic scheduler lock implementation.
+--4020-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==4020== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-4020-by-rutvik-on-???
+==4020== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-4020-by-rutvik-on-???
+==4020== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-4020-by-rutvik-on-???
+==4020== 
+==4020== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==4020== don't want to do, unless you know exactly what you're doing,
+==4020== or are doing some strange experiment):
+==4020==   /usr/lib/valgrind/../../bin/vgdb --pid=4020 ...command...
+==4020== 
+==4020== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==4020==   /path/to/gdb ./bug-program
+==4020== and then give GDB the following command
+==4020==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=4020
+==4020== --pid is optional if only one valgrind process is running
+==4020== 
+--4020-- REDIR: 0x401f2f0 (ld-linux-x86-64.so.2:strlen) redirected to 0x58060901 (???)
+--4020-- REDIR: 0x401f0d0 (ld-linux-x86-64.so.2:index) redirected to 0x5806091b (???)
+--4020-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--4020--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--4020--   .. CRC mismatch (computed 4b63d83e wanted 670599e6)
+--4020--    object doesn't have a symbol table
+--4020-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--4020--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--4020--   .. CRC mismatch (computed a4b37bee wanted 8ad4dc94)
+--4020--    object doesn't have a symbol table
+==4020== WARNING: new redirection conflicts with existing -- ignoring it
+--4020--     old: 0x0401f2f0 (strlen              ) R-> (0000.0) 0x58060901 ???
+--4020--     new: 0x0401f2f0 (strlen              ) R-> (2007.0) 0x04c32db0 strlen
+--4020-- REDIR: 0x401d360 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c33ee0 (strcmp)
+--4020-- REDIR: 0x401f830 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c374f0 (mempcpy)
+--4020-- Reading syms from /lib/x86_64-linux-gnu/libc-2.27.so
+--4020--   Considering /lib/x86_64-linux-gnu/libc-2.27.so ..
+--4020--   .. CRC mismatch (computed b1c74187 wanted 042cc048)
+--4020--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so ..
+--4020--   .. CRC is valid
+--4020-- REDIR: 0x4edac70 (libc.so.6:memmove) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9d40 (libc.so.6:strncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edaf50 (libc.so.6:strcasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9790 (libc.so.6:strcat) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9d70 (libc.so.6:rindex) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edc7c0 (libc.so.6:rawmemchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edade0 (libc.so.6:mempcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edac10 (libc.so.6:bcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9d00 (libc.so.6:strncmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9800 (libc.so.6:strcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edad40 (libc.so.6:memset) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ef80f0 (libc.so.6:wcschr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9ca0 (libc.so.6:strnlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9870 (libc.so.6:strcspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edafa0 (libc.so.6:strncasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9840 (libc.so.6:strcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edb0e0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9da0 (libc.so.6:strpbrk) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed97c0 (libc.so.6:index) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ed9c70 (libc.so.6:strlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ee46c0 (libc.so.6:memrchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edaff0 (libc.so.6:strcasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edabe0 (libc.so.6:memchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4ef8eb0 (libc.so.6:wcslen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4eda050 (libc.so.6:strspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edaf20 (libc.so.6:stpncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edaef0 (libc.so.6:stpcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edc7f0 (libc.so.6:strchrnul) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4edb040 (libc.so.6:strncasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4020-- REDIR: 0x4fca3c0 (libc.so.6:__strrchr_avx2) redirected to 0x4c32730 (rindex)
+--4020-- REDIR: 0x4ed3070 (libc.so.6:malloc) redirected to 0x4c2faa0 (malloc)
+--4020-- REDIR: 0x4fb7950 (libc.so.6:__strcpy_ssse3) redirected to 0x4c32dd0 (strcpy)
+--4020-- REDIR: 0x4fca1d0 (libc.so.6:__strchrnul_avx2) redirected to 0x4c37020 (strchrnul)
+--4020-- REDIR: 0x4fca590 (libc.so.6:__strlen_avx2) redirected to 0x4c32cf0 (strlen)
+--4020-- REDIR: 0x4fcaab0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c37130 (mempcpy)
+--4020-- REDIR: 0x4ed3950 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+==4020== Invalid read of size 8
+==4020==    at 0x108AEB: free_key_values (bug-program.c:43)
+==4020==    by 0x108AEB: main (bug-program.c:74)
+==4020==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==4020==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4020==    by 0x108AEA: free_key_values (bug-program.c:44)
+==4020==    by 0x108AEA: main (bug-program.c:74)
+==4020==  Block was alloc'd at
+==4020==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4020==    by 0x108A5B: add_key_value (bug-program.c:21)
+==4020==    by 0x108A5B: make_key_values (bug-program.c:61)
+==4020==    by 0x108A5B: main (bug-program.c:70)
+==4020== 
+==4020== 
+==4020== HEAP SUMMARY:
+==4020==     in use at exit: 123 bytes in 23 blocks
+==4020==   total heap usage: 47 allocs, 24 frees, 1,699 bytes allocated
+==4020== 
+==4020== Searching for pointers to 23 not-freed blocks
+==4020== Checked 70,328 bytes
+==4020== 
+==4020== 123 bytes in 23 blocks are definitely lost in loss record 1 of 1
+==4020==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4020==    by 0x108A7A: add_key_value (bug-program.c:24)
+==4020==    by 0x108A7A: make_key_values (bug-program.c:61)
+==4020==    by 0x108A7A: main (bug-program.c:70)
+==4020== 
+==4020== LEAK SUMMARY:
+==4020==    definitely lost: 123 bytes in 23 blocks
+==4020==    indirectly lost: 0 bytes in 0 blocks
+==4020==      possibly lost: 0 bytes in 0 blocks
+==4020==    still reachable: 0 bytes in 0 blocks
+==4020==         suppressed: 0 bytes in 0 blocks
+==4020== 
+==4020== ERROR SUMMARY: 24 errors from 2 contexts (suppressed: 0 from 0)
+==4020== 
+==4020== 23 errors in context 1 of 2:
+==4020== Invalid read of size 8
+==4020==    at 0x108AEB: free_key_values (bug-program.c:43)
+==4020==    by 0x108AEB: main (bug-program.c:74)
+==4020==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==4020==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4020==    by 0x108AEA: free_key_values (bug-program.c:44)
+==4020==    by 0x108AEA: main (bug-program.c:74)
+==4020==  Block was alloc'd at
+==4020==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4020==    by 0x108A5B: add_key_value (bug-program.c:21)
+==4020==    by 0x108A5B: make_key_values (bug-program.c:61)
+==4020==    by 0x108A5B: main (bug-program.c:70)
+==4020== 
+==4020== ERROR SUMMARY: 24 errors from 2 contexts (suppressed: 0 from 0)
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ cat bug-program.valgrind [C[C[C[C[C[C[C[Cvalgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind[A./bug-program [K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cvalgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1
+twas: 0
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ valgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind[A[30Pcat bug-program.valgrind 
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+==4200== Memcheck, a memory error detector
+==4200== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4200== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==4200== Command: ./bug-program
+==4200== 
+--4200-- Valgrind options:
+--4200--    -v
+--4200--    --leak-check=yes
+--4200-- Contents of /proc/version:
+--4200--   Linux version 4.15.0-64-generic (buildd@lgw01-amd64-038) (gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1)) #73-Ubuntu SMP Thu Sep 12 13:16:13 UTC 2019
+--4200-- 
+--4200-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--4200-- Page sizes: currently 4096, max supported 4096
+--4200-- Valgrind library directory: /usr/lib/valgrind
+--4200-- Reading syms from /home/rutvik/cs220/i220a/work/lab6/files/bug-program/bug-program
+--4200-- Reading syms from /lib/x86_64-linux-gnu/ld-2.27.so
+--4200--   Considering /lib/x86_64-linux-gnu/ld-2.27.so ..
+--4200--   .. CRC mismatch (computed 1b7c895e wanted 2943108a)
+--4200--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so ..
+--4200--   .. CRC is valid
+--4200-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--4200--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--4200--   .. CRC mismatch (computed c25f395c wanted 0a9602a8)
+--4200--    object doesn't have a symbol table
+--4200--    object doesn't have a dynamic symbol table
+--4200-- Scheduler: using generic scheduler lock implementation.
+--4200-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==4200== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-4200-by-rutvik-on-???
+==4200== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-4200-by-rutvik-on-???
+==4200== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-4200-by-rutvik-on-???
+==4200== 
+==4200== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==4200== don't want to do, unless you know exactly what you're doing,
+==4200== or are doing some strange experiment):
+==4200==   /usr/lib/valgrind/../../bin/vgdb --pid=4200 ...command...
+==4200== 
+==4200== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==4200==   /path/to/gdb ./bug-program
+==4200== and then give GDB the following command
+==4200==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=4200
+==4200== --pid is optional if only one valgrind process is running
+==4200== 
+--4200-- REDIR: 0x401f2f0 (ld-linux-x86-64.so.2:strlen) redirected to 0x58060901 (???)
+--4200-- REDIR: 0x401f0d0 (ld-linux-x86-64.so.2:index) redirected to 0x5806091b (???)
+--4200-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--4200--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--4200--   .. CRC mismatch (computed 4b63d83e wanted 670599e6)
+--4200--    object doesn't have a symbol table
+--4200-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--4200--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--4200--   .. CRC mismatch (computed a4b37bee wanted 8ad4dc94)
+--4200--    object doesn't have a symbol table
+==4200== WARNING: new redirection conflicts with existing -- ignoring it
+--4200--     old: 0x0401f2f0 (strlen              ) R-> (0000.0) 0x58060901 ???
+--4200--     new: 0x0401f2f0 (strlen              ) R-> (2007.0) 0x04c32db0 strlen
+--4200-- REDIR: 0x401d360 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c33ee0 (strcmp)
+--4200-- REDIR: 0x401f830 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c374f0 (mempcpy)
+--4200-- Reading syms from /lib/x86_64-linux-gnu/libc-2.27.so
+--4200--   Considering /lib/x86_64-linux-gnu/libc-2.27.so ..
+--4200--   .. CRC mismatch (computed b1c74187 wanted 042cc048)
+--4200--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so ..
+--4200--   .. CRC is valid
+--4200-- REDIR: 0x4edac70 (libc.so.6:memmove) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9d40 (libc.so.6:strncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edaf50 (libc.so.6:strcasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9790 (libc.so.6:strcat) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9d70 (libc.so.6:rindex) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edc7c0 (libc.so.6:rawmemchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edade0 (libc.so.6:mempcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edac10 (libc.so.6:bcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9d00 (libc.so.6:strncmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9800 (libc.so.6:strcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edad40 (libc.so.6:memset) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ef80f0 (libc.so.6:wcschr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9ca0 (libc.so.6:strnlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9870 (libc.so.6:strcspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edafa0 (libc.so.6:strncasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9840 (libc.so.6:strcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edb0e0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9da0 (libc.so.6:strpbrk) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed97c0 (libc.so.6:index) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ed9c70 (libc.so.6:strlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ee46c0 (libc.so.6:memrchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edaff0 (libc.so.6:strcasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edabe0 (libc.so.6:memchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4ef8eb0 (libc.so.6:wcslen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4eda050 (libc.so.6:strspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edaf20 (libc.so.6:stpncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edaef0 (libc.so.6:stpcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edc7f0 (libc.so.6:strchrnul) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4edb040 (libc.so.6:strncasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4200-- REDIR: 0x4fca3c0 (libc.so.6:__strrchr_avx2) redirected to 0x4c32730 (rindex)
+--4200-- REDIR: 0x4ed3070 (libc.so.6:malloc) redirected to 0x4c2faa0 (malloc)
+--4200-- REDIR: 0x4fb7950 (libc.so.6:__strcpy_ssse3) redirected to 0x4c32dd0 (strcpy)
+--4200-- REDIR: 0x4fca1d0 (libc.so.6:__strchrnul_avx2) redirected to 0x4c37020 (strchrnul)
+--4200-- REDIR: 0x4fca590 (libc.so.6:__strlen_avx2) redirected to 0x4c32cf0 (strlen)
+--4200-- REDIR: 0x4fcaab0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c37130 (mempcpy)
+--4200-- REDIR: 0x4ed3950 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+==4200== Invalid read of size 8
+==4200==    at 0x108AEB: free_key_values (bug-program.c:43)
+==4200==    by 0x108AEB: main (bug-program.c:74)
+==4200==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==4200==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4200==    by 0x108AEA: free_key_values (bug-program.c:44)
+==4200==    by 0x108AEA: main (bug-program.c:74)
+==4200==  Block was alloc'd at
+==4200==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4200==    by 0x108A5B: add_key_value (bug-program.c:21)
+==4200==    by 0x108A5B: make_key_values (bug-program.c:61)
+==4200==    by 0x108A5B: main (bug-program.c:70)
+==4200== 
+==4200== 
+==4200== HEAP SUMMARY:
+==4200==     in use at exit: 123 bytes in 23 blocks
+==4200==   total heap usage: 47 allocs, 24 frees, 1,699 bytes allocated
+==4200== 
+==4200== Searching for pointers to 23 not-freed blocks
+==4200== Checked 70,328 bytes
+==4200== 
+==4200== 123 bytes in 23 blocks are definitely lost in loss record 1 of 1
+==4200==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4200==    by 0x108A7A: add_key_value (bug-program.c:24)
+==4200==    by 0x108A7A: make_key_values (bug-program.c:61)
+==4200==    by 0x108A7A: main (bug-program.c:70)
+==4200== 
+==4200== LEAK SUMMARY:
+==4200==    definitely lost: 123 bytes in 23 blocks
+==4200==    indirectly lost: 0 bytes in 0 blocks
+==4200==      possibly lost: 0 bytes in 0 blocks
+==4200==    still reachable: 0 bytes in 0 blocks
+==4200==         suppressed: 0 bytes in 0 blocks
+==4200== 
+==4200== ERROR SUMMARY: 24 errors from 2 contexts (suppressed: 0 from 0)
+==4200== 
+==4200== 23 errors in context 1 of 2:
+==4200== Invalid read of size 8
+==4200==    at 0x108AEB: free_key_values (bug-program.c:43)
+==4200==    by 0x108AEB: main (bug-program.c:74)
+==4200==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==4200==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4200==    by 0x108AEA: free_key_values (bug-program.c:44)
+==4200==    by 0x108AEA: main (bug-program.c:74)
+==4200==  Block was alloc'd at
+==4200==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4200==    by 0x108A5B: add_key_value (bug-program.c:21)
+==4200==    by 0x108A5B: make_key_values (bug-program.c:61)
+==4200==    by 0x108A5B: main (bug-program.c:70)
+==4200== 
+==4200== ERROR SUMMARY: 24 errors from 2 contexts (suppressed: 0 from 0)
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ cat bug-program.valgrind [C[C[C[C[C[C[C[Cvalgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1
+twas: 0
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ valgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind[A[30Pcat bug-program.valgrind 
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+==4251== Memcheck, a memory error detector
+==4251== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4251== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==4251== Command: ./bug-program
+==4251== 
+--4251-- Valgrind options:
+--4251--    -v
+--4251--    --leak-check=yes
+--4251-- Contents of /proc/version:
+--4251--   Linux version 4.15.0-64-generic (buildd@lgw01-amd64-038) (gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1)) #73-Ubuntu SMP Thu Sep 12 13:16:13 UTC 2019
+--4251-- 
+--4251-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--4251-- Page sizes: currently 4096, max supported 4096
+--4251-- Valgrind library directory: /usr/lib/valgrind
+--4251-- Reading syms from /home/rutvik/cs220/i220a/work/lab6/files/bug-program/bug-program
+--4251-- Reading syms from /lib/x86_64-linux-gnu/ld-2.27.so
+--4251--   Considering /lib/x86_64-linux-gnu/ld-2.27.so ..
+--4251--   .. CRC mismatch (computed 1b7c895e wanted 2943108a)
+--4251--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so ..
+--4251--   .. CRC is valid
+--4251-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--4251--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--4251--   .. CRC mismatch (computed c25f395c wanted 0a9602a8)
+--4251--    object doesn't have a symbol table
+--4251--    object doesn't have a dynamic symbol table
+--4251-- Scheduler: using generic scheduler lock implementation.
+--4251-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==4251== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-4251-by-rutvik-on-???
+==4251== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-4251-by-rutvik-on-???
+==4251== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-4251-by-rutvik-on-???
+==4251== 
+==4251== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==4251== don't want to do, unless you know exactly what you're doing,
+==4251== or are doing some strange experiment):
+==4251==   /usr/lib/valgrind/../../bin/vgdb --pid=4251 ...command...
+==4251== 
+==4251== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==4251==   /path/to/gdb ./bug-program
+==4251== and then give GDB the following command
+==4251==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=4251
+==4251== --pid is optional if only one valgrind process is running
+==4251== 
+--4251-- REDIR: 0x401f2f0 (ld-linux-x86-64.so.2:strlen) redirected to 0x58060901 (???)
+--4251-- REDIR: 0x401f0d0 (ld-linux-x86-64.so.2:index) redirected to 0x5806091b (???)
+--4251-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--4251--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--4251--   .. CRC mismatch (computed 4b63d83e wanted 670599e6)
+--4251--    object doesn't have a symbol table
+--4251-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--4251--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--4251--   .. CRC mismatch (computed a4b37bee wanted 8ad4dc94)
+--4251--    object doesn't have a symbol table
+==4251== WARNING: new redirection conflicts with existing -- ignoring it
+--4251--     old: 0x0401f2f0 (strlen              ) R-> (0000.0) 0x58060901 ???
+--4251--     new: 0x0401f2f0 (strlen              ) R-> (2007.0) 0x04c32db0 strlen
+--4251-- REDIR: 0x401d360 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c33ee0 (strcmp)
+--4251-- REDIR: 0x401f830 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c374f0 (mempcpy)
+--4251-- Reading syms from /lib/x86_64-linux-gnu/libc-2.27.so
+--4251--   Considering /lib/x86_64-linux-gnu/libc-2.27.so ..
+--4251--   .. CRC mismatch (computed b1c74187 wanted 042cc048)
+--4251--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so ..
+--4251--   .. CRC is valid
+--4251-- REDIR: 0x4edac70 (libc.so.6:memmove) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9d40 (libc.so.6:strncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edaf50 (libc.so.6:strcasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9790 (libc.so.6:strcat) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9d70 (libc.so.6:rindex) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edc7c0 (libc.so.6:rawmemchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edade0 (libc.so.6:mempcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edac10 (libc.so.6:bcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9d00 (libc.so.6:strncmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9800 (libc.so.6:strcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edad40 (libc.so.6:memset) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ef80f0 (libc.so.6:wcschr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9ca0 (libc.so.6:strnlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9870 (libc.so.6:strcspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edafa0 (libc.so.6:strncasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9840 (libc.so.6:strcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edb0e0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9da0 (libc.so.6:strpbrk) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed97c0 (libc.so.6:index) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ed9c70 (libc.so.6:strlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ee46c0 (libc.so.6:memrchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edaff0 (libc.so.6:strcasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edabe0 (libc.so.6:memchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4ef8eb0 (libc.so.6:wcslen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4eda050 (libc.so.6:strspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edaf20 (libc.so.6:stpncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edaef0 (libc.so.6:stpcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edc7f0 (libc.so.6:strchrnul) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4edb040 (libc.so.6:strncasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4251-- REDIR: 0x4fca3c0 (libc.so.6:__strrchr_avx2) redirected to 0x4c32730 (rindex)
+--4251-- REDIR: 0x4ed3070 (libc.so.6:malloc) redirected to 0x4c2faa0 (malloc)
+--4251-- REDIR: 0x4fb7950 (libc.so.6:__strcpy_ssse3) redirected to 0x4c32dd0 (strcpy)
+--4251-- REDIR: 0x4fca1d0 (libc.so.6:__strchrnul_avx2) redirected to 0x4c37020 (strchrnul)
+--4251-- REDIR: 0x4fca590 (libc.so.6:__strlen_avx2) redirected to 0x4c32cf0 (strlen)
+--4251-- REDIR: 0x4fcaab0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c37130 (mempcpy)
+--4251-- REDIR: 0x4ed3950 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+==4251== Invalid read of size 8
+==4251==    at 0x108AEB: free_key_values (bug-program.c:43)
+==4251==    by 0x108AEB: main (bug-program.c:74)
+==4251==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==4251==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4251==    by 0x108AEA: free_key_values (bug-program.c:44)
+==4251==    by 0x108AEA: main (bug-program.c:74)
+==4251==  Block was alloc'd at
+==4251==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4251==    by 0x108A5B: add_key_value (bug-program.c:21)
+==4251==    by 0x108A5B: make_key_values (bug-program.c:61)
+==4251==    by 0x108A5B: main (bug-program.c:70)
+==4251== 
+==4251== 
+==4251== HEAP SUMMARY:
+==4251==     in use at exit: 123 bytes in 23 blocks
+==4251==   total heap usage: 47 allocs, 24 frees, 1,699 bytes allocated
+==4251== 
+==4251== Searching for pointers to 23 not-freed blocks
+==4251== Checked 70,328 bytes
+==4251== 
+==4251== 123 bytes in 23 blocks are definitely lost in loss record 1 of 1
+==4251==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4251==    by 0x108A7A: add_key_value (bug-program.c:24)
+==4251==    by 0x108A7A: make_key_values (bug-program.c:61)
+==4251==    by 0x108A7A: main (bug-program.c:70)
+==4251== 
+==4251== LEAK SUMMARY:
+==4251==    definitely lost: 123 bytes in 23 blocks
+==4251==    indirectly lost: 0 bytes in 0 blocks
+==4251==      possibly lost: 0 bytes in 0 blocks
+==4251==    still reachable: 0 bytes in 0 blocks
+==4251==         suppressed: 0 bytes in 0 blocks
+==4251== 
+==4251== ERROR SUMMARY: 24 errors from 2 contexts (suppressed: 0 from 0)
+==4251== 
+==4251== 23 errors in context 1 of 2:
+==4251== Invalid read of size 8
+==4251==    at 0x108AEB: free_key_values (bug-program.c:43)
+==4251==    by 0x108AEB: main (bug-program.c:74)
+==4251==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==4251==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4251==    by 0x108AEA: free_key_values (bug-program.c:44)
+==4251==    by 0x108AEA: main (bug-program.c:74)
+==4251==  Block was alloc'd at
+==4251==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4251==    by 0x108A5B: add_key_value (bug-program.c:21)
+==4251==    by 0x108A5B: make_key_values (bug-program.c:61)
+==4251==    by 0x108A5B: main (bug-program.c:70)
+==4251== 
+==4251== ERROR SUMMARY: 24 errors from 2 contexts (suppressed: 0 from 0)
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ make
+cc -g -Wall -std=c11 -O1    bug-program.c   -o bug-program
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ makecat bug-program.valgrind [C[C[C[C[C[C[C[Cvalgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1
+twas: 0
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ valgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind[Amake[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[Cvalgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind[Amake[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[Ccat bug-program.valgrind 
+==4264== Memcheck, a memory error detector
+==4264== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4264== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==4264== Command: ./bug-program
+==4264== 
+--4264-- Valgrind options:
+--4264--    -v
+--4264--    --leak-check=yes
+--4264-- Contents of /proc/version:
+--4264--   Linux version 4.15.0-64-generic (buildd@lgw01-amd64-038) (gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1)) #73-Ubuntu SMP Thu Sep 12 13:16:13 UTC 2019
+--4264-- 
+--4264-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--4264-- Page sizes: currently 4096, max supported 4096
+--4264-- Valgrind library directory: /usr/lib/valgrind
+--4264-- Reading syms from /home/rutvik/cs220/i220a/work/lab6/files/bug-program/bug-program
+--4264-- Reading syms from /lib/x86_64-linux-gnu/ld-2.27.so
+--4264--   Considering /lib/x86_64-linux-gnu/ld-2.27.so ..
+--4264--   .. CRC mismatch (computed 1b7c895e wanted 2943108a)
+--4264--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so ..
+--4264--   .. CRC is valid
+--4264-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--4264--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--4264--   .. CRC mismatch (computed c25f395c wanted 0a9602a8)
+--4264--    object doesn't have a symbol table
+--4264--    object doesn't have a dynamic symbol table
+--4264-- Scheduler: using generic scheduler lock implementation.
+--4264-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==4264== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-4264-by-rutvik-on-???
+==4264== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-4264-by-rutvik-on-???
+==4264== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-4264-by-rutvik-on-???
+==4264== 
+==4264== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==4264== don't want to do, unless you know exactly what you're doing,
+==4264== or are doing some strange experiment):
+==4264==   /usr/lib/valgrind/../../bin/vgdb --pid=4264 ...command...
+==4264== 
+==4264== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==4264==   /path/to/gdb ./bug-program
+==4264== and then give GDB the following command
+==4264==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=4264
+==4264== --pid is optional if only one valgrind process is running
+==4264== 
+--4264-- REDIR: 0x401f2f0 (ld-linux-x86-64.so.2:strlen) redirected to 0x58060901 (???)
+--4264-- REDIR: 0x401f0d0 (ld-linux-x86-64.so.2:index) redirected to 0x5806091b (???)
+--4264-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--4264--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--4264--   .. CRC mismatch (computed 4b63d83e wanted 670599e6)
+--4264--    object doesn't have a symbol table
+--4264-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--4264--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--4264--   .. CRC mismatch (computed a4b37bee wanted 8ad4dc94)
+--4264--    object doesn't have a symbol table
+==4264== WARNING: new redirection conflicts with existing -- ignoring it
+--4264--     old: 0x0401f2f0 (strlen              ) R-> (0000.0) 0x58060901 ???
+--4264--     new: 0x0401f2f0 (strlen              ) R-> (2007.0) 0x04c32db0 strlen
+--4264-- REDIR: 0x401d360 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c33ee0 (strcmp)
+--4264-- REDIR: 0x401f830 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c374f0 (mempcpy)
+--4264-- Reading syms from /lib/x86_64-linux-gnu/libc-2.27.so
+--4264--   Considering /lib/x86_64-linux-gnu/libc-2.27.so ..
+--4264--   .. CRC mismatch (computed b1c74187 wanted 042cc048)
+--4264--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so ..
+--4264--   .. CRC is valid
+--4264-- REDIR: 0x4edac70 (libc.so.6:memmove) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9d40 (libc.so.6:strncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edaf50 (libc.so.6:strcasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9790 (libc.so.6:strcat) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9d70 (libc.so.6:rindex) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edc7c0 (libc.so.6:rawmemchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edade0 (libc.so.6:mempcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edac10 (libc.so.6:bcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9d00 (libc.so.6:strncmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9800 (libc.so.6:strcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edad40 (libc.so.6:memset) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ef80f0 (libc.so.6:wcschr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9ca0 (libc.so.6:strnlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9870 (libc.so.6:strcspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edafa0 (libc.so.6:strncasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9840 (libc.so.6:strcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edb0e0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9da0 (libc.so.6:strpbrk) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed97c0 (libc.so.6:index) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ed9c70 (libc.so.6:strlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ee46c0 (libc.so.6:memrchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edaff0 (libc.so.6:strcasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edabe0 (libc.so.6:memchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4ef8eb0 (libc.so.6:wcslen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4eda050 (libc.so.6:strspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edaf20 (libc.so.6:stpncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edaef0 (libc.so.6:stpcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edc7f0 (libc.so.6:strchrnul) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4edb040 (libc.so.6:strncasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4264-- REDIR: 0x4fca3c0 (libc.so.6:__strrchr_avx2) redirected to 0x4c32730 (rindex)
+--4264-- REDIR: 0x4ed3070 (libc.so.6:malloc) redirected to 0x4c2faa0 (malloc)
+--4264-- REDIR: 0x4fb7950 (libc.so.6:__strcpy_ssse3) redirected to 0x4c32dd0 (strcpy)
+--4264-- REDIR: 0x4fca1d0 (libc.so.6:__strchrnul_avx2) redirected to 0x4c37020 (strchrnul)
+--4264-- REDIR: 0x4fca590 (libc.so.6:__strlen_avx2) redirected to 0x4c32cf0 (strlen)
+--4264-- REDIR: 0x4fcaab0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c37130 (mempcpy)
+--4264-- REDIR: 0x4ed3950 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+==4264== Invalid read of size 8
+==4264==    at 0x108AF3: free_key_values (bug-program.c:43)
+==4264==    by 0x108AF3: main (bug-program.c:75)
+==4264==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==4264==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4264==    by 0x108AF2: free_key_values (bug-program.c:45)
+==4264==    by 0x108AF2: main (bug-program.c:75)
+==4264==  Block was alloc'd at
+==4264==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4264==    by 0x108A5B: add_key_value (bug-program.c:21)
+==4264==    by 0x108A5B: make_key_values (bug-program.c:62)
+==4264==    by 0x108A5B: main (bug-program.c:71)
+==4264== 
+==4264== 
+==4264== HEAP SUMMARY:
+==4264==     in use at exit: 0 bytes in 0 blocks
+==4264==   total heap usage: 47 allocs, 47 frees, 1,699 bytes allocated
+==4264== 
+==4264== All heap blocks were freed -- no leaks are possible
+==4264== 
+==4264== ERROR SUMMARY: 23 errors from 1 contexts (suppressed: 0 from 0)
+==4264== 
+==4264== 23 errors in context 1 of 1:
+==4264== Invalid read of size 8
+==4264==    at 0x108AF3: free_key_values (bug-program.c:43)
+==4264==    by 0x108AF3: main (bug-program.c:75)
+==4264==  Address 0x522df70 is 16 bytes inside a block of size 24 free'd
+==4264==    at 0x4C30D3B: free (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4264==    by 0x108AF2: free_key_values (bug-program.c:45)
+==4264==    by 0x108AF2: main (bug-program.c:75)
+==4264==  Block was alloc'd at
+==4264==    at 0x4C2FB0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==4264==    by 0x108A5B: add_key_value (bug-program.c:21)
+==4264==    by 0x108A5B: make_key_values (bug-program.c:62)
+==4264==    by 0x108A5B: main (bug-program.c:71)
+==4264== 
+==4264== ERROR SUMMARY: 23 errors from 1 contexts (suppressed: 0 from 0)
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ cat bug-program.valgrind [C[C[C[C[C[C[C[Cvalgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind[Amake[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C
+cc -g -Wall -std=c11 -O1    bug-program.c   -o bug-program
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ makecat bug-program.valgrind [C[C[C[C[C[C[C[Cvalgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind
+outgrabe: 22
+raths: 21
+mome: 20
+the: 19
+and: 18
+borogoves: 17
+the: 16
+were: 15
+mimsy: 14
+all: 13
+wabe: 12
+the: 11
+in: 10
+gimble: 9
+and: 8
+gyre: 7
+did: 6
+toves: 5
+slithy: 4
+the: 3
+and: 2
+brillig: 1
+twas: 0
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ valgrind -v --leak-check=yes ./bug-program 2>bug-programm.valgrind[Amake[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[Ccat bug-program.valgrind 
+==4311== Memcheck, a memory error detector
+==4311== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==4311== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==4311== Command: ./bug-program
+==4311== 
+--4311-- Valgrind options:
+--4311--    -v
+--4311--    --leak-check=yes
+--4311-- Contents of /proc/version:
+--4311--   Linux version 4.15.0-64-generic (buildd@lgw01-amd64-038) (gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1)) #73-Ubuntu SMP Thu Sep 12 13:16:13 UTC 2019
+--4311-- 
+--4311-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--4311-- Page sizes: currently 4096, max supported 4096
+--4311-- Valgrind library directory: /usr/lib/valgrind
+--4311-- Reading syms from /home/rutvik/cs220/i220a/work/lab6/files/bug-program/bug-program
+--4311-- Reading syms from /lib/x86_64-linux-gnu/ld-2.27.so
+--4311--   Considering /lib/x86_64-linux-gnu/ld-2.27.so ..
+--4311--   .. CRC mismatch (computed 1b7c895e wanted 2943108a)
+--4311--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.27.so ..
+--4311--   .. CRC is valid
+--4311-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--4311--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--4311--   .. CRC mismatch (computed c25f395c wanted 0a9602a8)
+--4311--    object doesn't have a symbol table
+--4311--    object doesn't have a dynamic symbol table
+--4311-- Scheduler: using generic scheduler lock implementation.
+--4311-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==4311== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-4311-by-rutvik-on-???
+==4311== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-4311-by-rutvik-on-???
+==4311== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-4311-by-rutvik-on-???
+==4311== 
+==4311== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==4311== don't want to do, unless you know exactly what you're doing,
+==4311== or are doing some strange experiment):
+==4311==   /usr/lib/valgrind/../../bin/vgdb --pid=4311 ...command...
+==4311== 
+==4311== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==4311==   /path/to/gdb ./bug-program
+==4311== and then give GDB the following command
+==4311==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=4311
+==4311== --pid is optional if only one valgrind process is running
+==4311== 
+--4311-- REDIR: 0x401f2f0 (ld-linux-x86-64.so.2:strlen) redirected to 0x58060901 (???)
+--4311-- REDIR: 0x401f0d0 (ld-linux-x86-64.so.2:index) redirected to 0x5806091b (???)
+--4311-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--4311--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--4311--   .. CRC mismatch (computed 4b63d83e wanted 670599e6)
+--4311--    object doesn't have a symbol table
+--4311-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--4311--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--4311--   .. CRC mismatch (computed a4b37bee wanted 8ad4dc94)
+--4311--    object doesn't have a symbol table
+==4311== WARNING: new redirection conflicts with existing -- ignoring it
+--4311--     old: 0x0401f2f0 (strlen              ) R-> (0000.0) 0x58060901 ???
+--4311--     new: 0x0401f2f0 (strlen              ) R-> (2007.0) 0x04c32db0 strlen
+--4311-- REDIR: 0x401d360 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c33ee0 (strcmp)
+--4311-- REDIR: 0x401f830 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c374f0 (mempcpy)
+--4311-- Reading syms from /lib/x86_64-linux-gnu/libc-2.27.so
+--4311--   Considering /lib/x86_64-linux-gnu/libc-2.27.so ..
+--4311--   .. CRC mismatch (computed b1c74187 wanted 042cc048)
+--4311--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.27.so ..
+--4311--   .. CRC is valid
+--4311-- REDIR: 0x4edac70 (libc.so.6:memmove) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9d40 (libc.so.6:strncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edaf50 (libc.so.6:strcasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9790 (libc.so.6:strcat) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9d70 (libc.so.6:rindex) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edc7c0 (libc.so.6:rawmemchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edade0 (libc.so.6:mempcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edac10 (libc.so.6:bcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9d00 (libc.so.6:strncmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9800 (libc.so.6:strcmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edad40 (libc.so.6:memset) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ef80f0 (libc.so.6:wcschr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9ca0 (libc.so.6:strnlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9870 (libc.so.6:strcspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edafa0 (libc.so.6:strncasecmp) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9840 (libc.so.6:strcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edb0e0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9da0 (libc.so.6:strpbrk) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed97c0 (libc.so.6:index) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ed9c70 (libc.so.6:strlen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ee46c0 (libc.so.6:memrchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edaff0 (libc.so.6:strcasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edabe0 (libc.so.6:memchr) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4ef8eb0 (libc.so.6:wcslen) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4eda050 (libc.so.6:strspn) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edaf20 (libc.so.6:stpncpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edaef0 (libc.so.6:stpcpy) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edc7f0 (libc.so.6:strchrnul) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4edb040 (libc.so.6:strncasecmp_l) redirected to 0x4a2a6e0 (_vgnU_ifunc_wrapper)
+--4311-- REDIR: 0x4fca3c0 (libc.so.6:__strrchr_avx2) redirected to 0x4c32730 (rindex)
+--4311-- REDIR: 0x4ed3070 (libc.so.6:malloc) redirected to 0x4c2faa0 (malloc)
+--4311-- REDIR: 0x4fb7950 (libc.so.6:__strcpy_ssse3) redirected to 0x4c32dd0 (strcpy)
+--4311-- REDIR: 0x4fca1d0 (libc.so.6:__strchrnul_avx2) redirected to 0x4c37020 (strchrnul)
+--4311-- REDIR: 0x4fca590 (libc.so.6:__strlen_avx2) redirected to 0x4c32cf0 (strlen)
+--4311-- REDIR: 0x4fcaab0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4c37130 (mempcpy)
+--4311-- REDIR: 0x4ed3950 (libc.so.6:free) redirected to 0x4c30cd0 (free)
+==4311== 
+==4311== HEAP SUMMARY:
+==4311==     in use at exit: 0 bytes in 0 blocks
+==4311==   total heap usage: 47 allocs, 47 frees, 1,699 bytes allocated
+==4311== 
+==4311== All heap blocks were freed -- no leaks are possible
+==4311== 
+==4311== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==4311== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/bug-program[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/bug-prrogram[00m$ cd ..
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ ls
+[0m[01;34mbrk[0m  [01;34mbug-program[0m  lab6.log  [01;34mprocess-memory[0m
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ cd b re[Kk/
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/brk[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/brk[00m$  ;s
+bash: syntax error near unexpected token `;'
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/brk[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/brk[00m$  ls
+brk.c  Makefile  README
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/brk[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/brk[00m$  cd brk[K[K[K[K[K[Kmake
+cc -g -Wall -std=c11 -O1 -D_DEFAULT_SOURCE   brk.c  -pthread -o brk
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/brk[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/brk[00m$  ./brk 
+usage: ./brk MAX_DYNAMIC_ALLOCS
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/brk[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/brk[00m$  gedit brk
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/brk[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/brk[00m$  gedit brk.c 
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/brk[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/brk[00m$  gedit README 
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files/brk[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files/brk[00m$  cd ..
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ git  add .
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ git  commiy[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[Kgit  psuh
+git: 'psuh' is not a git command. See 'git --help'.
+
+The most similar command is
+	push
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ git ppsuh[1Puhsuh
+git: 'psuh' is not a git command. See 'git --help'.
+
+The most similar command is
+	push
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ git ppsuh[1Ph[1Phuhsh
+Username for 'https://github.com': rdsa   saptar2
+Password for 'https://rsaptar2@github.com': 
+Everything up-to-date
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ git  commiy[Kt
+hint: Waiting for your editor to close the file... [?1049h[22;0;0t[1;36r(B[m[4l[?7h[39;49m[?1h=[?1h=[?1h=[?25l[39;49m(B[m[H[2J[34;24H(B[0;7m[ Reading File ](B[m[34;30H(B[0;7m 16 lines ](B[m[H(B[0;7m     /home/rutvik/cs220/i220a/.git/COMMIT_EDITMSG              [1;62H(B[m[35d(B[0;7m^G(B[m Get Help (B[0;7m^O(B[m Write Out(B[0;7m^W(B[m Where Is (B[0;7m^K(B[m Cut Text (B[0;7m^J(B[m Justify[36d(B[0;7m^X(B[m Exit     (B[0;7m^R(B[m Read File(B[0;7m^\(B[m Replace  (B[0;7m^U(B[m Uncut Tex(B[0;7m^T(B[m To Spell[34d[4d[39;49m[36m# Please enter the commit message for your changes. Lines star[39m(B[m$[5;1H[36m# with '#' will be ignored, and an empty message aborts the co[39m(B[m$[6;1H[36m#[7d# On branch master[8d# Your branch is up to date with 'origin/master'.[9d#[10d# Changes to be committed:[11d#       modified:   bug-program/bug-program.c[12d#       new file:   bug-program/bug-program.valgrind[13d#       new file:   lab6.log[14d#       new file:   process-memory/file is part of the GNU C L[39m(B[m$[15;1H[36m#[16d# Changes not staged for commit:[17d#       modified:   lab6.log[18d#[3d[39m(B[m[?12l[?25h[?25l[1;54H(B[0;7mModified(B[m[3d:[?12l[?25h[?25l[K[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[34;20H(B[0;7m[ Recording a macro... ](B[m[3d[?12l[?25h[?25lw[?12l[?25h[?25lq[?12l[?25h[?25l [?12l[?25h[?25l[K[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[34d(B[0;7mSave modified buffer?  (Answering "No" will DISCARD changes.)  [35;1H Y(B[m Yes[K[36d(B[0;7m N(B[m No           (B[0;7m^C(B[m Cancel[K[34;63H[?12l[?25h[?25l[J[36;63H[?12l[?25h[36;1H[?1049l[23;0;0t[?1l>[KAborting commit due to empty commit message.
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab6/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab6/files[00m$ git  [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[Kcp [K[K[Kcd . ./../
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work[00m$ ls
+[0m[01;34mhw2
