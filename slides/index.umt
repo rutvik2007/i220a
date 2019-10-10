@@ -1,0 +1,18 @@
+                      S l i d e s
+
+
+Course slides will usually be up around an hour before class.  If you
+would like to print them out, it is probably a good idea to wait
+around a week or so after the class which covered the slides as they
+may be corrected or enhanced.
+
+
+ ........................................................................................................................
+          Source                                                     HTML                                                         PDF
+ ------------------------------------------------------------------+------------------------------------------------------------+------------------------------------------------------------
+   .<./syllabus/syllabus.umt> syllabus.umt                           .<./syllabus/syllabus.html> syllabus.html                    .<./syllabus/syllabus.pdf> syllabus.pdf
+   .<./intro/intro.umt> intro.umt                                    .<./intro/intro.html> intro.html                             .<./intro/intro.pdf> intro.pdf
+   .<./c-intro/c-intro.umt> c-intro.umt                              .<./c-intro/c-intro.html> c-intro.html                       .<./c-intro/c-intro.pdf> c-intro.pdf
+   .<./adts/adts.umt> adts.umt                                       .<./adts/adts.html> adts.html                                .<./adts/adts.pdf> adts.pdf
+   .<./x86/x86.umt> x86.umt                                          .<./x86/x86.html> x86.html                                   .<./x86/x86.pdf> x86.pdf
+ ........................................................................................................................
