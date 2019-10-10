@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../../assets/styles/slides.css" rel="stylesheet" type="text/css" />
+  <title>CS 220: g	Intel x86 Architecture 1</title>
+<link href="x86/hl-fine_blue.css" rel="stylesheet"/>
+</head>
+<body>
+    <nav>
+      <ul>
+	<li><a href="../../index.html" class="material-icons">house</a></li>
+	<li><a href="../../docs/index.html">Docs</a></li>
+	<li><a href="../../exams-quizzes/index.html">Exams &amp; Quizzes</a></li>
+	<li><a href="../../exercises/index.html">Exercises</a></li>
+	<li><a href="../../hws/index.html">Homeworks</a></li>
+	<li><a href="../../labs/index.html">Labs</a></li>
+	<li><a href="../../misc/index.html">Misc</a></li>
+	<li><a href="../../projects/index.html">Projects</a></li>
+	<li><a href="../../slides/index.html">Slides</a></li>
+      </ul>
+    </nav>
+  <div class="slide-controls" style="display: none;">
+    <span class="float-left">
+      <span class="first-control">
+	<a href="#">
+	  <img src="../../assets/images/go-first.png">
+	</a>
+      </span>
+      <span class="previous-control">
+	<a href="#">
+	  <img src="../../assets/images/go-previous.png">
+	</a>
+      </span>
+    </span>
+    <span class="float-right">
+      <span class="next-control">
+	<a href="#">
+	  <img src="../../assets/images/go-next.png">
+	</a>
+      </span>
+      <span class="last-control">
+	<a href="#">
+	  <img src="../../assets/images/go-last.png">
+	</a>
+      </span>
+    </span>
+    <div class="slide-end">&nbsp;<br></div> <!-- hack -->
+  </div>
+<div class="content">
+<section data-coord="x86.umt:1:0"><h1 data-coord="x86.umt:1:0">g	Intel x86 Architecture 1</h1><section class="umt-slide" data-coord="x86.umt:3:0"><h2 data-coord="x86.umt:3:0">Evolution of ISAs</h2><p data-coord="x86.umt:6:0">Some arbitrary points in the evolution of <em data-coord="x86.umt:6:42">Instruction Set Architectures</em>
+(ISAs):
+</p><ul data-coord="x86.umt:9:0"><li data-coord="x86.umt:9:0"><p data-coord="x86.umt:9:4"><strong data-coord="x86.umt:9:4">Manchester Mark 1</strong>: 1948.  Pioneered <em data-coord="x86.umt:9:42">index registers</em>.
+</p></li><li data-coord="x86.umt:11:0"><p data-coord="x86.umt:11:4"><strong data-coord="x86.umt:11:4">IBM S/360</strong>:  1964.  Same architecture across a wide range
+of implementations.  Largely compatible with current IBM zSeries.
+</p></li><li data-coord="x86.umt:14:0"><p data-coord="x86.umt:14:4"><strong data-coord="x86.umt:14:4">DEC PDP-8</strong>: 1965.  12-bit mini-computer.
+</p></li><li data-coord="x86.umt:16:0"><p data-coord="x86.umt:16:4"><strong data-coord="x86.umt:16:4">Intel 4004</strong>: 1971. 4-bit Microprocessor. Led to 8-bit 8080.
+</p></li><li data-coord="x86.umt:18:0"><p data-coord="x86.umt:18:4"><strong data-coord="x86.umt:18:4">Intel 8086</strong>: 1978. 16-bit microprocessor.  8-bit variant 8088
+used in first IBM PC.  1 MB segmented address space.
+</p></li><li data-coord="x86.umt:21:0"><p data-coord="x86.umt:21:4"><strong data-coord="x86.umt:21:4">Intel 80386</strong>: 1985. 32-bit microprocessor.  Linear address
+space. <em data-coord="x86.umt:21:75">Complex Instruction Set Computer</em> (CISC).
+</p></li><li data-coord="x86.umt:24:0"><p data-coord="x86.umt:24:4"><strong data-coord="x86.umt:24:4">IBM 801</strong>: 1975. Early <em data-coord="x86.umt:24:27">Reduced Instruction Set Computer</em> (RISC).
+Later RISCs included MIPS, IBM Power PC, Sun SPARC, Acorn Risc
+Machine (ARM) (currently widely used in mobile apps).
+</p></li></ul></section><section class="umt-slide" data-coord="x86.umt:29:0"><h2 data-coord="x86.umt:29:0">x86 Evolution</h2><dl data-coord="x86.umt:32:0"><dt data-coord="x86.umt:32:2"> <strong data-coord="x86.umt:32:1">8086</strong></dt><dd data-coord="x86.umt:33:0"><p data-coord="x86.umt:33:4">1978. 29K transistors.  16-bit with 20-bit segmented address-space.
+Similar to earlier 8080.  8088 8-bit variant.  8087 floating-point unit.
+</p></dd><dt data-coord="x86.umt:36:2"> <strong data-coord="x86.umt:36:1">80286</strong></dt><dd data-coord="x86.umt:37:0"><p data-coord="x86.umt:37:4">1984. 134K transistors.  Added real mode and protected modes with
+segmented addressing.  
+</p></dd><dt data-coord="x86.umt:40:2"> <strong data-coord="x86.umt:40:1">80386</strong></dt><dd data-coord="x86.umt:41:0"><p data-coord="x86.umt:41:4">1985. 275K transistors.  32-bit.  Supported flat 32-bit linear address
+space.
+</p></dd><dt data-coord="x86.umt:44:2"> <strong data-coord="x86.umt:44:1">80486</strong></dt><dd data-coord="x86.umt:45:0"><p data-coord="x86.umt:45:4">1989. 1.2M transistors.  Integrated FPU.
+</p></dd></dl></section><section class="umt-slide" data-coord="x86.umt:48:0"><h2 data-coord="x86.umt:48:0">x86 Evolution Continued</h2><dl data-coord="x86.umt:51:0"><dt data-coord="x86.umt:51:2"> <strong data-coord="x86.umt:51:1">Pentium</strong></dt><dd data-coord="x86.umt:52:0"><p data-coord="x86.umt:52:4">1993. 3.1M transistors.  Better performance.
+</p></dd><dt data-coord="x86.umt:54:2"> <strong data-coord="x86.umt:54:1">PentiumPro</strong></dt><dd data-coord="x86.umt:55:0"><p data-coord="x86.umt:55:4">1995.  5.5M transistors.   P6 microarchitecture.
+</p></dd><dt data-coord="x86.umt:57:2"> <strong data-coord="x86.umt:57:1">Pentium II</strong></dt><dd data-coord="x86.umt:58:0"><p data-coord="x86.umt:58:4">1997.  7M transistors.  Continuation of P6 microarchitecture.
+</p></dd><dt data-coord="x86.umt:60:2"> <strong data-coord="x86.umt:60:1">Pentium III</strong></dt><dd data-coord="x86.umt:61:0"><p data-coord="x86.umt:61:4">1999.  8.2M transistors.  Introduced SSE instructions for
+manipulating integer/float vectors.  Later versions had 
+level-2 cache on chip.
+</p></dd><dt data-coord="x86.umt:65:2"> <strong data-coord="x86.umt:65:1">Pentium 4</strong></dt><dd data-coord="x86.umt:66:0"><p data-coord="x86.umt:66:4">2000.  42M transistors.  Extended SSE to SSE2 which could
+replace x87 floating-point instructions.  <em data-coord="x86.umt:66:108">NetBurst</em> microarchitecture. 
+</p></dd></dl></section><section class="umt-slide" data-coord="x86.umt:70:0"><h2 data-coord="x86.umt:70:0">x86 Evolution Continued</h2><dl data-coord="x86.umt:73:0"><dt data-coord="x86.umt:73:2"> <strong data-coord="x86.umt:73:1">Pentium 4E</strong></dt><dd data-coord="x86.umt:74:0"><p data-coord="x86.umt:74:4">2004. 125M transistors.  Added <em data-coord="x86.umt:74:35">hyperthreading</em> and AMD's x86-64
+64-bit extension.
+</p></dd><dt data-coord="x86.umt:77:2"> <strong data-coord="x86.umt:77:1">Core 2</strong></dt><dd data-coord="x86.umt:78:0"><p data-coord="x86.umt:78:4">2006. 291M transistors.  <em data-coord="x86.umt:78:29">Multi-core</em>.
+</p></dd><dt data-coord="x86.umt:80:2"> <strong data-coord="x86.umt:80:1">Core i7 Nehalem</strong></dt><dd data-coord="x86.umt:81:0"><p data-coord="x86.umt:81:4">2008.  781M transistors.  Multi-core + hyperthreading.
+</p></dd><dt data-coord="x86.umt:84:2"> <strong data-coord="x86.umt:84:1">Core i7 Sandy Bridge</strong></dt><dd data-coord="x86.umt:85:0"><p data-coord="x86.umt:85:4">2011.  1.17G transistors.  AVX extension to SSE, allowing data
+packed into 256-bit vectors.
+</p></dd><dt data-coord="x86.umt:88:2"> <strong data-coord="x86.umt:88:1">Core i7 Haswell</strong></dt><dd data-coord="x86.umt:89:0"><p data-coord="x86.umt:89:4">2013.  1.4G transistors.  AVX2 extension to AVX, more instructions
+and formats.
+</p></dd></dl><p data-coord="x86.umt:92:0">Continuing evolution.
+</p></section><section class="umt-slide" data-coord="x86.umt:96:0"><h2 data-coord="x86.umt:96:0">Moore's Law</h2><p data-coord="x86.umt:99:2"><em data-coord="x86.umt:99:2">Transistor count doubles every 18 months</em>.
+</p><p data-coord="x86.umt:101:0">Similar evolution in disk capacities, performance, etc.  
+</p></section><section class="umt-slide" data-coord="x86.umt:104:0"><h2 data-coord="x86.umt:104:0">Example Program</h2><p data-coord="x86.umt:107:0">In <a href="./code/mstore/mstore.c" data-coord="x86.umt:107:29">mstore.c:</a>
+</p><pre><span class="hl kwb">long</span> <span class="hl kwd">mult2</span><span class="hl opt">(</span><span class="hl kwb">long</span><span class="hl opt">,</span> <span class="hl kwb">long</span><span class="hl opt">);</span>
+
+<span class="hl kwb">void</span>
+<span class="hl kwd">multStore</span><span class="hl opt">(</span><span class="hl kwb">long</span> x<span class="hl opt">,</span> <span class="hl kwb">long</span> y<span class="hl opt">,</span> <span class="hl kwb">long</span> <span class="hl opt">*</span>dest<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">long</span> t <span class="hl opt">=</span> <span class="hl kwd">mult2</span><span class="hl opt">(</span>x<span class="hl opt">,</span> y<span class="hl opt">);</span>
+  <span class="hl opt">*</span>dest <span class="hl opt">=</span> t<span class="hl opt">;</span>
+<span class="hl opt">}</span></pre><p data-coord="x86.umt:111:0">Assemble using:
+</p><pre data-coord="x86.umt:114:0">$ gcc -Og -S sum1.c  #assembly output in mstore.s
+</pre></section><section class="umt-slide" data-coord="x86.umt:117:0"><h2 data-coord="x86.umt:117:0">Assembly Program</h2><p data-coord="x86.umt:120:0">Edited output from <a href="./code/mstore/mstore.s" data-coord="x86.umt:120:45">mstore.s:</a>
+</p><pre><span class="hl slc">#parameters x, y and dest in rdi, rsi, rdx</span>
+multStore<span class="hl opt">:</span>                       <span class="hl slc">#global label</span>
+<span class="hl ppc">.LFB0:</span>                           <span class="hl slc">#local label</span>
+<span class="hl ppc"></span>        <span class="hl ppc">.cfi_startproc</span>           <span class="hl slc">#pseudo-op</span>
+<span class="hl ppc"></span>        pushq   <span class="hl opt">%</span>rbx             <span class="hl slc">#save rbx on stack</span>
+        movq    <span class="hl opt">%</span>rdx<span class="hl opt">, %</span>rbx       <span class="hl slc">#save rdx in rbx</span>
+        call    mult2&#64;PLT        <span class="hl slc">#mult2(x, y)</span>
+        movq    <span class="hl opt">%</span>rax<span class="hl opt">, (%</span>rbx<span class="hl opt">)</span>     <span class="hl slc">#*dest = t</span>
+        popq    <span class="hl opt">%</span>rbx             <span class="hl slc">#restore rbx from stack</span>
+        ret                      <span class="hl slc">#return to caller</span>
+        <span class="hl ppc">.cfi_endproc</span></pre></section><section class="umt-slide" data-coord="x86.umt:137:0"><h2 data-coord="x86.umt:137:0">Assembly Program Discussion</h2><ul data-coord="x86.umt:140:0"><li data-coord="x86.umt:140:0"><p data-coord="x86.umt:140:4">Identifiers starting with a period <samp data-coord="x86.umt:140:39">.</samp> do not correspond to
+machine instructions; they are directives to the assembler,
+also known as <em data-coord="x86.umt:140:146">pseudo-ops</em> or <em data-coord="x86.umt:140:162">pseudo-instructions</em>.
+</p></li><li data-coord="x86.umt:144:0"><p data-coord="x86.umt:144:4">On x86-64 Linux the calling convention is that arguments which fit
+in registers can be passed using registers <samp data-coord="x86.umt:144:118">%rdi</samp>, <samp data-coord="x86.umt:144:126">%rsi</samp>, <samp data-coord="x86.umt:144:134">%rdx</samp>,
+<samp data-coord="x86.umt:144:146">%rcx</samp>, <samp data-coord="x86.umt:144:154">%r8</samp> and <samp data-coord="x86.umt:144:164">%r9</samp>.  Result returned in <samp data-coord="x86.umt:144:191">%rax</samp> (if it fits).
+</p></li><li data-coord="x86.umt:148:0"><p data-coord="x86.umt:148:4">Different calling conventions on Windows.
+</p></li></ul></section><section class="umt-slide" data-coord="x86.umt:150:0"><h2 data-coord="x86.umt:150:0">Machine Language Program</h2><p data-coord="x86.umt:153:0">In <a href="./code/mstore/mstore.dump" data-coord="x86.umt:153:32">mstore.dump</a> produced using
+</p><pre data-coord="x86.umt:156:0">$ gcc -Og -c mstore.c #compile into mstore.o object file
+$ objdump -d mstore.o #disassemble mstore.o
+</pre><pre data-coord="././code/mstore/mstore.dump:1:0">
+mstore.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 &lt;multStore&gt;:
+   0:	53                   	push   %rbx
+   1:	48 89 d3             	mov    %rdx,%rbx
+   4:	e8 00 00 00 00       	callq  9 &lt;multStore+0x9&gt;
+   9:	48 89 03             	mov    %rax,(%rbx)
+   c:	5b                   	pop    %rbx
+   d:	c3                   	retq   
+</pre></section><section class="umt-slide" data-coord="x86.umt:162:0"><h2 data-coord="x86.umt:162:0">Executable</h2><p data-coord="x86.umt:165:0">Need a <samp data-coord="x86.umt:165:7">main()</samp> function as well as <samp data-coord="x86.umt:165:36">mult2()</samp>.
+In <a href="code/mstore/main.c" data-coord="x86.umt:165:72">main.c:</a>
+</p><pre><span class="hl ppc">#include &lt;stdio.h&gt;</span>
+
+<span class="hl kwb">void</span> <span class="hl kwd">multStore</span><span class="hl opt">(</span><span class="hl kwb">long</span><span class="hl opt">,</span> <span class="hl kwb">long</span><span class="hl opt">,</span> <span class="hl kwb">long</span> <span class="hl opt">*);</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">() {</span>
+  <span class="hl kwb">long</span> d<span class="hl opt">;</span>
+  <span class="hl kwd">multStore</span><span class="hl opt">(</span><span class="hl num">2</span><span class="hl opt">,</span> <span class="hl num">3</span><span class="hl opt">, &amp;</span>d<span class="hl opt">);</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;2 * 3 --&gt; %ld</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> d<span class="hl opt">);</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</pre></section><section class="umt-slide" data-coord="x86.umt:170:0"><h2 data-coord="x86.umt:170:0">Executable Continued</h2><pre>
+<span class="hl kwb">long</span> <span class="hl kwd">mult2</span><span class="hl opt">(</span><span class="hl kwb">long</span> a<span class="hl opt">,</span> <span class="hl kwb">long</span> b<span class="hl opt">) {</span>
+  <span class="hl kwb">long</span> s <span class="hl opt">=</span> a <span class="hl opt">*</span> b<span class="hl opt">;</span>
+  <span class="hl kwa">return</span> s<span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="x86.umt:175:0"><h2 data-coord="x86.umt:175:0">Executable Continued</h2><ul data-coord="x86.umt:178:0"><li data-coord="x86.umt:178:0"><p data-coord="x86.umt:178:4">Executable <samp data-coord="x86.umt:178:15">mstore</samp> can be produced directly from
+<a href="code/mstore/mstore.c" data-coord="x86.umt:178:82">mstore.c</a> and <a href="code/mstore/main.c" data-coord="x86.umt:178:117">main.c`</a>
+using command:
+</p><pre data-coord="x86.umt:183:0">    $ gcc -Og mstore.c main.c -o mstore
+</pre></li><li data-coord="x86.umt:186:0"><p data-coord="x86.umt:186:4">More common to produce separate <samp data-coord="x86.umt:186:36">mstore.o</samp> and <samp data-coord="x86.umt:186:51">main.o</samp> using <samp data-coord="x86.umt:186:66">gcc
+    -c</samp> and then link them together using <samp data-coord="x86.umt:186:113">gcc</samp> to perform an explicit
+link step.
+</p></li><li data-coord="x86.umt:190:0"><p data-coord="x86.umt:190:4">Size of <samp data-coord="x86.umt:190:12">mstore</samp> executable is around 8 KB.
+</p></li></ul></section><section class="umt-slide" data-coord="x86.umt:193:0"><h2 data-coord="x86.umt:193:0">Evolution of x86 ISA Sizes</h2><ul data-coord="x86.umt:196:0"><li data-coord="x86.umt:196:0"><p data-coord="x86.umt:196:4">8086: 16-bit registers, 20-bit addresses.  Original IBM-PC based on
+8088/8086.
+</p></li><li data-coord="x86.umt:199:0"><p data-coord="x86.umt:199:4">x86-32: 80386: 32-bit registers, 32-bit addresses.
+</p></li><li data-coord="x86.umt:201:0"><p data-coord="x86.umt:201:4">x86-64: 64-bit registers, 64-bit addresses (currently, at most 52
+address bits used externally).
+</p></li></ul><p data-coord="x86.umt:204:0">Smaller registers for legacy ISAs still available in current
+ISA.
+</p></section><section class="umt-slide" data-coord="x86.umt:208:0"><h2 data-coord="x86.umt:208:0">X86-64 General Purpose Registers (U. Washington).</h2><img src="figs/x86-64_registers.png" height="227"/></section><section class="umt-slide" data-coord="x86.umt:2233:0"><h2 data-coord="x86.umt:2233:0">References</h2><p data-coord="x86.umt:2236:0">Text: Chapter 3.
+</p><p data-coord="x86.umt:2238:0">Intel Corporation,
+<em data-coord="x86.umt:2238:74"><a href="https://software.intel.com/en-us/articles/intel-sdm" data-coord="x86.umt:2238:74">Intel 64 and
+IA-32 Architectures: Software Developer's Manual</a></em>, Source for some of
+the figures.
+</p><p data-coord="x86.umt:2243:0">Linus Torvalds,
+<em data-coord="x86.umt:2243:61"><a href="https://yarchive.net/comp/linux/cmov.html" data-coord="x86.umt:2243:61">Why
+Conditional Moves Are a Bad Idea</a></em>.
+</p><p data-coord="x86.umt:2248:0">Xiao-Feng Li,
+<em data-coord="x86.umt:2248:83"><a href="http://people.apache.org/~xli/presentations/history_Intel_CPU.pdf" data-coord="x86.umt:2248:83">A
+Brief History of Intel CPU Microarchitectures</a></em>.
+</p></section></section>
+</div> <!-- #content -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../../assets/scripts/slide-controls.js"></script>
+</body>
+</html>

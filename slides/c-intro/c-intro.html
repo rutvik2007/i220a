@@ -1,0 +1,1621 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../../assets/styles/slides.css" rel="stylesheet" type="text/css" />
+  <title>CS 220: C Introduction</title>
+<link href="c-intro/hl-fine_blue.css" rel="stylesheet"/><link href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" 
+       rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" async=""></script>    
+
+</head>
+<body>
+    <nav>
+      <ul>
+	<li><a href="../../index.html" class="material-icons">house</a></li>
+	<li><a href="../../docs/index.html">Docs</a></li>
+	<li><a href="../../exams-quizzes/index.html">Exams &amp; Quizzes</a></li>
+	<li><a href="../../exercises/index.html">Exercises</a></li>
+	<li><a href="../../hws/index.html">Homeworks</a></li>
+	<li><a href="../../labs/index.html">Labs</a></li>
+	<li><a href="../../misc/index.html">Misc</a></li>
+	<li><a href="../../projects/index.html">Projects</a></li>
+	<li><a href="../../slides/index.html">Slides</a></li>
+      </ul>
+    </nav>
+  <div class="slide-controls" style="display: none;">
+    <span class="float-left">
+      <span class="first-control">
+	<a href="#">
+	  <img src="../../assets/images/go-first.png">
+	</a>
+      </span>
+      <span class="previous-control">
+	<a href="#">
+	  <img src="../../assets/images/go-previous.png">
+	</a>
+      </span>
+    </span>
+    <span class="float-right">
+      <span class="next-control">
+	<a href="#">
+	  <img src="../../assets/images/go-next.png">
+	</a>
+      </span>
+      <span class="last-control">
+	<a href="#">
+	  <img src="../../assets/images/go-last.png">
+	</a>
+      </span>
+    </span>
+    <div class="slide-end">&nbsp;<br></div> <!-- hack -->
+  </div>
+<div class="content">
+<section data-coord="c-intro.umt:1:0"><h1 data-coord="c-intro.umt:1:0">C Introduction</h1><section class="umt-slide" data-coord="c-intro.umt:3:0"><h2 data-coord="c-intro.umt:3:0">C Milestones</h2><ol data-coord="c-intro.umt:6:0"><li data-coord="c-intro.umt:6:0"><p data-coord="c-intro.umt:6:4">Originally developed by Dennis Ritchie in early 70s for use with
+Unix as a general <em data-coord="c-intro.umt:6:91">system programming language</em>.
+</p></li><li data-coord="c-intro.umt:9:0"><p data-coord="c-intro.umt:9:4">In 1978, Kernighan and Ritchie publish <em data-coord="c-intro.umt:9:43">The C Programming
+    Language</em>, popularly known as K&amp;R1.  C implementations based on
+book specification known as K&amp;R1 C.
+</p></li><li data-coord="c-intro.umt:13:0"><p data-coord="c-intro.umt:13:4">1980 standardization by ANSI and ISO; changes include <em data-coord="c-intro.umt:13:58">function
+     prototypes</em>.  Known as C89 or C90.  K&amp;R2 describes C89.
+</p></li><li data-coord="c-intro.umt:16:0"><p data-coord="c-intro.umt:16:4">1990s standardization efforts led to C99; changes include
+variable-length arrays, inline functions.
+</p></li><li data-coord="c-intro.umt:19:0"><p data-coord="c-intro.umt:19:4">2000's standardization efforts led to C11; changes include
+multithreading support, anonymous structures and unions,
+<samp data-coord="c-intro.umt:19:128">noreturn</samp> functions.
+</p></li></ol></section><section class="umt-slide" data-coord="c-intro.umt:25:0"><h2 data-coord="c-intro.umt:25:0">Distinguishing Features</h2><ul data-coord="c-intro.umt:28:0"><li data-coord="c-intro.umt:28:0"><p data-coord="c-intro.umt:28:4">Strongly typed (compiler checks type compatibility) but allows
+programmer to selectively override type checking.
+</p></li><li data-coord="c-intro.umt:31:0"><p data-coord="c-intro.umt:31:4">Allows programmer to manipulate data at the bit-level.
+</p></li><li data-coord="c-intro.umt:33:0"><p data-coord="c-intro.umt:33:4">Support for directly manipulating memory addresses.  This
+distinguishes C from higher-level programming languages where
+memory is abstracted out.
+</p></li><li data-coord="c-intro.umt:37:0"><p data-coord="c-intro.umt:37:4">Allows programmer total control over memory allocation.
+</p></li><li data-coord="c-intro.umt:39:0"><p data-coord="c-intro.umt:39:4">Uses a very limited macro system (compile-time text substitution).
+</p></li><li data-coord="c-intro.umt:41:0"><p data-coord="c-intro.umt:41:4">Higher level programming languages are often implemented by being
+translated into C, at least initially.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:45:0"><h2 data-coord="c-intro.umt:45:0">Expressions vs Statements</h2><ul data-coord="c-intro.umt:48:0"><li data-coord="c-intro.umt:48:0"><p data-coord="c-intro.umt:48:4">Expressions return a value which can be stored in a variable.
+Example of C expressions include arithmetic operators (involving
+operators like <samp data-coord="c-intro.umt:48:154">+</samp>, <samp data-coord="c-intro.umt:48:159">-</samp>, <samp data-coord="c-intro.umt:48:164">*</samp>, <samp data-coord="c-intro.umt:48:169">/</samp>, <samp data-coord="c-intro.umt:48:174">%</samp>), comparison expressions
+(with operators like <samp data-coord="c-intro.umt:48:228">==</samp>, <samp data-coord="c-intro.umt:48:234">!=</samp>, <samp data-coord="c-intro.umt:48:240">&lt;</samp>, <samp data-coord="c-intro.umt:48:245">&lt;=</samp>, <samp data-coord="c-intro.umt:48:251">&gt;</samp>, <samp data-coord="c-intro.umt:48:256">&gt;=</samp>), logical
+expressions (involving operators like <samp data-coord="c-intro.umt:48:313">&amp;&amp;</samp>, <samp data-coord="c-intro.umt:48:319">||</samp>, <samp data-coord="c-intro.umt:48:325">!</samp> with <samp data-coord="c-intro.umt:48:334">0</samp>
+interpreted as <strong data-coord="c-intro.umt:48:357">false</strong>, <samp data-coord="c-intro.umt:48:366">non-0</samp> as <strong data-coord="c-intro.umt:48:377">true</strong>), bit expressions
+(involving operators like <samp data-coord="c-intro.umt:48:432">&amp;</samp>, <samp data-coord="c-intro.umt:48:437">|</samp>, <samp data-coord="c-intro.umt:48:442">~</samp>, <samp data-coord="c-intro.umt:48:447">&gt;&gt;</samp>, <samp data-coord="c-intro.umt:48:453">&lt;&lt;</samp>), assignment
+expressions (involving operators like <samp data-coord="c-intro.umt:48:513">=</samp>, <samp data-coord="c-intro.umt:48:518">+=</samp>, <samp data-coord="c-intro.umt:48:524">*=</samp>, etc).
+</p></li><li data-coord="c-intro.umt:57:0"><p data-coord="c-intro.umt:57:4">Statements do not have a value.  Example of C statements are
+<code><span class="hl kwa">if</span></code>, <code><span class="hl kwa">for</span></code>, <code><span class="hl kwa">while</span></code>, <code><span class="hl kwa">do</span></code>, <code><span class="hl kwa">switch</span></code>.
+</p></li></ul><p data-coord="c-intro.umt:60:0">All programming languages have some kind of expression construct, but
+not all programming languages have statement constructs.
+</p></section><section class="umt-slide" data-coord="c-intro.umt:63:0"><h2 data-coord="c-intro.umt:63:0">Data</h2><p data-coord="c-intro.umt:66:0">In any programming language there are two kinds of data:
+</p><dl data-coord="c-intro.umt:68:0"><dt data-coord="c-intro.umt:68:2"> <strong data-coord="c-intro.umt:68:1">Primitive Data</strong></dt><dd data-coord="c-intro.umt:69:0"><p data-coord="c-intro.umt:69:4">Data which has no internal structure advertized
+by the language.  In C, this includes various flavors of
+integers and real numbers as well as pointers (C does
+also allow getting at the internal structure, but this is a
+low-level feature).
+</p></dd><dt data-coord="c-intro.umt:75:2"> <strong data-coord="c-intro.umt:75:1">Composite Data</strong></dt><dd data-coord="c-intro.umt:76:0"><p data-coord="c-intro.umt:76:5">Data which is a collection of other data.  In C, this includes
+arrays (sequence of data of the same type) and structures/unions
+(collections of data of possibly different types).
+</p></dd></dl><p data-coord="c-intro.umt:80:0">Ultimately, all data entities are represented as a sequence of bytes.
+In C, the number of bytes taken up by any data entity <samp data-coord="c-intro.umt:80:124">x</samp> is given by
+the expression <samp data-coord="c-intro.umt:80:155">sizeof(x)</samp>.
+</p></section><section class="umt-slide" data-coord="c-intro.umt:84:0"><h2 data-coord="c-intro.umt:84:0">C Integers</h2><p data-coord="c-intro.umt:87:0">Various flavors of integers (in order of non-decreasing size):
+</p><dl data-coord="c-intro.umt:89:0"><dt data-coord="c-intro.umt:89:2"> <code><span class="hl kwb">short</span></code> </dt><dd data-coord="c-intro.umt:90:0"><p data-coord="c-intro.umt:90:4">At least 2 bytes.
+</p></dd><dt data-coord="c-intro.umt:92:2"> <code><span class="hl kwb">int</span></code> </dt><dd data-coord="c-intro.umt:93:0"><p data-coord="c-intro.umt:93:4">At least 2 bytes, can be 4 or 8 depending on machine.
+</p></dd><dt data-coord="c-intro.umt:95:2"> <code><span class="hl kwb">long</span></code> </dt><dd data-coord="c-intro.umt:96:0"><p data-coord="c-intro.umt:96:4">At least 4 bytes, can be 8 depending on machine.
+</p></dd><dt data-coord="c-intro.umt:98:2"> <code><span class="hl kwb">long long</span></code> </dt><dd data-coord="c-intro.umt:99:0"><p data-coord="c-intro.umt:99:4">At least 8 bytes.
+</p></dd></dl><ul data-coord="c-intro.umt:101:0"><li data-coord="c-intro.umt:101:0"><p data-coord="c-intro.umt:101:4">Can have modifier <samp data-coord="c-intro.umt:101:22">signed</samp> or <samp data-coord="c-intro.umt:101:34">unsigned</samp>.  Default is <samp data-coord="c-intro.umt:101:58">signed</samp>.
+</p></li><li data-coord="c-intro.umt:103:0"><p data-coord="c-intro.umt:103:4">If <samp data-coord="c-intro.umt:103:7">unsigned</samp> used without a type, then type is <samp data-coord="c-intro.umt:103:52">int</samp>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:105:0"><h2 data-coord="c-intro.umt:105:0">Integer Declarations with Initializers</h2><pre><span class="hl slc">//signed by default</span>
+<span class="hl kwb">short</span> answer <span class="hl opt">=</span> <span class="hl num">42</span><span class="hl opt">;</span>           <span class="hl slc">//signed: usually 2 bytes</span>
+<span class="hl kwb">int</span> next <span class="hl opt">=</span> answer <span class="hl opt">+</span> <span class="hl num">1</span><span class="hl opt">;</span>       <span class="hl slc">//signed: often 4 bytes</span>
+<span class="hl kwb">long</span> twice <span class="hl opt">=</span> <span class="hl num">2</span> <span class="hl opt">*</span> answer<span class="hl opt">;</span>     <span class="hl slc">//4 or 8 bytes</span>
+<span class="hl kwb">long long</span> half <span class="hl opt">=</span> answer<span class="hl opt">/</span><span class="hl num">2</span><span class="hl opt">;</span>   <span class="hl slc">//at least 8 bytes</span>
+<span class="hl kwb">long</span> value <span class="hl opt">=</span> <span class="hl num">99L</span><span class="hl opt">;</span>            <span class="hl slc">//use of a long literal</span>
+
+<span class="hl slc">//explicitly declared unsigned</span>
+<span class="hl kwb">unsigned short</span> s1 <span class="hl opt">=</span> <span class="hl num">22</span><span class="hl opt">;</span>
+<span class="hl kwb">unsigned short</span> s2 <span class="hl opt">=</span> <span class="hl num">1</span> <span class="hl opt">&lt;&lt;</span> <span class="hl num">15</span><span class="hl opt">;</span> <span class="hl slc">//ok</span>
+<span class="hl kwb">unsigned short</span> s3 <span class="hl opt">=</span> <span class="hl num">1</span> <span class="hl opt">&lt;&lt;</span> <span class="hl num">16</span><span class="hl opt">;</span> <span class="hl slc">//may overflow</span>
+<span class="hl kwb">unsigned</span> u <span class="hl opt">=</span> <span class="hl num">99</span><span class="hl opt">;</span>             <span class="hl slc">//type defaults to int</span>
+
+<span class="hl kwb">short</span> s4 <span class="hl opt">=</span> <span class="hl num">1</span> <span class="hl opt">&lt;&lt;</span> <span class="hl num">15</span><span class="hl opt">;</span>          <span class="hl slc">//signed: may overflow</span>
+                             <span class="hl slc">//to negative</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:126:0"><h2 data-coord="c-intro.umt:126:0">Characters in C</h2><ul data-coord="c-intro.umt:129:0"><li data-coord="c-intro.umt:129:0"><p data-coord="c-intro.umt:129:4">C does not really support characters or strings.
+</p></li><li data-coord="c-intro.umt:131:0"><p data-coord="c-intro.umt:131:4">A variable declared with type <code><span class="hl kwb">char</span></code>, is declaring a 1-byte
+integer.
+</p></li><li data-coord="c-intro.umt:134:0"><p data-coord="c-intro.umt:134:4">If a variable is declared as a <samp data-coord="c-intro.umt:134:35">char</samp>, without a <samp data-coord="c-intro.umt:134:53">signed</samp> or
+<samp data-coord="c-intro.umt:134:69">unsigned</samp> modifier, then it's signed-ness is undefined.
+</p></li><li data-coord="c-intro.umt:137:0"><p data-coord="c-intro.umt:137:4">C does support character literals enclosed within single quotes.
+These integer value equal to code of character in the local
+character encoding (for example, <samp data-coord="c-intro.umt:137:170">'A'</samp> has integer value 65 in the
+ASCII encoding).
+</p></li><li data-coord="c-intro.umt:142:0"><p data-coord="c-intro.umt:142:4">Character literals support escapes as in <samp data-coord="c-intro.umt:142:45">'\n'</samp> newline,
+<samp data-coord="c-intro.umt:142:65">'\t'</samp> tab and <samp data-coord="c-intro.umt:142:80">'\0'</samp> <samp data-coord="c-intro.umt:142:87">NUL</samp> character.
+</p></li><li data-coord="c-intro.umt:145:0"><p data-coord="c-intro.umt:145:4">Since characters are merely integers, arithmetic can be performed
+with them as in <code><span class="hl kwb">char</span> c<span class="hl opt">; ...</span> c <span class="hl opt">-</span> <span class="hl str">&apos;0&apos;</span></code>, but the results are not
+portable in that they may vary with different character encodings.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:150:0"><h2 data-coord="c-intro.umt:150:0">Char Declarations</h2><p data-coord="c-intro.umt:153:0">Chars are always 1 byte.
+</p><pre><span class="hl kwb">char</span> c1 <span class="hl opt">=</span> <span class="hl str">&apos;A&apos;</span><span class="hl opt">;</span>               <span class="hl slc">//65 in ASCII</span>
+<span class="hl kwb">char</span> c2 <span class="hl opt">=</span> <span class="hl str">&apos;B&apos;</span><span class="hl opt">;</span>               <span class="hl slc">//66 in ASCII</span>
+<span class="hl kwb">char</span> c3 <span class="hl opt">=</span> c1 <span class="hl opt">+</span> <span class="hl num">1</span><span class="hl opt">;</span>            <span class="hl slc">//same value as c2.</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:162:0"><h2 data-coord="c-intro.umt:162:0">C Arrays</h2><ul data-coord="c-intro.umt:165:0"><li data-coord="c-intro.umt:165:0"><p data-coord="c-intro.umt:165:4">Arrays are a fundamental abstraction in many programming languages
+which abstract out the random-access property of the main memory
+in current computer technology.
+</p></li><li data-coord="c-intro.umt:169:0"><p data-coord="c-intro.umt:169:4">In C, arrays are declared using square brackets after the name
+of the array.
+</p><pre>       <span class="hl kwb">int</span> a<span class="hl opt">[</span><span class="hl num">3</span><span class="hl opt">];</span>
+
+       <span class="hl kwb">int</span> b<span class="hl opt">[] = {</span> <span class="hl num">1</span><span class="hl opt">,</span> <span class="hl num">2</span><span class="hl opt">,</span> <span class="hl num">3</span> <span class="hl opt">};</span>
+
+       Employee employees<span class="hl opt">[</span>numEmployees<span class="hl opt">];</span></pre></li><li data-coord="c-intro.umt:180:0"><p data-coord="c-intro.umt:180:4">A C string is an array of characters terminated by a <samp data-coord="c-intro.umt:180:57">NUL</samp> character
+<samp data-coord="c-intro.umt:180:77">'\0'</samp>.
+</p><pre>      <span class="hl kwb">char</span> hello<span class="hl opt">[] =</span> <span class="hl str">&quot;hello&quot;</span><span class="hl opt">;</span>  <span class="hl slc">//array of 6 char&apos;s</span></pre></li><li data-coord="c-intro.umt:187:0"><p data-coord="c-intro.umt:187:4">C arrays are closely related to pointers (more about that later).
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:189:0"><h2 data-coord="c-intro.umt:189:0">Integer Sum Program</h2><p data-coord="c-intro.umt:192:0">In <a href="./code/sum.c" data-coord="c-intro.umt:192:19">sum.c:</a>
+</p><pre><span class="hl ppc">#include &lt;stdio.h&gt;</span>
+
+<span class="hl kwb">static int</span> acc <span class="hl opt">=</span> <span class="hl num">123</span><span class="hl opt">;</span>
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">int</span> values<span class="hl opt">[] = {</span> <span class="hl num">2</span><span class="hl opt">,</span> <span class="hl num">5</span><span class="hl opt">, -</span><span class="hl num">9</span><span class="hl opt">, };</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>values<span class="hl opt">)/</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>values<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]);</span>
+       i<span class="hl opt">++) {</span>
+    <span class="hl kwb">int</span> value <span class="hl opt">=</span> values<span class="hl opt">[</span>i<span class="hl opt">];</span>
+    acc <span class="hl opt">+=</span> value<span class="hl opt">;</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;%d</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> acc<span class="hl opt">);</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:196:0"><h2 data-coord="c-intro.umt:196:0">Integer Sum Program Log</h2><p data-coord="c-intro.umt:199:0">Compiling:
+</p><pre data-coord="c-intro.umt:202:0">$ gcc -g -Wall -std=c11 sum.c -o sum
+</pre><ul data-coord="c-intro.umt:205:0"><li data-coord="c-intro.umt:205:0"><p data-coord="c-intro.umt:205:4"><samp data-coord="c-intro.umt:205:4">-g</samp> allows debugging compiled program.
+</p></li><li data-coord="c-intro.umt:207:0"><p data-coord="c-intro.umt:207:4"><samp data-coord="c-intro.umt:207:4">-Wall</samp> used for turning on reasonable warnings.
+</p></li><li data-coord="c-intro.umt:209:0"><p data-coord="c-intro.umt:209:4"><samp data-coord="c-intro.umt:209:4">-std=c11</samp> allows use of C11 features.
+</p></li><li data-coord="c-intro.umt:211:0"><p data-coord="c-intro.umt:211:4"><samp data-coord="c-intro.umt:211:4">-o sum</samp> creates executable in file <samp data-coord="c-intro.umt:211:40">sum</samp> (default is <samp data-coord="c-intro.umt:211:58">a.out</samp>).
+</p></li></ul><p data-coord="c-intro.umt:213:0">Run using:
+</p><pre data-coord="c-intro.umt:216:0">$ ./sum
+121
+$
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:221:0"><h2 data-coord="c-intro.umt:221:0">Integer Sum Program Discussion</h2><ul data-coord="c-intro.umt:224:0"><li data-coord="c-intro.umt:224:0"><p data-coord="c-intro.umt:224:4"><samp data-coord="c-intro.umt:224:4">acc</samp> is declared outside of any function.  It is loosely referred
+to as a <em data-coord="c-intro.umt:224:83">global variable</em>.
+</p></li><li data-coord="c-intro.umt:227:0"><p data-coord="c-intro.umt:227:4">Variables declared outside any function have lifetime equal to
+that of the entire program.
+</p></li><li data-coord="c-intro.umt:230:0"><p data-coord="c-intro.umt:230:4">If a variable is declared with the <samp data-coord="c-intro.umt:230:39">static</samp> qualifier, then it
+has lifetime equal to that of the entire program but is visible only 
+to the subsequent code in the same <em data-coord="c-intro.umt:230:180">compilation unit</em> (file).
+</p></li><li data-coord="c-intro.umt:234:0"><p data-coord="c-intro.umt:234:4">If a variable is declared with the <samp data-coord="c-intro.umt:234:39">extern</samp> qualifier, then it has
+lifetime equal to that of the entire program and is visible to 
+the entire program.  If there is no <samp data-coord="c-intro.umt:234:179">static</samp> specifier, then
+the declaration defaults to be <samp data-coord="c-intro.umt:234:239">extern</samp>.
+</p></li><li data-coord="c-intro.umt:239:0"><p data-coord="c-intro.umt:239:4">In current programming practice, global variables are regarded
+as <strong data-coord="c-intro.umt:239:74">evil</strong> and should be avoided as far as possible.  Read-only
+globals are not as bad as read-write globals.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:243:0"><h2 data-coord="c-intro.umt:243:0">Integer Sum Program Discussion Continued</h2><ul data-coord="c-intro.umt:246:0"><li data-coord="c-intro.umt:246:0"><p data-coord="c-intro.umt:246:4">Variables declared within a brace-delimited block are visible only
+within that block and (if there is no <samp data-coord="c-intro.umt:246:113">static</samp> qualifier) retain
+their value only during a single execution of that block.
+</p></li><li data-coord="c-intro.umt:250:0"><p data-coord="c-intro.umt:250:4">Specifically, variables declared within a function are visible
+only within that function and (if there is no <samp data-coord="c-intro.umt:250:117">static</samp> qualifier)
+retain their value only during a single activation of that function.
+</p></li><li data-coord="c-intro.umt:254:0"><p data-coord="c-intro.umt:254:4">These kind of <samp data-coord="c-intro.umt:254:18">auto</samp>-variables are invaluable in implementing
+recursive functions where multiple activations of a function
+are alive simultaneously.
+</p><pre>    <span class="hl kwb">int</span> <span class="hl kwd">factorial</span><span class="hl opt">(</span><span class="hl kwb">int</span> n<span class="hl opt">) {</span> 
+      <span class="hl kwa">return</span> <span class="hl opt">(</span>n <span class="hl opt">&lt;=</span> <span class="hl num">0</span><span class="hl opt">) ?</span> <span class="hl num">1</span> <span class="hl opt">:</span> n <span class="hl opt">*</span> <span class="hl kwd">factorial</span><span class="hl opt">(</span>n <span class="hl opt">-</span> <span class="hl num">1</span><span class="hl opt">);</span> 
+    <span class="hl opt">}</span>
+    <span class="hl slc">//factorial(4): n has values 4, 3, 2, 1, 0.</span></pre></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:266:0"><h2 data-coord="c-intro.umt:266:0">Integer Sum Program Discussion Continued</h2><ul data-coord="c-intro.umt:269:0"><li data-coord="c-intro.umt:269:0"><p data-coord="c-intro.umt:269:4">Usually, best practice is to always provide an initial value
+for a variable when it is declared.
+</p></li><li data-coord="c-intro.umt:272:0"><p data-coord="c-intro.umt:272:4">Array <samp data-coord="c-intro.umt:272:10">values[]</samp> is initialized with initial values enclosed
+within braces.
+</p></li><li data-coord="c-intro.umt:275:0"><p data-coord="c-intro.umt:275:4">Could also be declared as <code><span class="hl kwb">int</span> values<span class="hl opt">[</span><span class="hl num">3</span><span class="hl opt">] = {</span> <span class="hl num">2</span><span class="hl opt">,</span> <span class="hl num">5</span><span class="hl opt">, -</span><span class="hl num">9</span> <span class="hl opt">};</span></code>
+but the size would be redundant.
+</p></li><li data-coord="c-intro.umt:278:0"><p data-coord="c-intro.umt:278:4">Best practice is to omit the size of the array and let it
+be determined by the length of the initializer.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:281:0"><h2 data-coord="c-intro.umt:281:0">Integer Sum Program Discussion Continued</h2><ul data-coord="c-intro.umt:284:0"><li data-coord="c-intro.umt:284:0"><p data-coord="c-intro.umt:284:4">Since the array <samp data-coord="c-intro.umt:284:20">values[]</samp> has 3 elements, we could have
+coded the <code><span class="hl kwa">for</span></code>-loop as:
+</p><pre>    <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> <span class="hl num">3</span><span class="hl opt">;</span> i<span class="hl opt">++) {</span>
+      <span class="hl opt">...</span>
+    <span class="hl opt">}</span></pre></li><li data-coord="c-intro.umt:293:0"><p data-coord="c-intro.umt:293:4">If we decided to add another element to <samp data-coord="c-intro.umt:293:44">values[]</samp>, we would
+also need to change the loop bound to 4.
+</p></li><li data-coord="c-intro.umt:296:0"><p data-coord="c-intro.umt:296:4">A very important rule in programming is <strong data-coord="c-intro.umt:296:44">Don't Repeat Yourself</strong>
+(DRY).  Specifically, you should avoid situations where changing
+one part of a program necessarily requires changing another part
+because the second part depends on the first part.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:301:0"><h2 data-coord="c-intro.umt:301:0">Integer Sum Program Discussion Continued</h2><ul data-coord="c-intro.umt:304:0"><li data-coord="c-intro.umt:304:0"><p data-coord="c-intro.umt:304:4">The use of the complex expression
+<code><span class="hl kwa">sizeof</span><span class="hl opt">(</span>values<span class="hl opt">)/</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>values<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">])</span></code> avoids a DRY violation.
+</p></li><li data-coord="c-intro.umt:307:0"><p data-coord="c-intro.umt:307:4">The expression <samp data-coord="c-intro.umt:307:19">sizeof(values)</samp> gives the total number of bytes
+occupied by the <samp data-coord="c-intro.umt:307:88">values[]</samp> array and <samp data-coord="c-intro.umt:307:109">sizeof(values[0])</samp> gives the
+total number of bytes occupied by the <samp data-coord="c-intro.umt:307:181">values[0]</samp> element. Hence
+the quotient gives the number of elements in the <samp data-coord="c-intro.umt:307:261">values[]</samp> array.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:313:0"><h2 data-coord="c-intro.umt:313:0">Integer Representation</h2><ul data-coord="c-intro.umt:316:0"><li data-coord="c-intro.umt:316:0"><p data-coord="c-intro.umt:316:4">The C integer types can be regarded as abstract types which model
+a finite subset of the infinite set of all integers.  These
+abstract types permits the usual arithmetic operations <samp data-coord="c-intro.umt:316:193">+</samp>, <samp data-coord="c-intro.umt:316:198">-</samp>,
+<samp data-coord="c-intro.umt:316:207">*</samp>, <samp data-coord="c-intro.umt:316:212">/</samp>, <samp data-coord="c-intro.umt:316:217">%</samp>, with results consistent with usual arithmetic
+(subject to size restrictions).
+</p></li><li data-coord="c-intro.umt:322:0"><p data-coord="c-intro.umt:322:4">However, C has operators like bitwise-and <samp data-coord="c-intro.umt:322:46">&amp;</samp>, bitwise-or <samp data-coord="c-intro.umt:322:62">|</samp>,
+left-shift <samp data-coord="c-intro.umt:322:82">&lt;&lt;</samp> and right-shift <samp data-coord="c-intro.umt:322:103">&gt;&gt;</samp> in which the representation
+of integers is no longer abstract.  So it is necessary to understand
+the internal representation of integers.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:327:0"><h2 data-coord="c-intro.umt:327:0">Decimal Positional Notation</h2><p data-coord="c-intro.umt:330:0">In positional notation, the value of a digit depends on its position
+in the number.  Specifically, a decimal integer \(d_{n-1}d_{n-2}\ldots
+d_1d_0\) represents the number:
+</p>\[       10^{n-1}\times d_{n-1} + 10^{n-2}\times d_{n-2} + 
+       \ldots + 10^1\times d_1 + 10^0\times d_0
+\]<p data-coord="c-intro.umt:339:0">For example,
+</p>\[123 == 1\times 10^2 + 2\times 10^1 + 3\times 10^0
+\]<p data-coord="c-intro.umt:345:0">Positional notation is a big win over additive notations like <em data-coord="c-intro.umt:345:62">Roman
+numerals</em> as the value of a represented number increases exponentially
+with the length of the representation.
+</p></section><section class="umt-slide" data-coord="c-intro.umt:349:0"><h2 data-coord="c-intro.umt:349:0">Positional Notation for a General Base</h2><p data-coord="c-intro.umt:352:1">For a general base \(B\) and <em data-coord="c-intro.umt:352:29">digits</em> \(0, 1, \ldots B-1\) in base-\(B\), the value of an \(n\)-digit integer \(b_{n-1}b_{n-2}\ldots
+ b_1b_0\) in base-\(B\) is given by:
+</p>\[       B^{n-1}\times b_{n-1} + B^{n-2}\times b_{n-2} + 
+       \ldots + B^1\times b_1 + B^0\times b_0
+\]<p data-coord="c-intro.umt:361:0">For example, <samp data-coord="c-intro.umt:361:13">0x123</samp> (base-16) is
+</p>\[1\times 16^2 + 2\times 16^1 + 3\times 16^0
+\]<p data-coord="c-intro.umt:367:0">which is 291$, while <samp data-coord="c-intro.umt:367:21">0123</samp> (base-8) is
+</p>\[1\times 8^2 + 2\times 8^1 + 3\times 8^0
+\]<p data-coord="c-intro.umt:373:0">which is 83.
+</p></section><section class="umt-slide" data-coord="c-intro.umt:375:0"><h2 data-coord="c-intro.umt:375:0">Common Bases used in Programming</h2><ul data-coord="c-intro.umt:378:0"><li data-coord="c-intro.umt:378:0"><p data-coord="c-intro.umt:378:4">Decimal base is almost always the default.  Example: <samp data-coord="c-intro.umt:378:57">75</samp>
+</p></li><li data-coord="c-intro.umt:380:0"><p data-coord="c-intro.umt:380:4">Base-2 binary numbers are commonly used within computers but usually
+too verbose for human use. Example: <samp data-coord="c-intro.umt:380:113">01001011</samp> binary which is <samp data-coord="c-intro.umt:380:140">75</samp>
+decimal.  Not in standard C, available as gcc extension <samp data-coord="c-intro.umt:380:205">0b01001011</samp>.
+</p></li><li data-coord="c-intro.umt:384:0"><p data-coord="c-intro.umt:384:4">Base-16 commonly used as it is easy to convert to/from binary.
+Digits <samp data-coord="c-intro.umt:384:78">0</samp> .. <samp data-coord="c-intro.umt:384:86">9</samp> have usual meanings, <samp data-coord="c-intro.umt:384:111">A</samp> .. <samp data-coord="c-intro.umt:384:119">F</samp> (can also be
+lower-case) represent values 10 .. 15.  An example of a C
+hexadecimal literal is <samp data-coord="c-intro.umt:384:226">0x4B</samp> (or <samp data-coord="c-intro.umt:384:237">0x4b</samp>) equal to decimal <samp data-coord="c-intro.umt:384:262">75</samp>.
+</p></li><li data-coord="c-intro.umt:389:0"><p data-coord="c-intro.umt:389:4">Base-8 was used earlier when word-lengths were multiples of 3 bits
+(PDP-8: 12-bits) but not popular currently.  In C, any integer
+starting with a leading <samp data-coord="c-intro.umt:389:166">0</samp> is octal.  For example, C interprets
+<samp data-coord="c-intro.umt:389:211">0113</samp> as an octal literal equal to decimal <samp data-coord="c-intro.umt:389:255">75</samp>.  <strong data-coord="c-intro.umt:389:262">This can be a
+    gotcha for the unwary.</strong>
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:396:0"><h2 data-coord="c-intro.umt:396:0">Representations</h2><table data-coord="c-intro.umt:400:0"><tr data-coord="c-intro.umt:400:0"><th data-coord="c-intro.umt:400:0">Binary   
+</th><th data-coord="c-intro.umt:400:0">  Decimal 
+</th><th data-coord="c-intro.umt:400:0">   Hex  
+</th><th data-coord="c-intro.umt:400:0">  Oct
+</th></tr><tr data-coord="c-intro.umt:400:105"><td data-coord="c-intro.umt:400:105">0000     
+</td><td data-coord="c-intro.umt:400:105">    0     
+</td><td data-coord="c-intro.umt:400:105">   0x0  
+</td><td data-coord="c-intro.umt:400:105">  00
+</td></tr><tr data-coord="c-intro.umt:400:155"><td data-coord="c-intro.umt:400:155">0001     
+</td><td data-coord="c-intro.umt:400:155">    1     
+</td><td data-coord="c-intro.umt:400:155">   0x1  
+</td><td data-coord="c-intro.umt:400:155">  01
+</td></tr><tr data-coord="c-intro.umt:400:205"><td data-coord="c-intro.umt:400:205">0010     
+</td><td data-coord="c-intro.umt:400:205">    2     
+</td><td data-coord="c-intro.umt:400:205">   0x2  
+</td><td data-coord="c-intro.umt:400:205">  02
+</td></tr><tr data-coord="c-intro.umt:400:255"><td data-coord="c-intro.umt:400:255">0011     
+</td><td data-coord="c-intro.umt:400:255">    3     
+</td><td data-coord="c-intro.umt:400:255">   0x3  
+</td><td data-coord="c-intro.umt:400:255">  03
+</td></tr><tr data-coord="c-intro.umt:400:305"><td data-coord="c-intro.umt:400:305">0100     
+</td><td data-coord="c-intro.umt:400:305">    4     
+</td><td data-coord="c-intro.umt:400:305">   0x4  
+</td><td data-coord="c-intro.umt:400:305">  04
+</td></tr><tr data-coord="c-intro.umt:400:355"><td data-coord="c-intro.umt:400:355">0101     
+</td><td data-coord="c-intro.umt:400:355">    5     
+</td><td data-coord="c-intro.umt:400:355">   0x5  
+</td><td data-coord="c-intro.umt:400:355">  05
+</td></tr><tr data-coord="c-intro.umt:400:405"><td data-coord="c-intro.umt:400:405">0110     
+</td><td data-coord="c-intro.umt:400:405">    6     
+</td><td data-coord="c-intro.umt:400:405">   0x6  
+</td><td data-coord="c-intro.umt:400:405">  06
+</td></tr><tr data-coord="c-intro.umt:400:455"><td data-coord="c-intro.umt:400:455">0111     
+</td><td data-coord="c-intro.umt:400:455">    7     
+</td><td data-coord="c-intro.umt:400:455">   0x7  
+</td><td data-coord="c-intro.umt:400:455">  07
+</td></tr></table></section><section class="umt-slide" data-coord="c-intro.umt:413:0"><h2 data-coord="c-intro.umt:413:0">Representations Continued</h2><table data-coord="c-intro.umt:417:0"><tr data-coord="c-intro.umt:417:0"><th data-coord="c-intro.umt:417:0">Binary   
+</th><th data-coord="c-intro.umt:417:0">  Decimal 
+</th><th data-coord="c-intro.umt:417:0">   Hex  
+</th><th data-coord="c-intro.umt:417:0">  Oct
+</th></tr><tr data-coord="c-intro.umt:417:105"><td data-coord="c-intro.umt:417:105">1000     
+</td><td data-coord="c-intro.umt:417:105">    8     
+</td><td data-coord="c-intro.umt:417:105">   0x8  
+</td><td data-coord="c-intro.umt:417:105">  010
+</td></tr><tr data-coord="c-intro.umt:417:156"><td data-coord="c-intro.umt:417:156">1001     
+</td><td data-coord="c-intro.umt:417:156">    9     
+</td><td data-coord="c-intro.umt:417:156">   0x9  
+</td><td data-coord="c-intro.umt:417:156">  011
+</td></tr><tr data-coord="c-intro.umt:417:207"><td data-coord="c-intro.umt:417:207">1010     
+</td><td data-coord="c-intro.umt:417:207">    10    
+</td><td data-coord="c-intro.umt:417:207">   0xA  
+</td><td data-coord="c-intro.umt:417:207">  012
+</td></tr><tr data-coord="c-intro.umt:417:258"><td data-coord="c-intro.umt:417:258">1011     
+</td><td data-coord="c-intro.umt:417:258">    11    
+</td><td data-coord="c-intro.umt:417:258">   0xB  
+</td><td data-coord="c-intro.umt:417:258">  013
+</td></tr><tr data-coord="c-intro.umt:417:309"><td data-coord="c-intro.umt:417:309">1100     
+</td><td data-coord="c-intro.umt:417:309">    12    
+</td><td data-coord="c-intro.umt:417:309">   0xC  
+</td><td data-coord="c-intro.umt:417:309">  014
+</td></tr><tr data-coord="c-intro.umt:417:360"><td data-coord="c-intro.umt:417:360">1101     
+</td><td data-coord="c-intro.umt:417:360">    13    
+</td><td data-coord="c-intro.umt:417:360">   0xD  
+</td><td data-coord="c-intro.umt:417:360">  015
+</td></tr><tr data-coord="c-intro.umt:417:411"><td data-coord="c-intro.umt:417:411">1110     
+</td><td data-coord="c-intro.umt:417:411">    14    
+</td><td data-coord="c-intro.umt:417:411">   0xE  
+</td><td data-coord="c-intro.umt:417:411">  016
+</td></tr><tr data-coord="c-intro.umt:417:462"><td data-coord="c-intro.umt:417:462">1111     
+</td><td data-coord="c-intro.umt:417:462">    15    
+</td><td data-coord="c-intro.umt:417:462">   0xF  
+</td><td data-coord="c-intro.umt:417:462">  017
+</td></tr></table></section><section class="umt-slide" data-coord="c-intro.umt:430:0"><h2 data-coord="c-intro.umt:430:0">Octal, Hexadecimal Conversions in C</h2><p data-coord="c-intro.umt:433:0">In <a href="./code/bases.c" data-coord="c-intro.umt:433:21">bases.c:</a>
+</p><pre><span class="hl kwb">static void</span>
+<span class="hl kwd">bases</span><span class="hl opt">(</span><span class="hl kwb">long</span> values<span class="hl opt">[],</span> <span class="hl kwb">int</span> nValues<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> nValues<span class="hl opt">;</span> i<span class="hl opt">++) {</span>
+    <span class="hl kwb">long</span> v <span class="hl opt">=</span> values<span class="hl opt">[</span>i<span class="hl opt">];</span>
+    <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;number: %ld == 0%lo == 0X%lX == 0x%lx</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+           v<span class="hl opt">,</span> v<span class="hl opt">,</span> v<span class="hl opt">,</span> v<span class="hl opt">);</span>
+  <span class="hl opt">}</span>
+<span class="hl opt">}</span>
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:437:0"><h2 data-coord="c-intro.umt:437:0">Octal, Hexadecimal Conversions in C: <samp data-coord="c-intro.umt:437:37">main()</samp></h2><p data-coord="c-intro.umt:440:0">In <a href="./code/bases.c" data-coord="c-intro.umt:440:21">bases.c:</a>
+</p><pre>
+<span class="hl kwb">int</span>
+<span class="hl kwd">main</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">long</span> values1<span class="hl opt">[] = {</span> <span class="hl num">75</span><span class="hl opt">,</span> <span class="hl num">123</span><span class="hl opt">,</span> <span class="hl num">99</span> <span class="hl opt">};</span>
+  <span class="hl kwb">long</span> values2<span class="hl opt">[] = {</span> <span class="hl num">075</span><span class="hl opt">,</span> <span class="hl num">0x123</span><span class="hl opt">,</span> <span class="hl num">0x99</span> <span class="hl opt">};</span>
+  <span class="hl kwd">bases</span><span class="hl opt">(</span>values1<span class="hl opt">,</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>values1<span class="hl opt">)/</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>values1<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]));</span>
+  <span class="hl kwd">bases</span><span class="hl opt">(</span>values2<span class="hl opt">,</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>values2<span class="hl opt">)/</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>values2<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]));</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:445:0"><h2 data-coord="c-intro.umt:445:0">Octal, Hexadecimal Conversions in C Log</h2><pre data-coord="c-intro.umt:449:0">$ ./bases
+number: 75 == 0113 == 0X4B == 0x4b
+number: 123 == 0173 == 0X7B == 0x7b
+number: 99 == 0143 == 0X63 == 0x63
+number: 61 == 075 == 0X3D == 0x3d
+number: 291 == 0443 == 0X123 == 0x123
+number: 153 == 0231 == 0X99 == 0x99
+$
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:462:0"><h2 data-coord="c-intro.umt:462:0">Signed Magnitude Representation of Signed Integers</h2><p data-coord="c-intro.umt:465:0"><em data-coord="c-intro.umt:465:0">Signed magnitude</em> representation:
+</p><ul data-coord="c-intro.umt:467:0"><li data-coord="c-intro.umt:467:0"><p data-coord="c-intro.umt:467:4">Integer represented using a single sign bit (0 positive, 1 negative)
+and an unsigned magnitude. 
+</p></li><li data-coord="c-intro.umt:470:0"><p data-coord="c-intro.umt:470:4"><samp data-coord="c-intro.umt:470:4">+75</samp> has 8-bit signed magnitude representation <samp data-coord="c-intro.umt:470:52">01001011</samp>; 
+<samp data-coord="c-intro.umt:470:69">-75</samp> has 8-bit signed magnitude representation <samp data-coord="c-intro.umt:470:117">11001011</samp>; 
+</p></li><li data-coord="c-intro.umt:473:0"><p data-coord="c-intro.umt:473:4">0 has two representations: <samp data-coord="c-intro.umt:473:31">+0</samp> <samp data-coord="c-intro.umt:473:36">00000000</samp> and <samp data-coord="c-intro.umt:473:51">-0</samp> <samp data-coord="c-intro.umt:473:56">10000000</samp>.
+</p></li><li data-coord="c-intro.umt:475:0"><p data-coord="c-intro.umt:475:4">Not used in practice, but useful when interpreting floating point
+representation as integers.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:478:0"><h2 data-coord="c-intro.umt:478:0">Two's Complement Representation</h2><ul data-coord="c-intro.umt:481:0"><li data-coord="c-intro.umt:481:0"><p data-coord="c-intro.umt:481:4">Two's complement is the representation used currently for
+representing signed integers.  Given bits \(b_{n-1}b_{n-2}\ldots
+    b_1 b_0\), the MSB is used as a sign bit with weight
+\(-2^{n-1}\).  The overall value is:
+</p>\[
+      b_{n-1} \times -2^{n - 1} + b_{n-2} \times 2^{n - 2}
+        \ldots
+      b_1 \times 2^1 + b_0 \times 2^0
+\]</li><li data-coord="c-intro.umt:493:0"><p data-coord="c-intro.umt:493:4"><samp data-coord="c-intro.umt:493:4">+75</samp> has 8-bit 2's complement representation <samp data-coord="c-intro.umt:493:50">01001011</samp>; 
+<samp data-coord="c-intro.umt:493:67">-75</samp> has 8-bit 2's complement representation <samp data-coord="c-intro.umt:493:113">10110101</samp> which is
+<samp data-coord="c-intro.umt:493:137">-128 + 53</samp>.
+</p></li><li data-coord="c-intro.umt:497:0"><p data-coord="c-intro.umt:497:4">To negate a 2's complement number, form its bit-complement and
+add 1 to the result.  For example, <samp data-coord="c-intro.umt:497:106">-75 == (~01001011 + 1) ==
+    (10110100 + 1) == 10110101</samp>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:502:0"><h2 data-coord="c-intro.umt:502:0">Two's Complement Examples</h2><p data-coord="c-intro.umt:505:0">Examples of 8-bit 2's complement numbers:               
+</p><pre data-coord="c-intro.umt:508:0">    1000 0000 == -128
+    1000 0001 == -127
+    1000 0010 == -126
+    1000 0011 == -125
+    ...
+    1111 1111 == -1
+    0000 0000 == 0
+    0000 0001 == 1
+    ...
+    0111 1111 == 127
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:520:0"><h2 data-coord="c-intro.umt:520:0">Output Binary Representation</h2><p data-coord="c-intro.umt:523:0"><span id="out-bits" data-coord="c-intro.umt:523:11">In</span> <a href="code/out-bits.c" data-coord="c-intro.umt:523:33">out-bits.c:</a>
+</p><pre>
+<span class="hl kwb">static void</span> <span class="hl kwd">out_bits</span><span class="hl opt">(</span><span class="hl kwb">short</span> value<span class="hl opt">,</span> <span class="hl kwb">FILE</span> <span class="hl opt">*</span>out<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwd">fprintf</span><span class="hl opt">(</span>out<span class="hl opt">,</span> <span class="hl str">&quot;%d == 0x%x == 0%o == 0b&quot;</span><span class="hl opt">,</span>
+          value<span class="hl opt">,</span> value<span class="hl opt">,</span> value<span class="hl opt">);</span>
+  <span class="hl kwb">int</span> nBits <span class="hl opt">=</span> CHAR_BIT <span class="hl opt">*</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>value<span class="hl opt">);</span>
+  <span class="hl kwb">unsigned</span> mask <span class="hl opt">=</span> <span class="hl num">0x1</span> <span class="hl opt">&lt;&lt; (</span>nBits <span class="hl opt">-</span> <span class="hl num">1</span><span class="hl opt">);</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> nBits<span class="hl opt">;</span> i<span class="hl opt">++) {</span>
+    <span class="hl kwb">char</span> c <span class="hl opt">= (</span>mask <span class="hl opt">&amp;</span> value<span class="hl opt">) ?</span> <span class="hl str">&apos;1&apos;</span> <span class="hl opt">:</span> <span class="hl str">&apos;0&apos;</span><span class="hl opt">;</span>
+    mask <span class="hl opt">&gt;&gt;=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>out<span class="hl opt">,</span> <span class="hl str">&quot;%c&quot;</span><span class="hl opt">,</span> c<span class="hl opt">);</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span>i <span class="hl opt">%</span> <span class="hl num">4</span> <span class="hl opt">==</span> <span class="hl num">3</span> <span class="hl opt">&amp;&amp;</span> i <span class="hl opt">!=</span> nBits <span class="hl opt">-</span> <span class="hl num">1</span><span class="hl opt">)</span> <span class="hl kwd">fprintf</span><span class="hl opt">(</span>out<span class="hl opt">,</span> <span class="hl str">&quot;_&quot;</span><span class="hl opt">);</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwd">fprintf</span><span class="hl opt">(</span>out<span class="hl opt">,</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+<span class="hl opt">}</span>
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:527:0"><h2 data-coord="c-intro.umt:527:0">Output Binary Representation: <samp data-coord="c-intro.umt:527:30">main()</samp></h2><p data-coord="c-intro.umt:530:0">In <a href="code/out-bits.c" data-coord="c-intro.umt:530:22">out-bits.c:</a>
+</p><pre>
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">short</span> values<span class="hl opt">[] = {</span>
+    <span class="hl num">0</span><span class="hl opt">,</span> <span class="hl num">16</span><span class="hl opt">,</span> <span class="hl num">255</span><span class="hl opt">,</span> <span class="hl num">1</span><span class="hl opt">&lt;&lt;(</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span><span class="hl kwb">short</span><span class="hl opt">)*</span>CHAR_BIT <span class="hl opt">-</span> <span class="hl num">2</span><span class="hl opt">), -</span><span class="hl num">1</span>
+  <span class="hl opt">};</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+       i <span class="hl opt">&lt;</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>values<span class="hl opt">)/</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>values<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]);</span>
+       i<span class="hl opt">++) {</span>
+    <span class="hl kwd">out_bits</span><span class="hl opt">(</span>values<span class="hl opt">[</span>i<span class="hl opt">],</span> stdout<span class="hl opt">);</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:534:0"><h2 data-coord="c-intro.umt:534:0">Output Binary Representation: Log</h2><pre data-coord="c-intro.umt:538:0">./out-bits 
+0 == 0x0 == 00 == 0b0000_0000_0000_0000
+16 == 0x10 == 020 == 0b0000_0000_0001_0000
+255 == 0xff == 0377 == 0b0000_0000_1111_1111
+16384 == 0x4000 == 040000 == 0b0100_0000_0000_0000
+-1 == 0xffffffff == 037777777777 == 0b1111_1111_1111_1111
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:547:0"><h2 data-coord="c-intro.umt:547:0">Two's Complement Features</h2><ul data-coord="c-intro.umt:550:0"><li data-coord="c-intro.umt:550:0"><p data-coord="c-intro.umt:550:4">Asymmetric.  With n-bits, non-negative numbers range from \(0 \ldots
+    2^{n-1}-1\) but the negative numbers range from \(-1 \ldots -2^{n - 1}\).
+There is no positive counterpart to \(-2^{n-1}\).  This can result in
+subtle bugs.
+</p></li><li data-coord="c-intro.umt:555:0"><p data-coord="c-intro.umt:555:4">Each representable number has a unique representation.  No multiple
+representations for 0.  <samp data-coord="c-intro.umt:555:100">-0 == (0xFFFFFFFF + 1) == </samp>0x00000000`.
+</p></li><li data-coord="c-intro.umt:558:0"><p data-coord="c-intro.umt:558:4">Note that an unsigned \(n\)-bit number can represent values in the
+range \(0 \ldots 2^n - 1\).  So the largest unsigned number is 
+1 more than twice the largest positive 2's complement number.  This
+is something to keep in mind when converting between signed and
+unsigned representation.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:565:0"><h2 data-coord="c-intro.umt:565:0">C Integer Literals</h2><p data-coord="c-intro.umt:568:0">As discussed previously, integer values can be specified in octal
+(leading <samp data-coord="c-intro.umt:568:75">0</samp>), hexadecimal (leading <samp data-coord="c-intro.umt:568:102">0x</samp> or <samp data-coord="c-intro.umt:568:110">0X</samp>) or decimal
+(default).  However, that does not say anything about which integer
+type that literal corresponds to.
+</p><ul data-coord="c-intro.umt:573:0"><li data-coord="c-intro.umt:573:0"><p data-coord="c-intro.umt:573:4"><samp data-coord="c-intro.umt:573:4">short</samp> and <samp data-coord="c-intro.umt:573:16">char</samp> integers always promoted to <samp data-coord="c-intro.umt:573:51">int</samp> integers within
+expressions.  Hence <samp data-coord="c-intro.umt:573:97">short</samp>, <samp data-coord="c-intro.umt:573:106">char</samp> are primarily storage types.
+</p></li><li data-coord="c-intro.umt:576:0"><p data-coord="c-intro.umt:576:4">A literal with <samp data-coord="c-intro.umt:576:19">l</samp> or <samp data-coord="c-intro.umt:576:26">L</samp> suffix is a long.  Presence of a <samp data-coord="c-intro.umt:576:63">long</samp>
+literal within an expression will force expression to be evaluated
+as a <samp data-coord="c-intro.umt:576:150">long</samp>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:581:0"><h2 data-coord="c-intro.umt:581:0">C Integer Literals Continued</h2><ul data-coord="c-intro.umt:584:0"><li data-coord="c-intro.umt:584:0"><p data-coord="c-intro.umt:584:4">A integer literal with a <samp data-coord="c-intro.umt:584:29">u</samp> or <samp data-coord="c-intro.umt:584:36">U</samp> suffix is unsigned. Example <samp data-coord="c-intro.umt:584:68">1024U</samp>.  
+</p></li><li data-coord="c-intro.umt:586:0"><p data-coord="c-intro.umt:586:4">A integer literal with a <samp data-coord="c-intro.umt:586:29">ll</samp> or <samp data-coord="c-intro.umt:586:37">LL</samp> suffix is <samp data-coord="c-intro.umt:586:52">long long</samp>.
+Example: <samp data-coord="c-intro.umt:586:78">1024LL</samp>.
+</p></li><li data-coord="c-intro.umt:589:0"><p data-coord="c-intro.umt:589:4">The size and unsigned suffixes can be combined in either order: <samp data-coord="c-intro.umt:589:68">1024UL</samp>
+or <samp data-coord="c-intro.umt:589:84">1024Lu</samp> are the same.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:592:0"><h2 data-coord="c-intro.umt:592:0">Bit Operators</h2><dl data-coord="c-intro.umt:595:0"><dt data-coord="c-intro.umt:595:2"> <samp data-coord="c-intro.umt:595:1">&amp;</samp></dt><dd data-coord="c-intro.umt:596:0"><p data-coord="c-intro.umt:596:5">Bitwise-and of two integers. <samp data-coord="c-intro.umt:596:34">0x1234 &amp; 0xF0F0</samp> results in <samp data-coord="c-intro.umt:596:63">0x1030</samp>.
+</p></dd><dt data-coord="c-intro.umt:598:2"> <samp data-coord="c-intro.umt:598:1">|</samp></dt><dd data-coord="c-intro.umt:599:0"><p data-coord="c-intro.umt:599:5">Bitwise-or of two integers. <samp data-coord="c-intro.umt:599:33">0x1234 | 0xF0F0</samp> results in <samp data-coord="c-intro.umt:599:62">0xF2F4</samp>.
+</p></dd><dt data-coord="c-intro.umt:601:2"> <samp data-coord="c-intro.umt:601:1">^</samp></dt><dd data-coord="c-intro.umt:602:0"><p data-coord="c-intro.umt:602:5">Bitwise-xor of two integers. <samp data-coord="c-intro.umt:602:34">0x1234 ^ 0xF0F0</samp> results in <samp data-coord="c-intro.umt:602:63">0xE2C4</samp>.
+</p></dd><dt data-coord="c-intro.umt:604:2"> <samp data-coord="c-intro.umt:604:1">~</samp></dt><dd data-coord="c-intro.umt:605:0"><p data-coord="c-intro.umt:605:5">Bitwise complement. <samp data-coord="c-intro.umt:605:25">~0x1234</samp> results in <samp data-coord="c-intro.umt:605:46">0xEDCB</samp>.  
+</p></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:608:0"><h2 data-coord="c-intro.umt:608:0">Shift Operators</h2><dl data-coord="c-intro.umt:611:0"><dt data-coord="c-intro.umt:611:2"> <samp data-coord="c-intro.umt:611:1">&lt;&lt;</samp></dt><dd data-coord="c-intro.umt:612:0"><p data-coord="c-intro.umt:612:5"><samp data-coord="c-intro.umt:612:5">i &lt;&lt; n</samp> is the value of <samp data-coord="c-intro.umt:612:30">i</samp> shifted to the left by <samp data-coord="c-intro.umt:612:57">n</samp> bits with
+0 being shifted in from the right.  <samp data-coord="c-intro.umt:612:112">0x3 &lt;&lt; 2</samp> is <samp data-coord="c-intro.umt:612:126">0xC</samp>.  Can be
+used for multiplying by powers-of-2.
+</p></dd><dt data-coord="c-intro.umt:616:2"> <samp data-coord="c-intro.umt:616:1">&gt;&gt;</samp></dt><dd data-coord="c-intro.umt:617:0"><p data-coord="c-intro.umt:617:5"><samp data-coord="c-intro.umt:617:5">i &gt;&gt; n</samp> is the value of <samp data-coord="c-intro.umt:617:30">i</samp> shifted to the right by <samp data-coord="c-intro.umt:617:58">n</samp> bits.  If <samp data-coord="c-intro.umt:617:72">i</samp>
+is unsigned, then 0 is shifted in from the left; otherwise the sign bit
+is shifted in.  Example: <samp data-coord="c-intro.umt:617:183">0xC &gt;&gt; 2</samp> is <samp data-coord="c-intro.umt:617:197">0x3</samp>.
+</p></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:622:0"><h2 data-coord="c-intro.umt:622:0">Bit and Shift Operator Examples</h2><p data-coord="c-intro.umt:625:0">Assume <samp data-coord="c-intro.umt:625:7">unsigned int u</samp> and bits are numbered starting with LSB
+being bit 0, next bit being 1, etc.
+</p><ul data-coord="c-intro.umt:628:0"><li data-coord="c-intro.umt:628:0"><p data-coord="c-intro.umt:628:4">Bitwise operators have unintuitive precedence; always
+parenthesize to avoid ambiguity.
+</p></li><li data-coord="c-intro.umt:631:0"><p data-coord="c-intro.umt:631:4">Non-zero iff bit 0 of <samp data-coord="c-intro.umt:631:26">u</samp> is <samp data-coord="c-intro.umt:631:33">0</samp>: <samp data-coord="c-intro.umt:631:38">((u &amp; 0x1) == 0)</samp>.
+</p></li><li data-coord="c-intro.umt:633:0"><p data-coord="c-intro.umt:633:4">Non-zero iff bit 2 of <samp data-coord="c-intro.umt:633:26">u</samp> is <samp data-coord="c-intro.umt:633:33">1</samp>: <samp data-coord="c-intro.umt:633:38">((u &amp; 0x4) != 0)</samp>.
+</p></li><li data-coord="c-intro.umt:635:0"><p data-coord="c-intro.umt:635:4">Set LSB of <samp data-coord="c-intro.umt:635:15">u</samp> to <samp data-coord="c-intro.umt:635:22">1</samp> without changing other bits: <samp data-coord="c-intro.umt:635:55">u |= 0x1</samp>.
+</p></li><li data-coord="c-intro.umt:637:0"><p data-coord="c-intro.umt:637:4">Set LSB of <samp data-coord="c-intro.umt:637:15">u</samp> to <samp data-coord="c-intro.umt:637:22">0</samp> without changing other bits: <samp data-coord="c-intro.umt:637:55">u &amp;= ~0x1</samp>.
+</p></li><li data-coord="c-intro.umt:639:0"><p data-coord="c-intro.umt:639:4">Value of 2nd hexet (bits 4 - 7) of <samp data-coord="c-intro.umt:639:39">u</samp>: <samp data-coord="c-intro.umt:639:44">(u &amp; 0xf0) &gt;&gt; 4</samp> or 
+<samp data-coord="c-intro.umt:639:70">(u &gt;&gt; 4) &amp; 0x0f</samp>.
+</p></li><li data-coord="c-intro.umt:642:0"><p data-coord="c-intro.umt:642:4">Non-zero iff MSB of <samp data-coord="c-intro.umt:642:24">u</samp> is 1: <samp data-coord="c-intro.umt:642:34">(u &amp; (~0u &gt;&gt; 1)) != 0</samp>.  Note
+<samp data-coord="c-intro.umt:642:69">u</samp> suffix in <samp data-coord="c-intro.umt:642:83">0u</samp> absolutely necessary.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:646:0"><h2 data-coord="c-intro.umt:646:0">Counting # of 1s in an <samp data-coord="c-intro.umt:646:23">int</samp></h2><p data-coord="c-intro.umt:650:0">In <a href="./code/count-1s-1.c" data-coord="c-intro.umt:650:26">count-1s-1.c:</a>
+</p><pre><span class="hl kwb">int</span>
+<span class="hl kwd">count_ones</span><span class="hl opt">(</span><span class="hl kwb">unsigned</span> v<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">int</span> ones <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">unsigned</span> i <span class="hl opt">=</span> v<span class="hl opt">;</span> i <span class="hl opt">&gt;</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&gt;&gt;=</span> <span class="hl num">1</span><span class="hl opt">) {</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span>i <span class="hl opt">&amp;</span> <span class="hl num">1</span><span class="hl opt">)</span> ones<span class="hl opt">++;</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">return</span> ones<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:654:0"><h2 data-coord="c-intro.umt:654:0">Counting # of 1s in an <samp data-coord="c-intro.umt:654:23">int</samp> Continued</h2><p data-coord="c-intro.umt:658:0">In <a href="./code/count-1s-1.c" data-coord="c-intro.umt:658:26">count-1s-1.c:</a>
+</p><pre>
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">() {</span>
+  <span class="hl kwb">unsigned</span> values<span class="hl opt">[] = {</span> <span class="hl num">123</span><span class="hl opt">,</span> <span class="hl num">32</span><span class="hl opt">,</span> <span class="hl num">255</span> <span class="hl opt">};</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span>values<span class="hl opt">)/</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>values<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]);</span>
+       i<span class="hl opt">++) {</span>
+    <span class="hl kwb">unsigned</span> v <span class="hl opt">=</span> values<span class="hl opt">[</span>i<span class="hl opt">];</span>
+    <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;# of ones in %u (0x%x) is %d</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+           v<span class="hl opt">,</span> v<span class="hl opt">,</span> <span class="hl kwd">count_ones</span><span class="hl opt">(</span>v<span class="hl opt">));</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:662:0"><h2 data-coord="c-intro.umt:662:0">Counting # of 1s in an <samp data-coord="c-intro.umt:662:23">int</samp> Log</h2><pre data-coord="c-intro.umt:666:0">$ ./count-1s-1
+# of ones in 123 (0x7b) is 6
+# of ones in 32 (0x20) is 1
+# of ones in 255 (0xff) is 8
+$
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:673:0"><h2 data-coord="c-intro.umt:673:0">Counting # of 1s in an <samp data-coord="c-intro.umt:673:23">int</samp> Discussion</h2><ul data-coord="c-intro.umt:676:0"><li data-coord="c-intro.umt:676:0"><p data-coord="c-intro.umt:676:4">The loop starts with <samp data-coord="c-intro.umt:676:25">i</samp> set to the value <samp data-coord="c-intro.umt:676:46">v</samp> within which
+we want to count the number of 1-bits.
+</p></li><li data-coord="c-intro.umt:679:0"><p data-coord="c-intro.umt:679:4">Basic C does not have boolean type; the value 0 is treated as
+<strong data-coord="c-intro.umt:679:70">false</strong>, any non-zero value is treated as <strong data-coord="c-intro.umt:679:112">true</strong>.  Hence <samp data-coord="c-intro.umt:679:127">ones</samp> is
+incremented if <samp data-coord="c-intro.umt:679:156">i &amp; 1</samp> is non-zero; i.e., <samp data-coord="c-intro.umt:679:183">ones</samp> is incremented iff
+the least-significant bit (LSB) of <samp data-coord="c-intro.umt:679:248">i</samp> is 1.
+</p></li><li data-coord="c-intro.umt:684:0"><p data-coord="c-intro.umt:684:4">After each iteration of the loop, <samp data-coord="c-intro.umt:684:38">i</samp> is shifted to the right by
+1 position.  Thus the 1's in <samp data-coord="c-intro.umt:684:102">i</samp> make their way towards the LSB.
+</p></li><li data-coord="c-intro.umt:687:0"><p data-coord="c-intro.umt:687:4">The loop terminates when <samp data-coord="c-intro.umt:687:29">i</samp> is 0; i.e., there are no more 1's
+to count and <samp data-coord="c-intro.umt:687:84">ones</samp> contains the count of 1's in the original
+value <samp data-coord="c-intro.umt:687:143">v</samp>.
+</p></li><li data-coord="c-intro.umt:691:0"><p data-coord="c-intro.umt:691:4">The number of iterations in the loop will depend on the position
+of the leftmost 1 in the original value <samp data-coord="c-intro.umt:691:113">v</samp>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:694:0"><h2 data-coord="c-intro.umt:694:0">Counting # of 1s in an <samp data-coord="c-intro.umt:694:23">int</samp>: 2nd Attempt</h2><p data-coord="c-intro.umt:697:0">In <a href="./code/count-1s-2.c" data-coord="c-intro.umt:697:26">count-1s-2.c</a> we reduce number of loop
+iterations to number of 1's in original value:
+</p><pre><span class="hl kwb">int</span>
+<span class="hl kwd">count_ones</span><span class="hl opt">(</span><span class="hl kwb">unsigned</span> v<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">int</span> ones <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+  <span class="hl kwa">while</span> <span class="hl opt">(</span>v <span class="hl opt">&gt;</span> <span class="hl num">0</span><span class="hl opt">) {</span>
+    v <span class="hl opt">&amp;=</span> v <span class="hl opt">-</span> <span class="hl num">1</span><span class="hl opt">;</span>
+    ones<span class="hl opt">++;</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">return</span> ones<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:703:0"><h2 data-coord="c-intro.umt:703:0">Counting # of 1s in an <samp data-coord="c-intro.umt:703:23">int</samp>: 2nd Attempt Discussion</h2><ul data-coord="c-intro.umt:706:0"><li data-coord="c-intro.umt:706:0"><p data-coord="c-intro.umt:706:4">If <samp data-coord="c-intro.umt:706:7">v</samp> is <samp data-coord="c-intro.umt:706:14">101000</samp>, then <samp data-coord="c-intro.umt:706:29">v - 1</samp> is <samp data-coord="c-intro.umt:706:40">100111</samp>.  Hence <samp data-coord="c-intro.umt:706:57">v &amp; (v - 1)</samp> 
+is <samp data-coord="c-intro.umt:706:79">100000</samp>.  By assigning this back to <samp data-coord="c-intro.umt:706:116">v</samp>, we knock-out the
+rightmost 1 in <samp data-coord="c-intro.umt:706:157">v</samp> in each loop iteration.
+</p></li><li data-coord="c-intro.umt:710:0"><p data-coord="c-intro.umt:710:4">Since we knock-out the rigthmost 1 in each loop iteration and
+increment <samp data-coord="c-intro.umt:710:80">ones</samp> on each loop iteration and terminate the loop
+when no 1's remain in <samp data-coord="c-intro.umt:710:159">v</samp>, at loop termination <samp data-coord="c-intro.umt:710:184">ones</samp> will 
+contain the number of 1's in the original value of <samp data-coord="c-intro.umt:710:252">v</samp>.
+</p></li><li data-coord="c-intro.umt:715:0"><p data-coord="c-intro.umt:715:4">Note that even though the parameter value <samp data-coord="c-intro.umt:715:46">v</samp> is being changed
+within <samp data-coord="c-intro.umt:715:78">count_ones()</samp>, that change will not be reflected in
+the caller of <samp data-coord="c-intro.umt:715:149">count_ones()</samp>.  That is because when parameters
+are passed in C, a copy of the actual parameter is passed.
+This is referred to as <strong data-coord="c-intro.umt:715:288">call-by-value</strong>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:721:0"><h2 data-coord="c-intro.umt:721:0">Big Endian versus Little Endian</h2><ul data-coord="c-intro.umt:724:0"><li data-coord="c-intro.umt:724:0"><p data-coord="c-intro.umt:724:4">In what order are multi-byte quantities (like integers or floats) stored
+in memory? 
+</p></li><li data-coord="c-intro.umt:727:0"><p data-coord="c-intro.umt:727:4">Two common solutions: <em data-coord="c-intro.umt:727:26">litte endian</em> versus <em data-coord="c-intro.umt:727:48">big endian</em> (details
+follow).  Some machines can choose dynamically ("bi-endian").
+</p></li><li data-coord="c-intro.umt:730:0"><p data-coord="c-intro.umt:730:4">Usually not visible to programmer on an individual machine but is an
+issue when sending binary data between machines.
+</p></li><li data-coord="c-intro.umt:733:0"><p data-coord="c-intro.umt:733:4">Many current networks mandate big-endian.  
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:735:0"><h2 data-coord="c-intro.umt:735:0">Little Endian</h2><dl data-coord="c-intro.umt:738:0"><dt data-coord="c-intro.umt:738:2"> <strong data-coord="c-intro.umt:738:1">Little Endian</strong></dt><dd data-coord="c-intro.umt:739:0"><p data-coord="c-intro.umt:739:4">Least significant byte stored in low address, next least significant
+byte stored in next higher address, .., most significant byte stored
+in high address.  For example, if <samp data-coord="c-intro.umt:739:185">0x01234567</samp> stored at <samp data-coord="c-intro.umt:739:208">0x100</samp>:
+</p><pre data-coord="c-intro.umt:744:0">       Address: 0x100  0x101  0x102  0x103
+       Value:    0x67   0x45   0x23   0x01
+</pre><p data-coord="c-intro.umt:748:4">Intel machines little endian.
+</p></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:750:0"><h2 data-coord="c-intro.umt:750:0">Big Endian</h2><dl data-coord="c-intro.umt:753:0"><dt data-coord="c-intro.umt:753:2"> <strong data-coord="c-intro.umt:753:1">Big Endian</strong></dt><dd data-coord="c-intro.umt:754:0"><p data-coord="c-intro.umt:754:4">Most significant byte stored in low address, next most significant
+byte stored in next higher address, .., least significant byte stored
+in high address.  For example, if <samp data-coord="c-intro.umt:754:184">0x01234567</samp> stored at <samp data-coord="c-intro.umt:754:207">0x100</samp>:
+</p><pre data-coord="c-intro.umt:759:0">       Address: 0x100  0x101  0x102  0x103
+       Value:    0x01   0x23   0x45   0x67
+</pre><p data-coord="c-intro.umt:763:3">IBM, Sun big endian.
+</p></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:765:0"><h2 data-coord="c-intro.umt:765:0">Endian Program</h2><p data-coord="c-intro.umt:768:0">In <a href="./code/endian.c" data-coord="c-intro.umt:768:22">endian.c:</a>
+</p><pre><span class="hl kwb">int</span>
+<span class="hl kwd">main</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">union</span> <span class="hl opt">{</span> <span class="hl slc">//memory for i and bytes overlap</span>
+    <span class="hl kwb">int</span> i<span class="hl opt">;</span>
+    <span class="hl kwb">char</span> bytes<span class="hl opt">[</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span><span class="hl kwb">int</span><span class="hl opt">)];</span>
+  <span class="hl opt">}</span> u <span class="hl opt">= {</span> <span class="hl num">0x123456</span> <span class="hl opt">};</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;int = 0x%x</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> u<span class="hl opt">.</span>i<span class="hl opt">);</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span><span class="hl kwb">int</span><span class="hl opt">);</span> i<span class="hl opt">++) {</span>
+    <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;bytes[%d] at %p is 0x%02x</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+           i<span class="hl opt">, &amp;</span>u<span class="hl opt">.</span>bytes<span class="hl opt">[</span>i<span class="hl opt">],</span> u<span class="hl opt">.</span>bytes<span class="hl opt">[</span>i<span class="hl opt">]);</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:772:0"><h2 data-coord="c-intro.umt:772:0">Endian Program Log on x86</h2><pre data-coord="c-intro.umt:776:0">$ ./endian
+int = 0x123456
+bytes[0] at 0x7fff565cfe00 is 0x56
+bytes[1] at 0x7fff565cfe01 is 0x34
+bytes[2] at 0x7fff565cfe02 is 0x12
+bytes[3] at 0x7fff565cfe03 is 0x00
+$
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:786:0"><h2 data-coord="c-intro.umt:786:0">Endian Program Log on Sparc</h2><pre data-coord="c-intro.umt:790:0">bingsuns2% ./endian
+int = 0x123456
+bytes[0] at ffbff900 is 0x00
+bytes[1] at ffbff901 is 0x12
+bytes[2] at ffbff902 is 0x34
+bytes[3] at ffbff903 is 0x56
+bingsuns2% 
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:799:0"><h2 data-coord="c-intro.umt:799:0">Endian Program Discussion</h2><ul data-coord="c-intro.umt:802:0"><li data-coord="c-intro.umt:802:0"><p data-coord="c-intro.umt:802:4">The members of a union are assigned at the same memory location.
+Hence <samp data-coord="c-intro.umt:802:79">u.i</samp> and <samp data-coord="c-intro.umt:802:89">u.bytes</samp> occupy the same memory location.  This
+allows us to look at the individual bytes in <samp data-coord="c-intro.umt:802:187">int i</samp>.
+</p></li><li data-coord="c-intro.umt:806:0"><p data-coord="c-intro.umt:806:4">The <samp data-coord="c-intro.umt:806:8">&amp;</samp> unary operator returns the address of its operand.  Hence
+<samp data-coord="c-intro.umt:806:74">&amp;u.bytes[i]</samp> returns the address of the <samp data-coord="c-intro.umt:806:115">i</samp>'th byte.
+</p></li><li data-coord="c-intro.umt:809:0"><p data-coord="c-intro.umt:809:4">Note that for x86, the most significant byte is stored at a higher
+address than the least significant byte.  Hence x86 is a
+little-endian architecture.
+</p></li><li data-coord="c-intro.umt:813:0"><p data-coord="c-intro.umt:813:4">Note that for sparc, the least significant byte is stored at a higher
+address than the least significant byte.  Hence sparc is a
+big-endian architecture.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:820:0"><h2 data-coord="c-intro.umt:820:0">Signed, Unsigned Addition</h2><ul data-coord="c-intro.umt:823:0"><li data-coord="c-intro.umt:823:0"><p data-coord="c-intro.umt:823:4">The operation of addition is the same for both signed and unsigned
+numbers with 2's complement.
+</p></li><li data-coord="c-intro.umt:826:0"><p data-coord="c-intro.umt:826:4">Consider 3 bits numbers: Unsigned: 0 to 7; Signed -4 to 3.
+</p></li><li data-coord="c-intro.umt:828:0"><p data-coord="c-intro.umt:828:4">Each following table shows addition of all combinations
+of a left operand with two right operands.
+</p></li><li data-coord="c-intro.umt:831:0"><p data-coord="c-intro.umt:831:4">Signed result indicated by a signed result in parentheses.
+</p></li><li data-coord="c-intro.umt:833:0"><p data-coord="c-intro.umt:833:4">Overflow indicated by a <samp data-coord="c-intro.umt:833:28">*</samp>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:836:0"><h2 data-coord="c-intro.umt:836:0">Signed, Unsigned Addition Tables</h2><p data-coord="c-intro.umt:840:0">Addition table for <em data-coord="c-intro.umt:840:19">N</em> + <samp data-coord="c-intro.umt:840:25">0b000</samp> and <em data-coord="c-intro.umt:840:37">N</em> + <samp data-coord="c-intro.umt:840:43">0b001</samp>:
+</p>\[\begin{array}{|l|*{4}{l|}}
+  \hline
+\mathbf{Rand1 / Rand2}    &\mbox{000} = 0\;(\;\;\,0)&\mbox{001} = 1\; (+1)  \\
+  \hline
+\mbox{000} = 0\; (\;\;\,0)&\mbox{000} = 0\; (\;\;\,0)&\mbox{001} = 1\; (+1)  \\
+\mbox{001} = 1\; (+1)     &\mbox{001} = 1\; (+1)     &\mbox{010} = 2\; (+2)  \\
+\mbox{010} = 2\; (+2)     &\mbox{010} = 2\; (+2)     &\mbox{011} = 3\; (+3)  \\
+\mbox{011} = 3\; (+3)     &\mbox{011} = 3\; (+3)     &\mbox{100} = 4\;(-4^*)  \\
+\mbox{100} = 4\; (-4)     &\mbox{100} = 4\; (-4)     &\mbox{101} = 5\; (-3)  \\
+\mbox{101} = 5\; (-3)     &\mbox{101} = 5\; (-3)     &\mbox{110} = 6\; (-2)  \\
+\mbox{110} = 6\; (-2)     &\mbox{110} = 6\; (-2)     &\mbox{111} = 7\; (-1)  \\
+\mbox{111} = 7\; (-1)     &\mbox{111} = 7\; (-1)     &\mbox{000} = 0^*\; (\;\;\,0)  \\
+  \hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:862:0"><h2 data-coord="c-intro.umt:862:0">Signed, Unsigned Addition Tables Continued</h2><p data-coord="c-intro.umt:866:0">Addition table for <em data-coord="c-intro.umt:866:19">N</em> + <samp data-coord="c-intro.umt:866:25">0b010</samp> and <em data-coord="c-intro.umt:866:37">N</em> + <samp data-coord="c-intro.umt:866:43">0b011</samp>:
+</p>\[\begin{array}{|l|*{4}{l|}}
+  \hline
+\mathbf{Rand1 / Rand2}& \mbox{010} = 2\; (+2)& \mbox{011} = 3\; (+3)  \\
+  \hline
+\mbox{000} = 0\; (\;\;\,0)  &\mbox{010} = 2\; (+2)&\mbox{011} = 3\; (+3)  \\
+\mbox{001} = 1\; (+1) &\mbox{011} = 3\; (+3)      &\mbox{100} = 4\; (-4^*)  \\
+\mbox{010} = 2\; (+2) &\mbox{100} = 4\; (-4^*)    &\mbox{101} = 5\; (-3^*)  \\
+\mbox{011} = 3\; (+3) &\mbox{101} = 5\; (-3^*)    &\mbox{110} = 6\; (-2^*)  \\
+\mbox{100} = 4\; (-4) &\mbox{110} = 6\; (-2)      &\mbox{111} = 7\; (-1)  \\
+\mbox{101} = 5\; (-3) &\mbox{111} = 7\; (-1)      &\mbox{000} = 0^*\;(\;\;\,0)\\
+\mbox{110} = 6\; (-2) &\mbox{000} = 0^*\;(\;\;\,0)&\mbox{001} = 1^*\; (+1) \\
+\mbox{111} = 7\; (-1) &\mbox{001} = 1^*\; (+1)    &\mbox{010} = 2^*\; (+2)  \\
+  \hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:886:0"><h2 data-coord="c-intro.umt:886:0">Signed, Unsigned Addition Tables Continued</h2><p data-coord="c-intro.umt:890:0">Addition table for <em data-coord="c-intro.umt:890:19">N</em> + <samp data-coord="c-intro.umt:890:25">0b100</samp> and <em data-coord="c-intro.umt:890:37">N</em> + <samp data-coord="c-intro.umt:890:43">0b101</samp>:
+</p>\[\begin{array}{|l|*{4}{l|}}
+  \hline
+\mathbf{Rand1 / Rand2}& \mbox{100} = 4\; (-4)& \mbox{101} = 5\; (-3)  \\
+  \hline
+\mbox{000} = 0\; (\;\;\,0)  &\mbox{100} = 4\; (-4)  &\mbox{101} = 5\; (-3)  \\
+\mbox{001} = 1\; (+1) &\mbox{101} = 5\; (-3)  &\mbox{110} = 6\; (-2)  \\
+\mbox{010} = 2\; (+2) &\mbox{110} = 6\; (-2)  &\mbox{111} = 7\; (-1)  \\
+\mbox{011} = 3\; (+3) &\mbox{111} = 7\; (-1)  &\mbox{000} = 0^*\; (\;\;\,0)  \\
+\mbox{100} = 4\; (-4) &\mbox{000} = 0^*\; (\;\;\,0^*)  &\mbox{001} = 1^*\; (+1^*)  \\
+\mbox{101} = 5\; (-3) &\mbox{001} = 1^*\; (+1^*)  &\mbox{010} = 2^*\; (+2^*)  \\
+\mbox{110} = 6\; (-2) &\mbox{010} = 2^*\; (+2^*)  &\mbox{011} = 3^*\; (+3^*)  \\
+\mbox{111} = 7\; (-1) &\mbox{011} = 3^*\; (+3^*)  &\mbox{100} = 4^*\; (-4)  \\
+  \hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:911:0"><h2 data-coord="c-intro.umt:911:0">Signed, Unsigned Addition Tables Continued</h2><p data-coord="c-intro.umt:915:0">Addition table for <em data-coord="c-intro.umt:915:19">N</em> + <samp data-coord="c-intro.umt:915:25">0b110</samp> and <em data-coord="c-intro.umt:915:37">N</em> + <samp data-coord="c-intro.umt:915:43">0b111</samp>:
+</p>\[\begin{array}{|l|*{4}{l|}}
+  \hline
+\mathbf{Rand1 / Rand2}& \mbox{110} = 6\; (-2)& \mbox{111} = 7\; (-1)  \\
+  \hline
+\mbox{000} = 0\; (\;\;\,0) &\mbox{110} = 6\; (-2)  &\mbox{111} = 7\; (-1)  \\
+\mbox{001} = 1\; (+1) &\mbox{111} = 7\; (-1)  &\mbox{000} = 0^*\; (\;\;\,0)  \\
+\mbox{010} = 2\; (+2) &\mbox{000} = 0^*\; (\;\;\,0)  &\mbox{001} = 1^*\; (+1) \\
+\mbox{011} = 3\; (+3) &\mbox{001} = 1^*\; (+1)  &\mbox{010} = 2^*\; (+2)  \\
+\mbox{100} = 4\; (-4) &\mbox{010} = 2^*\; (+2^*)  &\mbox{011} = 3^*\; (+3^*)  \\
+\mbox{101} = 5\; (-3) &\mbox{011} = 3^*\; (+3^*)  &\mbox{100} = 4^*\; (-4)  \\
+\mbox{110} = 6\; (-2) &\mbox{100} = 4^*\; (-4)  &\mbox{101} = 5^*\; (-3)  \\
+\mbox{111} = 7\; (-1) &\mbox{101} = 5^*\; (-3)  &\mbox{110} = 6^*\; (-2)  \\
+  \hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:939:0"><h2 data-coord="c-intro.umt:939:0">Typical Ranges for Unsigned Types</h2><pre data-coord="c-intro.umt:943:0">----------+--------+---------------------------
+| # bits  |  Min.  |    Max Value             |
++---------+--------+--------------------------+
+|   8     |      0 |                       255|
+|  16     |      0 |                    65,535|
+|  32     |      0 |             4,294,967,295|
+|  64     |      0 |18,446,744,073,709,551,615|
+----------+--------+---------------------------
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:954:0"><h2 data-coord="c-intro.umt:954:0">Typical Ranges for Signed Types</h2><pre data-coord="c-intro.umt:958:0">+-----+--------------------------+-------------------+
+|#bits|  Min. Value              |      Max Value    |
++-----+--------------------------+-------------------+
+|   8 |                      -128|                127|
+|  16 |                   -32,768|             32,767|
+|  32 |            -2,147,483,648|      2,147,483,647|
+|  64 |-9,223,372,036,854,775,808| 9,223,372,036,854,|
+|     |                          |           775,807 |
++-----+--------------------------+-------------------+
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:969:0"><h2 data-coord="c-intro.umt:969:0">Finding Integer Sizes in C</h2><p data-coord="c-intro.umt:972:0">In <a href="./code/integer-sizes.c" data-coord="c-intro.umt:972:29">integer-sizes.c:</a>
+</p><pre><span class="hl ppc">#include &lt;stdio.h&gt;</span>
+
+<span class="hl kwb">int</span>
+<span class="hl kwd">main</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+  <span class="hl slc">//concatenation of adjacent string literals</span>
+  <span class="hl slc">//%ld not portable; modern C allows %zu for sizeof()</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;sizeof(char) = %ld, sizeof(short) = %ld, &quot;</span>
+         <span class="hl str">&quot;sizeof(int) = %ld sizeof(long) = %ld, &quot;</span>
+         <span class="hl str">&quot;sizeof(long long) = %ld</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+         <span class="hl kwa">sizeof</span><span class="hl opt">(</span><span class="hl kwb">char</span><span class="hl opt">),</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span><span class="hl kwb">short</span><span class="hl opt">),</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span><span class="hl kwb">int</span><span class="hl opt">),</span>
+         <span class="hl kwa">sizeof</span><span class="hl opt">(</span><span class="hl kwb">long</span><span class="hl opt">),</span> <span class="hl kwa">sizeof</span><span class="hl opt">(</span><span class="hl kwb">long long</span><span class="hl opt">));</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:977:0"><h2 data-coord="c-intro.umt:977:0">Integer Sizes: Edited Log</h2><pre data-coord="c-intro.umt:981:0">sizeof(char) = 1, sizeof(short) = 2, sizeof(int) = 4 
+  sizeof(long) = 8, sizeof(long long) = 8
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:986:0"><h2 data-coord="c-intro.umt:986:0">Powers of \(\sim\) 1000</h2><ul data-coord="c-intro.umt:989:0"><li data-coord="c-intro.umt:989:0"><p data-coord="c-intro.umt:989:4">Since \(2^{10} =\) <samp data-coord="c-intro.umt:989:22">1024</samp> which is close to 1000,
+\(2^{20} =\) <samp data-coord="c-intro.umt:989:69">1,048,576</samp> which is close to 1,000,000, we can use <em data-coord="c-intro.umt:989:121">kilo</em>
+and <em data-coord="c-intro.umt:989:136">mega</em> notation, but need to distinguish between
+powers of 1000 and powers of 1024.
+</p></li><li data-coord="c-intro.umt:994:0"><p data-coord="c-intro.umt:994:4">Powers of 1000: normal <strong data-coord="c-intro.umt:994:27">metric notation</strong>: <samp data-coord="c-intro.umt:994:46">kB</samp>, <samp data-coord="c-intro.umt:994:52">MB</samp>, <samp data-coord="c-intro.umt:994:58">GB</samp>, etc.
+</p></li><li data-coord="c-intro.umt:996:0"><p data-coord="c-intro.umt:996:4">Powers of 1024: <em data-coord="c-intro.umt:996:61"><a href="http://en.wikipedia.org/wiki/Kibibyte" data-coord="c-intro.umt:996:61">IEC units</a></em>:
+<samp data-coord="c-intro.umt:996:78">KiB</samp>, <samp data-coord="c-intro.umt:996:85">MiB</samp>, <samp data-coord="c-intro.umt:996:92">GiB</samp>, etc.
+</p></li><li data-coord="c-intro.umt:999:0"><p data-coord="c-intro.umt:999:4">Write program to show quantities associated with different units.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1001:0"><h2 data-coord="c-intro.umt:1001:0">Kilo Powers Program Log</h2><p data-coord="c-intro.umt:1004:0">Note overflow for zetta and yotta.
+</p><pre data-coord="c-intro.umt:1007:0">#metric units
+$ ./kilo-powers
+1000**1 = 1 kilobyte (kB) which is 1000 bytes
+1000**2 = 1 megabyte (MB) which is 1000000 bytes
+1000**3 = 1 gigabyte (GB) which is 1000000000 bytes
+1000**4 = 1 terabyte (TB) which is 1000000000000 bytes
+1000**5 = 1 petabyte (PB) which is 1000000000000000 bytes
+1000**6 = 1 exabyte (EB) which is 1000000000000000000 bytes
+1000**7 = 1 zettabyte (ZB) which is 3875820019684212736 bytes
+1000**8 = 1 yottabyte (YB) which is 2003764205206896640 bytes
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1019:0"><h2 data-coord="c-intro.umt:1019:0">Kilo Powers Program Log Continued</h2><pre data-coord="c-intro.umt:1023:0">#iec units
+1024**1 = 1 kibibyte (KiB) which is 1024 bytes
+1024**2 = 1 mebibyte (MiB) which is 1048576 bytes
+1024**3 = 1 gibibyte (GiB) which is 1073741824 bytes
+1024**4 = 1 tebibyte (TiB) which is 1099511627776 bytes
+1024**5 = 1 pebibyte (PiB) which is 1125899906842624 bytes
+1024**6 = 1 exbibyte (EiB) which is 1152921504606846976 bytes
+1024**7 = 1 zebibyte (ZiB) which is 0 bytes
+1024**8 = 1 yobibyte (YiB) which is 0 bytes
+
+$
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1036:0"><h2 data-coord="c-intro.umt:1036:0">Kilo Powers Program: Type Declaration</h2><p data-coord="c-intro.umt:1039:0">In <a href="./code/kilo-powers.c" data-coord="c-intro.umt:1039:27">kilo-powers.c:</a>
+</p><pre>
+<span class="hl com">/** Package unit-name and its abbreviation. */</span>
+<span class="hl kwc">typedef</span> <span class="hl kwb">struct</span> <span class="hl opt">{</span>
+  <span class="hl kwb">const char</span> <span class="hl opt">*</span>name<span class="hl opt">;</span>
+  <span class="hl kwb">const char</span> <span class="hl opt">*</span>abbr<span class="hl opt">;</span>
+<span class="hl opt">}</span> Unit<span class="hl opt">;</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1043:0"><h2 data-coord="c-intro.umt:1043:0">Kilo Powers Program: Metric Data</h2><pre>
+<span class="hl kwb">static</span> Unit metricUnits<span class="hl opt">[] = {</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;kilobyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;kB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;megabyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;MB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;gigabyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;GB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;terabyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;TB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;petabyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;PB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;exabyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;EB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;zettabyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;ZB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;yottabyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;YB&quot;</span> <span class="hl opt">},</span>
+<span class="hl opt">};</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1050:0"><h2 data-coord="c-intro.umt:1050:0">Kilo Powers Program: IEC Data</h2><pre>
+<span class="hl kwb">static</span> Unit iecUnits<span class="hl opt">[] = {</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;kibibyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;KiB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;mebibyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;MiB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;gibibyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;GiB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;tebibyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;TiB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;pebibyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;PiB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;exbibyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;EiB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;zebibyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;ZiB&quot;</span> <span class="hl opt">},</span>
+  <span class="hl opt">{</span> <span class="hl str">&quot;yobibyte&quot;</span><span class="hl opt">,</span> <span class="hl str">&quot;YiB&quot;</span> <span class="hl opt">},</span>
+<span class="hl opt">};</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1055:0"><h2 data-coord="c-intro.umt:1055:0">Kilo Powers Program: Guts</h2><pre>
+<span class="hl kwb">static void</span>
+<span class="hl kwd">outUnits</span><span class="hl opt">(</span><span class="hl kwb">unsigned</span> base<span class="hl opt">,</span> Unit units<span class="hl opt">[],</span> <span class="hl kwb">int</span> nUnits<span class="hl opt">,</span>
+         <span class="hl kwb">FILE</span> <span class="hl opt">*</span>out<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">unsigned long long</span> v <span class="hl opt">=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> nUnits<span class="hl opt">;</span> i<span class="hl opt">++) {</span>
+    v <span class="hl opt">*=</span> base<span class="hl opt">;</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>out<span class="hl opt">,</span> <span class="hl str">&quot;%d**%d = 1 %s (%s) &quot;</span>
+            <span class="hl str">&quot;which is %llu bytes</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+            base<span class="hl opt">,</span> i <span class="hl opt">+</span> <span class="hl num">1</span><span class="hl opt">,</span> units<span class="hl opt">[</span>i<span class="hl opt">].</span>name<span class="hl opt">,</span>
+            units<span class="hl opt">[</span>i<span class="hl opt">].</span>abbr<span class="hl opt">,</span> v<span class="hl opt">);</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwd">fprintf</span><span class="hl opt">(</span>out<span class="hl opt">,</span> <span class="hl str">&quot;</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1060:0"><h2 data-coord="c-intro.umt:1060:0">Kilo Powers Program main() Function</h2><pre>
+<span class="hl kwb">int</span>
+<span class="hl kwd">main</span><span class="hl opt">()</span>
+<span class="hl opt">{</span>
+  <span class="hl kwd">outUnits</span><span class="hl opt">(</span><span class="hl num">1000u</span><span class="hl opt">,</span> metricUnits<span class="hl opt">,</span>
+           <span class="hl kwa">sizeof</span><span class="hl opt">(</span>metricUnits<span class="hl opt">)/</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>metricUnits<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]),</span>
+           stdout<span class="hl opt">);</span>
+  <span class="hl kwd">outUnits</span><span class="hl opt">(</span><span class="hl num">1024u</span><span class="hl opt">,</span> iecUnits<span class="hl opt">,</span>
+           <span class="hl kwa">sizeof</span><span class="hl opt">(</span>iecUnits<span class="hl opt">)/</span><span class="hl kwa">sizeof</span><span class="hl opt">(</span>iecUnits<span class="hl opt">[</span><span class="hl num">0</span><span class="hl opt">]),</span>
+           stdout<span class="hl opt">);</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1066:0"><h2 data-coord="c-intro.umt:1066:0">Kilo Powers Program Discussion</h2><ul data-coord="c-intro.umt:1069:0"><li data-coord="c-intro.umt:1069:0"><p data-coord="c-intro.umt:1069:4">A C <samp data-coord="c-intro.umt:1069:8">struct</samp> allows packaging related data together.
+</p></li><li data-coord="c-intro.umt:1071:0"><p data-coord="c-intro.umt:1071:4">In C, <samp data-coord="c-intro.umt:1071:10">typedef</samp> defines a name for some type.  So the program
+uses the name <samp data-coord="c-intro.umt:1071:84">Unit</samp> to refer to a particular <samp data-coord="c-intro.umt:1071:116">struct</samp> type.
+</p></li><li data-coord="c-intro.umt:1074:0"><p data-coord="c-intro.umt:1074:4">Note the use of the <samp data-coord="c-intro.umt:1074:24">u</samp> suffix on <samp data-coord="c-intro.umt:1074:38">1000u</samp> and <samp data-coord="c-intro.umt:1074:50">1024u</samp> to pass
+an unsigned <samp data-coord="c-intro.umt:1074:82">base</samp> value to <samp data-coord="c-intro.umt:1074:98">outUnits()</samp>.
+</p></li><li data-coord="c-intro.umt:1077:0"><p data-coord="c-intro.umt:1077:4">IEC units have not really caught on.  In practice, GB may mean
+"gigabyte" or "gibibyte", depending on context.  In commercial
+contexts, memory sizes are often stated in IEC units, disk sizes
+in metric units but no guarantees.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1082:0"><h2 data-coord="c-intro.umt:1082:0">Booleans</h2><ul data-coord="c-intro.umt:1085:0"><li data-coord="c-intro.umt:1085:0"><p data-coord="c-intro.umt:1085:4">Basic C does not have any <strong data-coord="c-intro.umt:1085:30">boolean</strong> type.
+</p></li><li data-coord="c-intro.umt:1087:0"><p data-coord="c-intro.umt:1087:4">C99 introduced <samp data-coord="c-intro.umt:1087:19">stdbool.h</samp> header with suitable definitions for
+<samp data-coord="c-intro.umt:1087:72">true</samp> and <samp data-coord="c-intro.umt:1087:83">false</samp>.
+</p></li><li data-coord="c-intro.umt:1090:0"><p data-coord="c-intro.umt:1090:4">Comparison operators <samp data-coord="c-intro.umt:1090:25">&lt;</samp>, <samp data-coord="c-intro.umt:1090:30">&lt;=</samp>, <samp data-coord="c-intro.umt:1090:36">&gt;</samp>, <samp data-coord="c-intro.umt:1090:41">&gt;=</samp>, <samp data-coord="c-intro.umt:1090:47">==</samp>, <samp data-coord="c-intro.umt:1090:53">!=</samp> return
+result <samp data-coord="c-intro.umt:1090:76">1</samp> for <em data-coord="c-intro.umt:1090:84">true</em> and <samp data-coord="c-intro.umt:1090:95">0</samp> for <em data-coord="c-intro.umt:1090:103">false</em>.
+</p></li><li data-coord="c-intro.umt:1093:0"><p data-coord="c-intro.umt:1093:4">Logical operators <samp data-coord="c-intro.umt:1093:22">&amp;&amp;</samp>, <samp data-coord="c-intro.umt:1093:28">||</samp>, <samp data-coord="c-intro.umt:1093:34">!</samp> treat <samp data-coord="c-intro.umt:1093:44">0</samp> as <em data-coord="c-intro.umt:1093:51">false</em>, all 
+non-<samp data-coord="c-intro.umt:1093:77">0</samp> values as <em data-coord="c-intro.umt:1093:91">true</em>.
+</p></li><li data-coord="c-intro.umt:1096:0"><p data-coord="c-intro.umt:1096:4">C has a single <strong data-coord="c-intro.umt:1096:19">falsy value</strong>: <samp data-coord="c-intro.umt:1096:34">0</samp>.  All values other than <samp data-coord="c-intro.umt:1096:62">0</samp>
+are <strong data-coord="c-intro.umt:1096:74">truthy</strong>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1100:0"><h2 data-coord="c-intro.umt:1100:0">Comparing Numeric Expressions in C</h2><p data-coord="c-intro.umt:1103:0">An expression which compares two numeric expressions is known as a
+<em data-coord="c-intro.umt:1103:67">relational expression</em>.
+</p><dl data-coord="c-intro.umt:1106:0"><dt data-coord="c-intro.umt:1106:2"> <samp data-coord="c-intro.umt:1106:1">==</samp>, (<samp data-coord="c-intro.umt:1106:12">!=</samp>)</dt><dd data-coord="c-intro.umt:1107:0"><p data-coord="c-intro.umt:1107:5">Returns 1 iff two expressions are equal (not-equal), 0 otherwise.
+<strong data-coord="c-intro.umt:1107:76">Do not use with floating point types</strong>:
+</p><ul data-coord="c-intro.umt:1110:0"><li data-coord="c-intro.umt:1110:0"><p data-coord="c-intro.umt:1110:9"><strong data-coord="c-intro.umt:1110:9">Example</strong>: <code><span class="hl kwa">if</span> <span class="hl opt">(</span>i <span class="hl opt">!=</span> <span class="hl num">0</span><span class="hl opt">)</span> b <span class="hl opt">=</span> x<span class="hl opt">/</span>i<span class="hl opt">;</span></code>.
+</p></li><li data-coord="c-intro.umt:1112:0"><p data-coord="c-intro.umt:1112:9">Watch out for incorrect use of <samp data-coord="c-intro.umt:1112:40">=</samp>.  For example,
+<code><span class="hl kwa">if</span> <span class="hl opt">(</span>i <span class="hl opt">=</span>  <span class="hl num">0</span><span class="hl opt">)</span> b <span class="hl opt">=</span> <span class="hl num">1</span> <span class="hl kwa">else</span> b <span class="hl opt">=</span> x<span class="hl opt">/</span>i<span class="hl opt">;</span></code> will always divide by <samp data-coord="c-intro.umt:1112:125">i</samp>
+because of use of <samp data-coord="c-intro.umt:1112:156">=</samp> instead of <samp data-coord="c-intro.umt:1112:171">==</samp> in comparison. Some programmers
+protect for this case by writing <code><span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl num">0</span> <span class="hl opt">==</span> i<span class="hl opt">)</span></code> which will
+cause a compilation error if written incorrectly as
+<code><span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl num">0</span> <span class="hl opt">=</span> i<span class="hl opt">)</span></code>.
+</p></li></ul></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:1119:0"><h2 data-coord="c-intro.umt:1119:0">Comparing Numeric Expressions in C Continued</h2><dl data-coord="c-intro.umt:1122:0"><dt data-coord="c-intro.umt:1122:2"> <samp data-coord="c-intro.umt:1122:1">&lt;</samp>, (<samp data-coord="c-intro.umt:1122:11">&gt;</samp>)</dt><dd data-coord="c-intro.umt:1123:0"><p data-coord="c-intro.umt:1123:5">Returns 1 iff the left-hand expression is less-than (greater-than) the
+right-hand expression, 0 otherwise.
+<strong data-coord="c-intro.umt:1123:122">Example</strong>: <code><span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> <span class="hl num">10</span><span class="hl opt">;</span> i<span class="hl opt">++) { ... }</span></code>.
+</p></dd><dt data-coord="c-intro.umt:1127:2"> <samp data-coord="c-intro.umt:1127:1">&lt;=</samp>, (<samp data-coord="c-intro.umt:1127:12">&gt;=</samp>)</dt><dd data-coord="c-intro.umt:1128:0"><p data-coord="c-intro.umt:1128:5">Returns 1 iff the left-hand expression is less-than-or-equal-to
+(greater-than-or-equal-to) the right-hand expression, 0 otherwise.
+<strong data-coord="c-intro.umt:1128:146">Example</strong>: <code><span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">9</span><span class="hl opt">;</span> i <span class="hl opt">&gt;=</span> <span class="hl num">0</span><span class="hl opt">;</span> i<span class="hl opt">--) { ... }</span></code>.
+</p></dd></dl><p data-coord="c-intro.umt:1132:0">Can also use on right-hand-side of assignment as in:
+<code><span class="hl kwb">int</span> aLT10 <span class="hl opt">= (</span>a <span class="hl opt">&lt;</span> <span class="hl num">10</span><span class="hl opt">);</span></code>.    
+</p></section><section class="umt-slide" data-coord="c-intro.umt:1136:0"><h2 data-coord="c-intro.umt:1136:0">Short-Circuit Logical Operators</h2><p data-coord="c-intro.umt:1139:0">The operators <samp data-coord="c-intro.umt:1139:14">||</samp> (logical-or) and <samp data-coord="c-intro.umt:1139:36">&amp;&amp;</samp> (logical-and) evaluate operands
+from left-to-right, but stop ("short-circuit") the evaluation immediately
+once the result is known for sure; i.e. they may not evaluate their
+2nd operand if the result is determined by the value of the first operand.
+</p><dl data-coord="c-intro.umt:1144:0"><dt data-coord="c-intro.umt:1144:2"> <em data-coord="c-intro.umt:1144:1">A</em> <samp data-coord="c-intro.umt:1144:5">||</samp> <em data-coord="c-intro.umt:1144:10">B</em></dt><dd data-coord="c-intro.umt:1145:0"><p data-coord="c-intro.umt:1145:4">If expression <em data-coord="c-intro.umt:1145:18">A</em> evaluates to non-zero, then return 1 without ever
+evaluating expression <em data-coord="c-intro.umt:1145:98">B</em>.  Otherwise return 0 if <em data-coord="c-intro.umt:1145:126">B</em> too evaluates 
+to 0, otherwise return 1.
+</p><ul data-coord="c-intro.umt:1149:0"><li data-coord="c-intro.umt:1149:0"><p data-coord="c-intro.umt:1149:8"><strong data-coord="c-intro.umt:1149:8">Example</strong>: In <code><span class="hl kwa">if</span> <span class="hl opt">(</span>x <span class="hl opt">==</span> <span class="hl num">0</span> <span class="hl opt">||</span> y<span class="hl opt">/</span>x <span class="hl opt">&gt;</span> <span class="hl num">10</span><span class="hl opt">) { }</span></code>, short-circuit
+property of <samp data-coord="c-intro.umt:1149:88">||</samp> avoids division-by-0 error.
+</p></li></ul></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:1152:0"><h2 data-coord="c-intro.umt:1152:0">Short-Circuit Logical Operators Continued</h2><dl data-coord="c-intro.umt:1155:0"><dt data-coord="c-intro.umt:1155:2"> <em data-coord="c-intro.umt:1155:1">A</em> <samp data-coord="c-intro.umt:1155:5">&amp;&amp;</samp> <em data-coord="c-intro.umt:1155:10">B</em></dt><dd data-coord="c-intro.umt:1156:0"><p data-coord="c-intro.umt:1156:4">If expression <em data-coord="c-intro.umt:1156:18">A</em> evaluates to 0, then return 0 without ever
+evaluating expression <em data-coord="c-intro.umt:1156:91">B</em>.  Otherwise return 1 if <em data-coord="c-intro.umt:1156:119">B</em> too evaluates 
+to non-zero, otherwise return 0.
+</p><ul data-coord="c-intro.umt:1160:0"><li data-coord="c-intro.umt:1160:0"><p data-coord="c-intro.umt:1160:8"><strong data-coord="c-intro.umt:1160:8">Example</strong>: Search for first element of <samp data-coord="c-intro.umt:1160:47">a[n]</samp> which is equal
+  to <samp data-coord="c-intro.umt:1160:82">key</samp>: <code><span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> n <span class="hl opt">&amp;&amp;</span> a<span class="hl opt">[</span>i<span class="hl opt">] !=</span> key<span class="hl opt">;</span> i<span class="hl opt">++) { ... }</span></code>
+</p></li><li data-coord="c-intro.umt:1163:0"><p data-coord="c-intro.umt:1163:9">Note that because of short-circuit evaluation, when <samp data-coord="c-intro.umt:1163:61">i == n</samp>
+code does not examine <samp data-coord="c-intro.umt:1163:101">a[i]</samp> at all, thus avoiding an
+index-out-of-bounds error.
+</p></li></ul></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:1168:0"><h2 data-coord="c-intro.umt:1168:0">Logical Not</h2><dl data-coord="c-intro.umt:1171:0"><dt data-coord="c-intro.umt:1171:2"> <samp data-coord="c-intro.umt:1171:1">!</samp> <em data-coord="c-intro.umt:1171:5">A</em></dt><dd data-coord="c-intro.umt:1172:0"><p data-coord="c-intro.umt:1172:4">Return 0 if <em data-coord="c-intro.umt:1172:16">A</em> is non-zero, 1 when <em data-coord="c-intro.umt:1172:40">A</em> is 0.  
+</p><ul data-coord="c-intro.umt:1174:0"><li data-coord="c-intro.umt:1174:0"><p data-coord="c-intro.umt:1174:8">Can avoid using <samp data-coord="c-intro.umt:1174:24">!</samp> by applying DeMorgan's law: example,
+instead of <code><span class="hl opt">!(</span>x <span class="hl opt">&lt;=</span> <span class="hl num">10</span> <span class="hl opt">||</span> y <span class="hl opt">==</span> <span class="hl num">5</span><span class="hl opt">)</span></code> use <code><span class="hl opt">(</span>x <span class="hl opt">&gt;</span> <span class="hl num">10</span> <span class="hl opt">&amp;&amp;</span> y <span class="hl opt">!=</span> <span class="hl num">5</span><span class="hl opt">)</span></code>,
+but use <samp data-coord="c-intro.umt:1174:151">!</samp> if it is clearer in a particular context.
+</p></li><li data-coord="c-intro.umt:1178:0"><p data-coord="c-intro.umt:1178:8">Idiom <samp data-coord="c-intro.umt:1178:14">!!x</samp> can be used to convert from <samp data-coord="c-intro.umt:1178:48">x</samp> which may not
+be strictly <samp data-coord="c-intro.umt:1178:86">0</samp> or <samp data-coord="c-intro.umt:1178:93">1</samp> to a strict <samp data-coord="c-intro.umt:1178:109">0</samp> or <samp data-coord="c-intro.umt:1178:116">1</samp> value.
+</p></li></ul></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:1182:0"><h2 data-coord="c-intro.umt:1182:0">Logical Operators versus Bitwise Operators</h2><ul data-coord="c-intro.umt:1185:0"><li data-coord="c-intro.umt:1185:0"><p data-coord="c-intro.umt:1185:4">Do not confuse bit-wise operators <samp data-coord="c-intro.umt:1185:38">&amp;</samp>, <samp data-coord="c-intro.umt:1185:43">|</samp>, <samp data-coord="c-intro.umt:1185:48">^</samp>, <samp data-coord="c-intro.umt:1185:53">~</samp> with logical
+operators <samp data-coord="c-intro.umt:1185:84">&amp;&amp;</samp>, <samp data-coord="c-intro.umt:1185:90">||</samp>, <samp data-coord="c-intro.umt:1185:96">!</samp> which operate on pseudo-boolean values.
+</p></li><li data-coord="c-intro.umt:1188:0"><p data-coord="c-intro.umt:1188:4">Logical operators <samp data-coord="c-intro.umt:1188:22">&amp;&amp;</samp> and <samp data-coord="c-intro.umt:1188:31">||</samp> have short-circuit semantics and
+may not evaluate their 2nd operand; bitwise-operators <samp data-coord="c-intro.umt:1188:127">&amp;</samp> and <samp data-coord="c-intro.umt:1188:135">|</samp>
+always evaluate both operands.
+</p></li><li data-coord="c-intro.umt:1192:0"><p data-coord="c-intro.umt:1192:4">Assignment operators <samp data-coord="c-intro.umt:1192:25">&amp;=</samp>, <samp data-coord="c-intro.umt:1192:31">|=</samp> and <samp data-coord="c-intro.umt:1192:40">^=</samp> refer to the bitwise
+operators.  No assignment operators for logical operators <samp data-coord="c-intro.umt:1192:128">&amp;&amp;</samp> and
+<samp data-coord="c-intro.umt:1192:141">||</samp>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1197:0"><h2 data-coord="c-intro.umt:1197:0">If-then-else Expressions</h2><p data-coord="c-intro.umt:1200:0"><code>x <span class="hl opt">= (</span>cond<span class="hl opt">) ?</span> expr1 <span class="hl opt">:</span> expr2</code> equivalent to
+</p><pre>   <span class="hl kwa">if</span> <span class="hl opt">(</span>cond<span class="hl opt">)</span>
+     x <span class="hl opt">=</span> expr1
+   <span class="hl kwa">else</span>
+     x <span class="hl opt">=</span> expr2<span class="hl opt">;</span></pre><ul data-coord="c-intro.umt:1209:0"><li data-coord="c-intro.umt:1209:0"><p data-coord="c-intro.umt:1209:4">Note it is possible to chain conditions together as in
+<code>x <span class="hl opt">= (</span>cond1<span class="hl opt">) ?</span> expr1 <span class="hl opt">: (</span>cond2<span class="hl opt">) ?</span> expr2 <span class="hl opt">:</span> expr3</code>  which is equivalent to
+<code>x <span class="hl opt">= (</span>cond1<span class="hl opt">) ?</span> expr1 <span class="hl opt">: ((</span>cond2<span class="hl opt">) ?</span> expr2 <span class="hl opt">:</span> expr3<span class="hl opt">)</span></code>,
+but can easily turn ugly.
+</p></li><li data-coord="c-intro.umt:1214:0"><p data-coord="c-intro.umt:1214:4">I tend to overuse this in my code compared to normal practice.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1216:0"><h2 data-coord="c-intro.umt:1216:0">Sum of Integer Command-Line Arguments Log</h2><p data-coord="c-intro.umt:1219:0">Not particularly robust in checking for errors:
+</p><pre data-coord="c-intro.umt:1222:0">$ gcc -g -Wall -Wextra -std=c11 sum-args.c -o sum-args
+
+$ ./sum-args 22 -3 5
+24
+
+#silently ignore garbage at end of values
+$ ./sum-args 22 -3x 5
+24
+
+#silently ignore totally garbage values
+$ ./sum-args 22 -3x 5 garbage 3
+27
+$
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1238:0"><h2 data-coord="c-intro.umt:1238:0">Sum of Integer Command-Line Arguments</h2><p data-coord="c-intro.umt:1241:0">In <a href="./code/sum-args.c" data-coord="c-intro.umt:1241:24">sum-args.c:</a>
+</p><pre>
+<span class="hl com">/** Output sum of integer command-line arguments on stdout. */</span>
+<span class="hl kwb">int</span>
+<span class="hl kwd">main</span><span class="hl opt">(</span><span class="hl kwb">int</span> argc<span class="hl opt">,</span> <span class="hl kwb">const char</span> <span class="hl opt">*</span>argv<span class="hl opt">[])</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">int</span> sum <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">1</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> argc<span class="hl opt">;</span> i<span class="hl opt">++) {</span>
+    sum <span class="hl opt">+=</span> <span class="hl kwd">atoi</span><span class="hl opt">(</span>argv<span class="hl opt">[</span>i<span class="hl opt">]);</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;%d</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> sum<span class="hl opt">);</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1245:0"><h2 data-coord="c-intro.umt:1245:0">Sum of Integer Command-Line Arguments Discussion</h2><ul data-coord="c-intro.umt:1248:0"><li data-coord="c-intro.umt:1248:0"><p data-coord="c-intro.umt:1248:4">Recollect that a C string is a array of <samp data-coord="c-intro.umt:1248:44">char</samp> terminated by a
+<samp data-coord="c-intro.umt:1248:71">NUL</samp> character <samp data-coord="c-intro.umt:1248:87">'\0'</samp>.
+</p></li><li data-coord="c-intro.umt:1251:0"><p data-coord="c-intro.umt:1251:4">First argument to <samp data-coord="c-intro.umt:1251:22">main()</samp> <samp data-coord="c-intro.umt:1251:31">argc</samp> gives the number of
+command-line arguments including the name of the program.
+</p></li><li data-coord="c-intro.umt:1254:0"><p data-coord="c-intro.umt:1254:4">The notation <samp data-coord="c-intro.umt:1254:17">char *</samp><em data-coord="c-intro.umt:1254:25">str</em> can be regarded
+as declaring <em data-coord="c-intro.umt:1254:64">str</em> to be a string (strictly speaking,
+is is declaring <em data-coord="c-intro.umt:1254:125">str</em> to be a pointer to
+a <samp data-coord="c-intro.umt:1254:156">char</samp>).
+</p></li><li data-coord="c-intro.umt:1259:0"><p data-coord="c-intro.umt:1259:4">Hence <samp data-coord="c-intro.umt:1259:10">const char *argv[]</samp> declares <samp data-coord="c-intro.umt:1259:40">argv</samp> to be an array
+of strings; the <samp data-coord="c-intro.umt:1259:82">const</samp> means that the strings
+cannot be changed.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1263:0"><h2 data-coord="c-intro.umt:1263:0">Sum of Integer Command-Line Arguments Discussion Continued</h2><ul data-coord="c-intro.umt:1266:0"><li data-coord="c-intro.umt:1266:0"><p data-coord="c-intro.umt:1266:4"><samp data-coord="c-intro.umt:1266:4">atoi()</samp> is a function declared in included file <samp data-coord="c-intro.umt:1266:53">&lt;stdlib.h&gt;</samp>
+which converts a string (which should contain only characters
+corresponding to decimal digits) to the internal representation of
+a C integer.
+</p></li><li data-coord="c-intro.umt:1271:0"><p data-coord="c-intro.umt:1271:4"><samp data-coord="c-intro.umt:1271:4">\n</samp> is an escape sequence used within C-strings to denote
+a newline character.
+</p></li><li data-coord="c-intro.umt:1274:0"><p data-coord="c-intro.umt:1274:4">The first argument for <samp data-coord="c-intro.umt:1274:27">printf()</samp> should be a C-string denoting a
+C string.  <samp data-coord="c-intro.umt:1274:85">%</samp> characters are used as escape sequences within a 
+format string to introduce format specifiers used to print the
+next corresponding argument.           
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1279:0"><h2 data-coord="c-intro.umt:1279:0">More Robust Sum Program: Log</h2><pre data-coord="c-intro.umt:1283:0">$ gcc -g -Wall -Wextra -std=c11 robust-sum.c \
+      -o robust-sum
+      
+$ ./robust-sum 22 -3 5
+24
+
+#produce error message for bad arguments
+$ ./robust-sum 22 -3x 5
+bad argument -3x not integer: ignored
+27
+
+#produce error message for bad arguments
+$ ./robust-sum 22 -3x 5 garbage 3
+bad argument -3x not integer: ignored
+bad argument garbage not integer: ignored
+30
+$
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1303:0"><h2 data-coord="c-intro.umt:1303:0">A More Robust Program to Sum Arguments</h2><p data-coord="c-intro.umt:1306:0">In <a href="./code/robust-sum.c" data-coord="c-intro.umt:1306:26">robust-sum.c:</a>
+</p><pre>
+<span class="hl com">/** Output sum of integer command-line arguments on stdout. */</span>
+<span class="hl kwb">int</span>
+<span class="hl kwd">main</span><span class="hl opt">(</span><span class="hl kwb">int</span> argc<span class="hl opt">,</span> <span class="hl kwb">const char</span> <span class="hl opt">*</span>argv<span class="hl opt">[])</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">int</span> sum <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">int</span> i <span class="hl opt">=</span> <span class="hl num">1</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> argc<span class="hl opt">;</span> i<span class="hl opt">++) {</span>
+    <span class="hl kwb">char</span> <span class="hl opt">*</span>p<span class="hl opt">;</span>
+    <span class="hl kwb">int</span> n <span class="hl opt">=</span> <span class="hl kwd">strtol</span><span class="hl opt">(</span>argv<span class="hl opt">[</span>i<span class="hl opt">], &amp;</span>p<span class="hl opt">,</span> <span class="hl num">10</span><span class="hl opt">);</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(*</span>p <span class="hl opt">==</span> <span class="hl str">&apos;\0&apos;</span><span class="hl opt">) {</span>
+      sum <span class="hl opt">+=</span> n<span class="hl opt">;</span>
+    <span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1311:0"><h2 data-coord="c-intro.umt:1311:0">A More Robust Program to Sum Arguments Continued</h2><pre>
+    <span class="hl kwa">else</span> <span class="hl opt">{</span>
+      <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span>
+              <span class="hl str">&quot;bad argument %s not integer: ignored</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+              argv<span class="hl opt">[</span>i<span class="hl opt">]);</span>
+    <span class="hl opt">}</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;%d</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> sum<span class="hl opt">);</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1317:0"><h2 data-coord="c-intro.umt:1317:0">Arrays</h2><ul data-coord="c-intro.umt:1320:0"><li data-coord="c-intro.umt:1320:0"><p data-coord="c-intro.umt:1320:4">A C array basically just represents the address of an area of
+memory; i.e., a C array is basically a pointer.
+</p></li><li data-coord="c-intro.umt:1323:0"><p data-coord="c-intro.umt:1323:4">It follows that a C array does not track the number of elements it has.
+The programmer needs to track the number of elements in the array.
+Some alternatives:
+</p><ul data-coord="c-intro.umt:1327:0"><li data-coord="c-intro.umt:1327:0"><p data-coord="c-intro.umt:1327:8">Have another variable which explicitly stores the number of
+elements in the array.
+</p></li><li data-coord="c-intro.umt:1330:0"><p data-coord="c-intro.umt:1330:8">Mark the end of the array using some kind of <strong data-coord="c-intro.umt:1330:53">sentinel value</strong>;
+i.e. a value which cannot occur as a legal value in the data
+stored in the array.  For example, if an array stores only
+non-negative integers, then <samp data-coord="c-intro.umt:1330:229">-1</samp> could be used as a sentinel.
+</p></li><li data-coord="c-intro.umt:1335:0"><p data-coord="c-intro.umt:1335:8">The number of elements in the array is known ahead of time as
+some fixed value (like say 27) and all code is written
+assuming that size. <strong data-coord="c-intro.umt:1335:161">Usually a bad idea</strong>.
+</p></li></ul></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1339:0"><h2 data-coord="c-intro.umt:1339:0">When Arrays are Pointers</h2><p data-coord="c-intro.umt:1342:0">Peter Van Der Linden in <em data-coord="c-intro.umt:1342:35"><a href="#linden" data-coord="c-intro.umt:1342:35">Deep C Secrets</a></em>:
+</p><ul data-coord="c-intro.umt:1344:0"><li data-coord="c-intro.umt:1344:0"><p data-coord="c-intro.umt:1344:4">The use of an array name in an <strong data-coord="c-intro.umt:1344:35">expression</strong> (not declaration)
+which is not an operand of <samp data-coord="c-intro.umt:1344:97">sizeof()</samp> is treated by the compiler
+as a pointer to the first element of the array.
+</p></li><li data-coord="c-intro.umt:1348:0"><p data-coord="c-intro.umt:1348:4">A subscript is always equivalent to an offset from a pointer.
+</p></li><li data-coord="c-intro.umt:1350:0"><p data-coord="c-intro.umt:1350:4">An array name in the declaration of a function parameter is treated
+by the compiler as a pointer to the first element of the array.
+This is because arrays are passed by reference for efficiency reasons 
+(all non-array data are passed by value).
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1355:0"><h2 data-coord="c-intro.umt:1355:0">Pointers and Arrays</h2><ul data-coord="c-intro.umt:1358:0"><li data-coord="c-intro.umt:1358:0"><p data-coord="c-intro.umt:1358:4">Only operations for an array are getting its size using <samp data-coord="c-intro.umt:1358:60">sizeof()</samp>
+or obtaining a pointer to element 0 of the array.  All other array
+ops are really pointer ops.
+</p></li><li data-coord="c-intro.umt:1362:0"><p data-coord="c-intro.umt:1362:4"><samp data-coord="c-intro.umt:1362:4">a[i]</samp> is equivalent to <samp data-coord="c-intro.umt:1362:28">*(a + i)</samp> which is equivalent to <samp data-coord="c-intro.umt:1362:62">*(i +
+    a)</samp> which is equivalent to <samp data-coord="c-intro.umt:1362:100">i[a]</samp>.
+</p></li><li data-coord="c-intro.umt:1365:0"><p data-coord="c-intro.umt:1365:4">When used within an expression, an array is equivalent to
+a pointer to its first element.
+</p><pre>    <span class="hl kwb">int</span> a<span class="hl opt">[</span><span class="hl num">10</span><span class="hl opt">],</span> i<span class="hl opt">;</span>       <span class="hl slc">//a is array of 10 int&apos;s; i is int.</span>
+    a<span class="hl opt">[</span>i<span class="hl opt">];</span>               <span class="hl slc">//i&apos;th element of a.</span>
+    <span class="hl opt">*(</span>a <span class="hl opt">+</span> i<span class="hl opt">);</span>           <span class="hl slc">//also i&apos;th element of a.</span>
+    <span class="hl opt">*(</span>i <span class="hl opt">+</span> a<span class="hl opt">);</span>           <span class="hl slc">//also i&apos;th element of a.</span>
+    i<span class="hl opt">[</span>a<span class="hl opt">];</span>               <span class="hl slc">//also i&apos;th element of a.</span></pre></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1376:0"><h2 data-coord="c-intro.umt:1376:0">Array of char and Pointer to char Are Different</h2><ul data-coord="c-intro.umt:1379:0"><li data-coord="c-intro.umt:1379:0"><p data-coord="c-intro.umt:1379:4"><code><span class="hl kwb">char</span> <span class="hl opt">*</span>msg <span class="hl opt">=</span> <span class="hl str">&quot;hello&quot;</span><span class="hl opt">;</span></code>:
+</p><pre data-coord="c-intro.umt:1382:0">    msg: [ ... ] ----&gt; ['h'|'e'|'l'|'l'|'o'|'\0']
+</pre><ul data-coord="c-intro.umt:1385:0"><li data-coord="c-intro.umt:1385:0"><p data-coord="c-intro.umt:1385:8"><code><span class="hl kwa">sizeof</span><span class="hl opt">(</span>msg<span class="hl opt">)</span></code> will be the size of a pointer (i.e. a memory address).
+Typically, this is 4 or 8.
+</p></li><li data-coord="c-intro.umt:1388:0"><p data-coord="c-intro.umt:1388:8">To compute the address of <samp data-coord="c-intro.umt:1388:34">msg[i]</samp>, the compiler will need to
+produce code to add the value of <samp data-coord="c-intro.umt:1388:111">i</samp> to the value
+stored at memory location <samp data-coord="c-intro.umt:1388:155">msg</samp>.
+</p></li></ul></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1394:0"><h2 data-coord="c-intro.umt:1394:0">Array of char and Pointer to char Are Different Continued</h2><ul data-coord="c-intro.umt:1397:0"><li data-coord="c-intro.umt:1397:0"><p data-coord="c-intro.umt:1397:4"><code><span class="hl kwb">char</span> msg<span class="hl opt">[] =</span> <span class="hl str">&quot;hello&quot;</span><span class="hl opt">;</span></code>
+</p><pre data-coord="c-intro.umt:1400:0">    msg: ['h'|'e'|'l'|'l'|'o'|'\0']
+</pre><ul data-coord="c-intro.umt:1403:0"><li data-coord="c-intro.umt:1403:0"><p data-coord="c-intro.umt:1403:8"><code><span class="hl kwa">sizeof</span><span class="hl opt">(</span>msg<span class="hl opt">)</span></code> will be 6.
+</p></li><li data-coord="c-intro.umt:1405:0"><p data-coord="c-intro.umt:1405:8">To compute the address of <samp data-coord="c-intro.umt:1405:34">msg[i]</samp>, the compiler will need to
+produce code to add the value of <samp data-coord="c-intro.umt:1405:111">i</samp> to the address of <samp data-coord="c-intro.umt:1405:133">msg</samp>.
+</p></li></ul></li><li data-coord="c-intro.umt:1408:0"><p data-coord="c-intro.umt:1408:4">It is wrong to have one file define <code><span class="hl kwb">char</span> msg<span class="hl opt">[] =</span> <span class="hl str">&quot;hello&quot;</span><span class="hl opt">;</span></code> and another
+file declare <code><span class="hl kwc">extern</span> <span class="hl kwb">char</span> <span class="hl opt">*</span>msg<span class="hl opt">;</span></code> as the compiler will generate different
+access code.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1412:0"><h2 data-coord="c-intro.umt:1412:0">Multi-Dimensional Arrays</h2><ul data-coord="c-intro.umt:1415:0"><li data-coord="c-intro.umt:1415:0"><p data-coord="c-intro.umt:1415:4">C has only 1-dimensional arrays.
+</p></li><li data-coord="c-intro.umt:1417:0"><p data-coord="c-intro.umt:1417:4">Elements of arrays can themselves be arrays, which permits array
+notation like <samp data-coord="c-intro.umt:1417:87">a[i][j]</samp> for multiple dimensions for <samp data-coord="c-intro.umt:1417:125">static</samp> and
+<samp data-coord="c-intro.umt:1417:142">auto</samp> (but not dynamically <samp data-coord="c-intro.umt:1417:170">malloc()</samp>'d) arrays.
+</p></li><li data-coord="c-intro.umt:1421:0"><p data-coord="c-intro.umt:1421:4">When declaring (not defining) a multi-dimensional array, first
+(leftmost) dimension can be unspecified as in <samp data-coord="c-intro.umt:1421:117">a[][10][3]</samp>.
+</p></li><li data-coord="c-intro.umt:1424:0"><p data-coord="c-intro.umt:1424:4">Impossible to have multi-dimensional array as function parameters
+without all but the leftmost dimension specified.  So <samp data-coord="c-intro.umt:1424:128">int a[][]</samp>
+is not allowed as a function parameter.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1429:0"><h2 data-coord="c-intro.umt:1429:0">Declarations versus Definitions</h2><ul data-coord="c-intro.umt:1432:0"><li data-coord="c-intro.umt:1432:0"><p data-coord="c-intro.umt:1432:4">A <strong data-coord="c-intro.umt:1432:6">declaration</strong> provides information about an entity like a
+variable or function.
+</p></li><li data-coord="c-intro.umt:1435:0"><p data-coord="c-intro.umt:1435:4">A <strong data-coord="c-intro.umt:1435:6">definition</strong> provides a definite value for that entity.
+</p></li><li data-coord="c-intro.umt:1437:0"><p data-coord="c-intro.umt:1437:4">An entity can have multiple declarations as long as they are
+consistent.
+</p></li><li data-coord="c-intro.umt:1440:0"><p data-coord="c-intro.umt:1440:4">There can only be a single definition for an entity.
+</p></li><li data-coord="c-intro.umt:1442:0"><p data-coord="c-intro.umt:1442:4">Often there is only a single statement which combines
+both a declaration with a definition.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1446:0"><h2 data-coord="c-intro.umt:1446:0">Declarations vs Definitions Example</h2><pre><span class="hl slc">//declare function which takes unspecified parameters</span>
+<span class="hl kwb">void</span> <span class="hl kwd">quadratic_roots</span><span class="hl opt">();</span>
+
+<span class="hl slc">//second consistent declaration</span>
+<span class="hl slc">//parameter names optional in declaration</span>
+<span class="hl kwb">void</span> <span class="hl kwd">quadratic_roots</span><span class="hl opt">(</span><span class="hl kwb">double</span><span class="hl opt">,</span> <span class="hl kwb">double</span> b<span class="hl opt">,</span> <span class="hl kwb">double</span> c<span class="hl opt">,</span>
+                    <span class="hl kwb">double</span> <span class="hl opt">*,</span> <span class="hl kwb">double</span> <span class="hl opt">*);</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1460:0"><h2 data-coord="c-intro.umt:1460:0">Declarations vs Definitions Example</h2><pre><span class="hl slc">//function definition</span>
+<span class="hl kwb">void</span> <span class="hl kwd">quadratic_roots</span><span class="hl opt">(</span>
+  <span class="hl slc">//parameter definitions/declarations</span>
+  <span class="hl kwb">double</span> a<span class="hl opt">,</span> <span class="hl kwb">double</span> b<span class="hl opt">,</span> <span class="hl kwb">double</span> c<span class="hl opt">,</span>
+  <span class="hl kwb">double</span> <span class="hl opt">*</span>root1<span class="hl opt">,</span> <span class="hl kwb">double</span> <span class="hl opt">*</span>root2<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">double</span> discr<span class="hl opt">;</span> <span class="hl slc">//uninitialized variable definition </span>
+  discr <span class="hl opt">=</span> b<span class="hl opt">*</span>b <span class="hl opt">-</span> <span class="hl num">4</span><span class="hl opt">*</span>a<span class="hl opt">*</span>c<span class="hl opt">;</span>
+  <span class="hl kwa">assert</span><span class="hl opt">(</span>discr <span class="hl opt">&gt;=</span> <span class="hl num">0</span><span class="hl opt">);</span>
+  <span class="hl kwb">double</span> sqroot <span class="hl opt">=</span> <span class="hl kwd">sqrt</span><span class="hl opt">(</span>discr<span class="hl opt">);</span> <span class="hl slc">//definition with init</span>
+  <span class="hl opt">*</span>root1 <span class="hl opt">= (-</span>b <span class="hl opt">+</span> sqroot<span class="hl opt">) / (</span><span class="hl num">2</span> <span class="hl opt">*</span> a<span class="hl opt">);</span>
+  <span class="hl opt">*</span>root2 <span class="hl opt">= (-</span>b <span class="hl opt">-</span> sqroot<span class="hl opt">) / (</span><span class="hl num">2</span> <span class="hl opt">*</span> a<span class="hl opt">);</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1483:0"><h2 data-coord="c-intro.umt:1483:0">Pointer Sum Annotated Log</h2><pre data-coord="c-intro.umt:1487:0"># 12 + 13 + -12
+$ ./ptr-sum 12 13 -0xc   
+13
+
+$ ./ptr-sum 
+0
+
+# 64 + -171 + ** + **
+$ ./ptr-sum 0100 -0xAb 12C 099
+-107
+$
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1500:0"><h2 data-coord="c-intro.umt:1500:0">Pointer Sum</h2><p data-coord="c-intro.umt:1503:0">In <a href="./code/ptr-sum.c" data-coord="c-intro.umt:1503:23">ptr-sum.c:</a>
+</p><pre>
+<span class="hl com">/** Sum numeric strings [*start, *end), silently ignoring</span>
+<span class="hl com"> *  any strings which are not valid C integer literals.</span>
+<span class="hl com"> */</span>
+<span class="hl kwb">long</span>
+<span class="hl kwd">ptr_sum</span><span class="hl opt">(</span><span class="hl kwb">const char</span> <span class="hl opt">**</span>start<span class="hl opt">,</span> <span class="hl kwb">const char</span> <span class="hl opt">**</span>end<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">long</span> sum <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+  <span class="hl kwa">for</span> <span class="hl opt">(</span><span class="hl kwb">const char</span> <span class="hl opt">**</span>p <span class="hl opt">=</span> start<span class="hl opt">;</span> p <span class="hl opt">!=</span> end<span class="hl opt">;</span> p<span class="hl opt">++) {</span>
+    <span class="hl kwb">char</span> <span class="hl opt">*</span>endP<span class="hl opt">;</span>
+    <span class="hl kwb">long</span> v <span class="hl opt">=</span> <span class="hl kwd">strtol</span><span class="hl opt">(*</span>p<span class="hl opt">, &amp;</span>endP<span class="hl opt">,</span> <span class="hl num">0</span><span class="hl opt">);</span><span class="hl slc">//0: c-syntax ints</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(*</span>endP <span class="hl opt">==</span> <span class="hl str">&apos;\0&apos;</span><span class="hl opt">)</span> sum <span class="hl opt">+=</span> v<span class="hl opt">;</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">return</span> sum<span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1507:0"><h2 data-coord="c-intro.umt:1507:0">Pointer Sum Continued</h2><pre>
+<span class="hl kwb">int</span>
+<span class="hl kwd">main</span><span class="hl opt">(</span><span class="hl kwb">int</span> argc<span class="hl opt">,</span> <span class="hl kwb">const char</span> <span class="hl opt">*</span>argv<span class="hl opt">[])</span>
+<span class="hl opt">{</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;%ld</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> <span class="hl kwd">ptr_sum</span><span class="hl opt">(&amp;</span>argv<span class="hl opt">[</span><span class="hl num">1</span><span class="hl opt">], &amp;</span>argv<span class="hl opt">[</span>argc<span class="hl opt">]));</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1513:0"><h2 data-coord="c-intro.umt:1513:0">Pointer Sum Discussion</h2><ul data-coord="c-intro.umt:1516:0"><li data-coord="c-intro.umt:1516:0"><p data-coord="c-intro.umt:1516:4"><samp data-coord="c-intro.umt:1516:4">strtol()</samp> needs to return a pointer to the first non-legal
+character found in the integer string pointed to by its first
+argument.  
+</p></li><li data-coord="c-intro.umt:1520:0"><p data-coord="c-intro.umt:1520:4">Since return value is being used to return the value of the
+integer, this pointer must be returned using a function
+parameter.
+</p></li><li data-coord="c-intro.umt:1524:0"><p data-coord="c-intro.umt:1524:4">Since the actual arguments passed to a function are <strong data-coord="c-intro.umt:1524:56">copies</strong> of
+the value passed by the caller a function cannot affect the value
+of a parameter in its caller.
+</p></li><li data-coord="c-intro.umt:1528:0"><p data-coord="c-intro.umt:1528:4">The only way to have a function return a value via an argument
+is to have the caller pass a pointer to that value and have
+the function return the value using the pointer.
+</p></li><li data-coord="c-intro.umt:1532:0"><p data-coord="c-intro.umt:1532:4">Since <samp data-coord="c-intro.umt:1532:10">strtol()</samp> needs to return a pointer via its argument,
+the second parameter is passed as pointer to a pointer, i.e.
+<samp data-coord="c-intro.umt:1532:134">&amp;endP</samp>.
+</p></li><li data-coord="c-intro.umt:1536:0"><p data-coord="c-intro.umt:1536:4">Declaration of <samp data-coord="c-intro.umt:1536:19">strtol()</samp> is
+<code><span class="hl kwb">long</span> <span class="hl kwd">strtol</span><span class="hl opt">(</span><span class="hl kwb">const char</span> <span class="hl opt">*</span>str<span class="hl opt">,</span> <span class="hl kwb">char</span> <span class="hl opt">**</span>end<span class="hl opt">,</span> <span class="hl kwb">int</span> base<span class="hl opt">)</span></code>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1539:0"><h2 data-coord="c-intro.umt:1539:0">Pointer Sum Discussion Continued</h2><ul data-coord="c-intro.umt:1542:0"><li data-coord="c-intro.umt:1542:0"><p data-coord="c-intro.umt:1542:4">In <samp data-coord="c-intro.umt:1542:7">ptr_sum()</samp>, <samp data-coord="c-intro.umt:1542:20">start</samp> is address of first string.  Since
+a string has type <samp data-coord="c-intro.umt:1542:85">char *</samp>, <samp data-coord="c-intro.umt:1542:95">start</samp> is declared <samp data-coord="c-intro.umt:1542:115">char **</samp>.
+</p></li><li data-coord="c-intro.umt:1545:0"><p data-coord="c-intro.umt:1545:4"><samp data-coord="c-intro.umt:1545:4">end</samp> is address one past that of the last string; i.e.
+<samp data-coord="c-intro.umt:1545:64">end</samp> is an <strong data-coord="c-intro.umt:1545:76">exclusive limit</strong>.
+</p></li><li data-coord="c-intro.umt:1548:0"><p data-coord="c-intro.umt:1548:4"><samp data-coord="c-intro.umt:1548:4">p</samp> is initialized to <samp data-coord="c-intro.umt:1548:26">start</samp> of type <samp data-coord="c-intro.umt:1548:42">const char **</samp>.  Hence <samp data-coord="c-intro.umt:1548:66">*p</samp>
+has type <samp data-coord="c-intro.umt:1548:84">const char *</samp> which is the string being sent as the
+first argument to <samp data-coord="c-intro.umt:1548:159">strtol()</samp>
+</p></li><li data-coord="c-intro.umt:1552:0"><p data-coord="c-intro.umt:1552:4"><samp data-coord="c-intro.umt:1552:4">p++</samp> will point to next string.
+</p></li><li data-coord="c-intro.umt:1554:0"><p data-coord="c-intro.umt:1554:4">Since <samp data-coord="c-intro.umt:1554:10">end</samp> is an exclusive limit, the loop quits when
+<samp data-coord="c-intro.umt:1554:63">p == end</samp>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1558:0"><h2 data-coord="c-intro.umt:1558:0">Declaration of Command-Line Arguments in main()</h2><ul data-coord="c-intro.umt:1561:0"><li data-coord="c-intro.umt:1561:0"><p data-coord="c-intro.umt:1561:4">Typical declaration <code><span class="hl kwb">const char</span> <span class="hl opt">*</span>argv<span class="hl opt">[]</span></code> for second argument of
+<samp data-coord="c-intro.umt:1561:73">main()</samp>, declares <samp data-coord="c-intro.umt:1561:92">argv</samp> to be an array of pointers to constant
+<samp data-coord="c-intro.umt:1561:142">char</samp> (typically, constant strings) with each element containing
+a command-line argument string.
+</p></li><li data-coord="c-intro.umt:1566:0"><p data-coord="c-intro.umt:1566:4"><samp data-coord="c-intro.umt:1566:4">argv[1]</samp>, <samp data-coord="c-intro.umt:1566:15">argv[2]</samp> etc. have type of the array element: namely
+pointer to <code><span class="hl kwb">const char</span></code>, i.e. <code><span class="hl kwb">const char</span> <span class="hl opt">*</span></code>; Hence <samp data-coord="c-intro.umt:1566:127">&amp;argv[1]</samp> and
+<samp data-coord="c-intro.umt:1566:146">&amp;argv[2]</samp> have type pointer to pointer to <code><span class="hl kwb">const char</span></code>,
+i.e. <code><span class="hl kwb">const char</span> <span class="hl opt">**</span></code>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1573:0"><h2 data-coord="c-intro.umt:1573:0">Representation of Command-Line Arguments</h2><p data-coord="c-intro.umt:1576:0">Given command-line <samp data-coord="c-intro.umt:1576:19">./ptr-sum 12 13 -0xc</samp>, we have <samp data-coord="c-intro.umt:1576:51">argv</samp> array as
+follows:
+</p><pre data-coord="c-intro.umt:1580:0">   argv[0]: [      ] -----&gt; [ '.' '/' 'p' 't' ... 'u' 'm' '\0' ]
+   argv[1]: [      ] -----&gt; [ '1' '2' '\0' ]
+   argv[2]: [      ] -----&gt; [ '1' '3' '\0' ]
+   argv[3]: [      ] -----&gt; [ '-' '0' 'x' 'c' '\0' ]
+   argv[4]: [ NULL ]      #usually
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1587:0"><h2 data-coord="c-intro.umt:1587:0">Standard I/O Example wc(1) Program</h2><p data-coord="c-intro.umt:1590:0"><a href="./code/wc.c" data-coord="c-intro.umt:1590:15">wc.c</a> contains a simple word-count (wc(1)) program:
+</p><pre>
+<span class="hl kwb">enum</span> <span class="hl opt">{</span> COUNT_CHARS <span class="hl opt">=</span> <span class="hl num">7</span> <span class="hl opt">};</span>
+
+<span class="hl kwb">static int</span> nCTotal <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>         <span class="hl com">/* total # of chars */</span>
+<span class="hl kwb">static int</span> nWTotal <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>         <span class="hl com">/* total # of words */</span>
+<span class="hl kwb">static int</span> nLTotal <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>         <span class="hl com">/* total # of lines */</span>
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1594:0"><h2 data-coord="c-intro.umt:1594:0">Standard I/O Example wc(1) Program</h2><pre><span class="hl kwb">void</span>
+<span class="hl kwd">wc</span><span class="hl opt">(</span><span class="hl kwb">const char</span> <span class="hl opt">*</span>fName<span class="hl opt">,</span> <span class="hl kwb">FILE</span> <span class="hl opt">*</span>f<span class="hl opt">)</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">int</span> inWord <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+  <span class="hl kwb">int</span> nC <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">,</span> nW <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">,</span> nL <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+  <span class="hl kwb">int</span> c<span class="hl opt">;</span>
+  <span class="hl slc">//standard C idiom for reading file while checking EOF</span>
+  <span class="hl kwa">while</span> <span class="hl opt">((</span>c <span class="hl opt">=</span> <span class="hl kwd">fgetc</span><span class="hl opt">(</span>f<span class="hl opt">)) !=</span> EOF<span class="hl opt">) {</span>
+    nC<span class="hl opt">++;</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span>c <span class="hl opt">==</span> <span class="hl str">&apos;</span><span class="hl esc">\n</span><span class="hl str">&apos;</span><span class="hl opt">)</span> nL<span class="hl opt">++;</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">isspace</span><span class="hl opt">(</span>c<span class="hl opt">)) {</span>
+      inWord <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>
+    <span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1600:0"><h2 data-coord="c-intro.umt:1600:0">Standard I/O Example wc(1) Program</h2><pre>
+    <span class="hl kwa">else</span> <span class="hl opt">{</span>
+      <span class="hl kwa">if</span> <span class="hl opt">(!</span>inWord<span class="hl opt">)</span> nW<span class="hl opt">++;</span>
+      inWord <span class="hl opt">=</span> <span class="hl num">1</span><span class="hl opt">;</span>
+    <span class="hl opt">}</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span><span class="hl kwd">ferror</span><span class="hl opt">(</span>f<span class="hl opt">)) {</span>
+    <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;i/o error: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+            <span class="hl kwd">strerror</span><span class="hl opt">(</span>errno<span class="hl opt">));</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;%*d %*d %*d %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span> COUNT_CHARS<span class="hl opt">,</span> nL<span class="hl opt">,</span>
+         COUNT_CHARS<span class="hl opt">,</span> nW<span class="hl opt">,</span> COUNT_CHARS<span class="hl opt">,</span> nC<span class="hl opt">,</span> fName<span class="hl opt">);</span>
+  nCTotal <span class="hl opt">+=</span> nC<span class="hl opt">;</span> nWTotal <span class="hl opt">+=</span> nW<span class="hl opt">;</span> nLTotal <span class="hl opt">+=</span> nL<span class="hl opt">;</span>
+<span class="hl opt">}</span>
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1605:0"><h2 data-coord="c-intro.umt:1605:0">Standard I/O Example wc(1) main() Program</h2><pre><span class="hl kwb">int</span>
+<span class="hl kwd">main</span><span class="hl opt">(</span><span class="hl kwb">int</span> argc<span class="hl opt">,</span> <span class="hl kwb">const char</span> <span class="hl opt">*</span>argv<span class="hl opt">[])</span>
+<span class="hl opt">{</span>
+  <span class="hl kwb">int</span> i<span class="hl opt">;</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(</span>argc <span class="hl opt">==</span> <span class="hl num">1</span><span class="hl opt">) {</span>
+    <span class="hl kwd">wc</span><span class="hl opt">(</span><span class="hl str">&quot;&quot;</span><span class="hl opt">,</span> stdin<span class="hl opt">);</span>
+  <span class="hl opt">}</span>
+  <span class="hl kwa">else</span> <span class="hl opt">{</span>
+    <span class="hl kwa">for</span> <span class="hl opt">(</span>i <span class="hl opt">=</span> <span class="hl num">1</span><span class="hl opt">;</span> i <span class="hl opt">&lt;</span> argc<span class="hl opt">;</span> i<span class="hl opt">++) {</span>
+      <span class="hl kwb">FILE</span> <span class="hl opt">*</span>in <span class="hl opt">=</span> <span class="hl kwd">fopen</span><span class="hl opt">(</span>argv<span class="hl opt">[</span>i<span class="hl opt">],</span> <span class="hl str">&quot;r&quot;</span><span class="hl opt">);</span>
+      <span class="hl kwa">if</span> <span class="hl opt">(!</span>in<span class="hl opt">) {</span>
+        <span class="hl kwd">fprintf</span><span class="hl opt">(</span>stderr<span class="hl opt">,</span> <span class="hl str">&quot;could not read %s: %s</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+                argv<span class="hl opt">[</span>i<span class="hl opt">],</span> <span class="hl kwd">strerror</span><span class="hl opt">(</span>errno<span class="hl opt">));</span>
+      <span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1610:0"><h2 data-coord="c-intro.umt:1610:0">Standard I/O Example wc(1) main() Program Continued</h2><pre>
+      <span class="hl kwa">else</span> <span class="hl opt">{</span>
+        <span class="hl kwd">wc</span><span class="hl opt">(</span>argv<span class="hl opt">[</span>i<span class="hl opt">],</span> in<span class="hl opt">);</span>
+        <span class="hl kwd">fclose</span><span class="hl opt">(</span>in<span class="hl opt">);</span>
+      <span class="hl opt">}</span>
+    <span class="hl opt">}</span> <span class="hl slc">//for (i = 1; i &lt; argc; i++)</span>
+    <span class="hl kwa">if</span> <span class="hl opt">(</span>argc <span class="hl opt">&gt;</span> <span class="hl num">2</span><span class="hl opt">) {</span>
+      <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;%*d %*d %*d total</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">,</span>
+             COUNT_CHARS<span class="hl opt">,</span> nLTotal<span class="hl opt">,</span> COUNT_CHARS<span class="hl opt">,</span>
+             nWTotal<span class="hl opt">,</span> COUNT_CHARS<span class="hl opt">,</span> nCTotal<span class="hl opt">);</span>
+    <span class="hl opt">}</span>
+  <span class="hl opt">}</span> <span class="hl slc">//else if argc != 1</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1617:0"><h2 data-coord="c-intro.umt:1617:0">wc(1) Log</h2><pre data-coord="c-intro.umt:1621:0">$ which wc
+/usr/bin/wc
+$ wc wc.c
+     62     183    1154 wc.c
+$ ./wc wc.c
+     62     183    1154 wc.c
+$ wc wc.c buffer.c
+     62     183    1154 wc.c
+     14      41     278 buffer.c
+     76     224    1432 total
+$ wc &lt;wc.c
+     62     183    1154
+$ ./wc &lt;wc.c
+     62     183    1154 
+$ 
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1640:0"><h2 data-coord="c-intro.umt:1640:0">C Character I/O</h2><pre><span class="hl kwb">int</span> <span class="hl kwd">fgetc</span><span class="hl opt">(</span><span class="hl kwb">FILE</span> <span class="hl opt">*</span>stream<span class="hl opt">);</span>
+<span class="hl kwb">int</span> <span class="hl kwd">getc</span><span class="hl opt">(</span><span class="hl kwb">FILE</span> <span class="hl opt">*</span>stream<span class="hl opt">);</span>  <span class="hl slc">//like fgetc() but may be macro</span>
+<span class="hl kwb">int</span> <span class="hl kwd">getchar</span><span class="hl opt">(</span><span class="hl kwb">void</span><span class="hl opt">);</span>       <span class="hl slc">//getc(stdin)</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">fputc</span><span class="hl opt">(</span><span class="hl kwb">int</span> c<span class="hl opt">,</span> <span class="hl kwb">FILE</span> <span class="hl opt">*</span>stream<span class="hl opt">);</span>
+<span class="hl kwb">int</span> <span class="hl kwd">putc</span><span class="hl opt">(</span><span class="hl kwb">int</span> c<span class="hl opt">,</span> <span class="hl kwb">FILE</span> <span class="hl opt">*</span>stream<span class="hl opt">);</span>  <span class="hl slc">//like fputc()</span>
+                                <span class="hl slc">//but may be macro</span>
+<span class="hl kwb">int</span> <span class="hl kwd">putchar</span><span class="hl opt">(</span><span class="hl kwb">int</span> c<span class="hl opt">);</span>             <span class="hl slc">//putc(c, stdout)</span></pre></section><section class="umt-slide" data-coord="c-intro.umt:1654:0"><h2 data-coord="c-intro.umt:1654:0">C Character I/O</h2><ul data-coord="c-intro.umt:1657:0"><li data-coord="c-intro.umt:1657:0"><p data-coord="c-intro.umt:1657:4">Why do functions on previous slide treat characters as <samp data-coord="c-intro.umt:1657:59">int</samp>'s
+rather than <samp data-coord="c-intro.umt:1657:83">char</samp>?
+</p></li><li data-coord="c-intro.umt:1660:0"><p data-coord="c-intro.umt:1660:4">For the output <samp data-coord="c-intro.umt:1660:19">put*()</samp> functions, the reason is to do with
+compatibility with pre-ISO C where all <samp data-coord="c-intro.umt:1660:107">char</samp>/`short` arguments
+were passed as <samp data-coord="c-intro.umt:1660:151">int</samp>'s.
+</p></li><li data-coord="c-intro.umt:1664:0"><p data-coord="c-intro.umt:1664:4">But why for input?  Couldn't <samp data-coord="c-intro.umt:1664:33">get*()</samp> simply return a <samp data-coord="c-intro.umt:1664:58">char</samp>?
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1666:0"><h2 data-coord="c-intro.umt:1666:0">Signedness of <samp data-coord="c-intro.umt:1666:14">char</samp></h2><ul data-coord="c-intro.umt:1669:0"><li data-coord="c-intro.umt:1669:0"><p data-coord="c-intro.umt:1669:4">In C, the signedness of a plain <samp data-coord="c-intro.umt:1669:36">char</samp> is undefined as on some platforms
+<samp data-coord="c-intro.umt:1669:81">char</samp> may be signed, on others it may be unsigned.
+</p></li><li data-coord="c-intro.umt:1672:0"><p data-coord="c-intro.umt:1672:4">Can be explicit by declaring <samp data-coord="c-intro.umt:1672:33">signed char</samp> or <samp data-coord="c-intro.umt:1672:50">unsigned char</samp>.
+</p></li><li data-coord="c-intro.umt:1674:0"><p data-coord="c-intro.umt:1674:4"><samp data-coord="c-intro.umt:1674:4">get*()</samp> functions return <samp data-coord="c-intro.umt:1674:30">EOF</samp> on end-of-file or error.
+</p></li><li data-coord="c-intro.umt:1676:0"><p data-coord="c-intro.umt:1676:4"><samp data-coord="c-intro.umt:1676:4">EOF</samp> is typically a negative number, usually -1.
+</p></li><li data-coord="c-intro.umt:1678:0"><p data-coord="c-intro.umt:1678:4">Hence <samp data-coord="c-intro.umt:1678:10">get*()</samp> functions return <samp data-coord="c-intro.umt:1678:36">int</samp>.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1681:0"><h2 data-coord="c-intro.umt:1681:0">Record I/O</h2><pre><span class="hl kwb">size_t</span> <span class="hl kwd">fread</span><span class="hl opt">(</span><span class="hl kwb">void</span> <span class="hl opt">*</span>buf<span class="hl opt">,</span> <span class="hl kwb">size_t</span> recSize<span class="hl opt">,</span> <span class="hl kwb">size_t</span> nRecs<span class="hl opt">,</span>
+             <span class="hl kwb">FILE</span> <span class="hl opt">*</span>input<span class="hl opt">);</span>
+<span class="hl kwb">size_t</span> <span class="hl kwd">fwrite</span><span class="hl opt">(</span><span class="hl kwb">const void</span> <span class="hl opt">*</span>buf<span class="hl opt">,</span> <span class="hl kwb">size_t</span> recSize<span class="hl opt">,</span> <span class="hl kwb">size_t</span> nRecs<span class="hl opt">,</span>
+              <span class="hl kwb">FILE</span> <span class="hl opt">*</span>output<span class="hl opt">);</span></pre><ul data-coord="c-intro.umt:1691:0"><li data-coord="c-intro.umt:1691:0"><p data-coord="c-intro.umt:1691:4">Can read/write <samp data-coord="c-intro.umt:1691:19">nRecs</samp> records each having size of <samp data-coord="c-intro.umt:1691:55">recSize</samp>
+bytes.
+</p></li><li data-coord="c-intro.umt:1694:0"><p data-coord="c-intro.umt:1694:4">Can be used for <em data-coord="c-intro.umt:1694:20">serializing</em> binary data like <samp data-coord="c-intro.umt:1694:51">struct</samp>'s.
+</p></li><li data-coord="c-intro.umt:1696:0"><p data-coord="c-intro.umt:1696:4">Simple-minded serialization likely problematic: binary data is
+inherently unportable (endian and size issues).  Serialized pointers
+are meaningless.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1700:0"><h2 data-coord="c-intro.umt:1700:0">Formatted I/O</h2><ul data-coord="c-intro.umt:1703:0"><li data-coord="c-intro.umt:1703:0"><p data-coord="c-intro.umt:1703:4"><samp data-coord="c-intro.umt:1703:4">printf()</samp>, <samp data-coord="c-intro.umt:1703:16">fprintf()</samp>, <samp data-coord="c-intro.umt:1703:29">scanf()</samp>, <samp data-coord="c-intro.umt:1703:40">fscanf()</samp> and friends.
+</p></li><li data-coord="c-intro.umt:1705:0"><p data-coord="c-intro.umt:1705:4">Since C cannot change actual parameters, it is necessary
+that <samp data-coord="c-intro.umt:1705:70">scanf()</samp> receive pointers to variables to be changed.
+</p><pre>    <span class="hl kwb">int</span> val<span class="hl opt">;</span>
+    <span class="hl kwd">scanf</span><span class="hl opt">(</span><span class="hl str">&quot;%d&quot;</span><span class="hl opt">,</span> val<span class="hl opt">);</span> <span class="hl slc">//WRONG</span>
+    <span class="hl kwd">scanf</span><span class="hl opt">(</span><span class="hl str">&quot;%d&quot;</span><span class="hl opt">, &amp;</span>val<span class="hl opt">);</span> <span class="hl slc">//correct</span></pre></li><li data-coord="c-intro.umt:1714:0"><p data-coord="c-intro.umt:1714:4">Format specifiers for <samp data-coord="c-intro.umt:1714:26">printf()</samp> and <samp data-coord="c-intro.umt:1714:41">scanf()</samp> bear superficial
+resemblance but are different.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1717:0"><h2 data-coord="c-intro.umt:1717:0">Character Sets</h2><ul data-coord="c-intro.umt:1720:0"><li data-coord="c-intro.umt:1720:0"><p data-coord="c-intro.umt:1720:4">A character is an abstract entity representing a symbol used in writing
+some human language.
+</p></li><li data-coord="c-intro.umt:1723:0"><p data-coord="c-intro.umt:1723:4">Printed representation is a <em data-coord="c-intro.umt:1723:32">glyph</em>.
+</p></li><li data-coord="c-intro.umt:1725:0"><p data-coord="c-intro.umt:1725:4">Represented by an integer <em data-coord="c-intro.umt:1725:30">code</em> within computers.
+</p></li><li data-coord="c-intro.umt:1727:0"><p data-coord="c-intro.umt:1727:4">A <em data-coord="c-intro.umt:1727:6">character set</em> could refer to an abstract set of characters,
+or a more concrete mapping from some character codes to glyphs.
+</p></li><li data-coord="c-intro.umt:1730:0"><p data-coord="c-intro.umt:1730:4">Many different character sets.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1733:0"><h2 data-coord="c-intro.umt:1733:0">ASCII</h2><p data-coord="c-intro.umt:1736:0">1960s: <a href="https://en.wikipedia.org/wiki/ASCII#Character_set" data-coord="c-intro.umt:1736:60">ASCII</a> is a
+7-bit code <samp data-coord="c-intro.umt:1736:82">0x00</samp> - <samp data-coord="c-intro.umt:1736:91">0x7F</samp> evolved from codes used for telegraph.
+</p><ul data-coord="c-intro.umt:1739:0"><li data-coord="c-intro.umt:1739:0"><p data-coord="c-intro.umt:1739:6">95 printable characters, 33 control characters.
+</p></li><li data-coord="c-intro.umt:1741:0"><p data-coord="c-intro.umt:1741:6"><samp data-coord="c-intro.umt:1741:6">0x00</samp> - <samp data-coord="c-intro.umt:1741:15">0x1F</samp> Control codes: <samp data-coord="c-intro.umt:1741:37">0x0a</samp> <samp data-coord="c-intro.umt:1741:44">^J</samp>, <samp data-coord="c-intro.umt:1741:50">'\n'</samp> <em data-coord="c-intro.umt:1741:57">line feed</em>;
+ <samp data-coord="c-intro.umt:1741:77">0x0d</samp> <samp data-coord="c-intro.umt:1741:84">^M</samp>, <samp data-coord="c-intro.umt:1741:90">'\r'</samp> <em data-coord="c-intro.umt:1741:97">carriage return</em>; <samp data-coord="c-intro.umt:1741:116">0x07</samp> <samp data-coord="c-intro.umt:1741:123">^G</samp>, <samp data-coord="c-intro.umt:1741:129">'\a'</samp>
+ <em data-coord="c-intro.umt:1741:143">bell</em>; <samp data-coord="c-intro.umt:1741:151">0x09</samp>, <samp data-coord="c-intro.umt:1741:159">^I', </samp>'\t'` <em data-coord="c-intro.umt:1741:172">horizontal tab</em>; <samp data-coord="c-intro.umt:1741:190">0x08</samp>, <samp data-coord="c-intro.umt:1741:198">^H</samp>,
+ '\b'` <em data-coord="c-intro.umt:1741:217">backspace</em>; <samp data-coord="c-intro.umt:1741:230">0x0c</samp> <samp data-coord="c-intro.umt:1741:237">^L</samp>, <samp data-coord="c-intro.umt:1741:243">'\f'</samp> <em data-coord="c-intro.umt:1741:250">form feed</em>; <samp data-coord="c-intro.umt:1741:263">0x1B</samp> <samp data-coord="c-intro.umt:1741:270">^[</samp>
+ <em data-coord="c-intro.umt:1741:282">escape</em>.
+</p></li><li data-coord="c-intro.umt:1747:0"><p data-coord="c-intro.umt:1747:6"><samp data-coord="c-intro.umt:1747:6">0x20</samp> (32): <em data-coord="c-intro.umt:1747:19">space</em> character.
+</p></li><li data-coord="c-intro.umt:1749:0"><p data-coord="c-intro.umt:1749:6"><samp data-coord="c-intro.umt:1749:6">0x30</samp> - <samp data-coord="c-intro.umt:1749:15">0x39</samp> (48 - 57):  digits.
+</p></li><li data-coord="c-intro.umt:1751:0"><p data-coord="c-intro.umt:1751:6"><samp data-coord="c-intro.umt:1751:6">0x41</samp> - <samp data-coord="c-intro.umt:1751:15">0x5a</samp> (65 - 90): upper-case alphabet <samp data-coord="c-intro.umt:1751:53">A</samp> - <samp data-coord="c-intro.umt:1751:59">Z</samp>.  Get
+corresponding control-code by stripping off high bit \(b_6\).
+</p></li><li data-coord="c-intro.umt:1754:0"><p data-coord="c-intro.umt:1754:6"><samp data-coord="c-intro.umt:1754:6">0x61</samp> - <samp data-coord="c-intro.umt:1754:15">0x7a</samp> (97 - 122): lower-case alphabet <samp data-coord="c-intro.umt:1754:54">a</samp> - <samp data-coord="c-intro.umt:1754:60">z</samp>.
+</p></li><li data-coord="c-intro.umt:1756:0"><p data-coord="c-intro.umt:1756:6"><samp data-coord="c-intro.umt:1756:6">0x7f</samp>: <em data-coord="c-intro.umt:1756:14">delete</em> character. 
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1758:0"><h2 data-coord="c-intro.umt:1758:0">ASCII Continued</h2><ul data-coord="c-intro.umt:1762:0"><li data-coord="c-intro.umt:1762:0"><p data-coord="c-intro.umt:1762:6">Codes not listed above are symbol or punctuation characters.
+</p></li><li data-coord="c-intro.umt:1764:0"><p data-coord="c-intro.umt:1764:6">Problems with characters like brackets <samp data-coord="c-intro.umt:1764:45">[</samp> and <samp data-coord="c-intro.umt:1764:53">]</samp>, and braces
+<samp data-coord="c-intro.umt:1764:75">{</samp> and <samp data-coord="c-intro.umt:1764:83">}</samp>, which were difficult to type on some keyboards
+(currently rare).  Led to C <em data-coord="c-intro.umt:1764:169">trigraphs</em>: <samp data-coord="c-intro.umt:1764:182">??x</samp> for alternate
+representation of problematic characters.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1769:0"><h2 data-coord="c-intro.umt:1769:0">8-Bit Character Sets</h2><dl data-coord="c-intro.umt:1772:0"><dt data-coord="c-intro.umt:1772:2"> <strong data-coord="c-intro.umt:1772:1">IBM EBCDIC</strong></dt><dd data-coord="c-intro.umt:1773:0"><p data-coord="c-intro.umt:1773:5">Used by IBM mainframes.  Non-contiguous alphabetic characters.
+Multiple <em data-coord="c-intro.umt:1773:82">code pages</em>.
+</p></dd><dt data-coord="c-intro.umt:1776:2"> <strong data-coord="c-intro.umt:1776:1">Extended ASCII</strong></dt><dd data-coord="c-intro.umt:1777:0"><p data-coord="c-intro.umt:1777:5">1980s, 1990s.  Microsoft <em data-coord="c-intro.umt:1777:30">code pages</em> for different languages;
+<samp data-coord="c-intro.umt:1777:73">ISO-8859-*</samp> for different languages. <samp data-coord="c-intro.umt:1777:111">8859-1</samp> Latin-1 for
+<em data-coord="c-intro.umt:1777:137">Western European</em> languages, <samp data-coord="c-intro.umt:1777:167">8859-2</samp> Latin-2 for <em data-coord="c-intro.umt:1777:188">Central
+     European</em> languages, .., <samp data-coord="c-intro.umt:1777:228">8859-9</samp> Latin-5 for Turkish.  Other
+<samp data-coord="c-intro.umt:1777:270">8859-*</samp> variants cover most European languages, Arabic, Hebrew,
+Thai.  Various incompatibilites.
+</p></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:1784:0"><h2 data-coord="c-intro.umt:1784:0">CJK Languages</h2><p data-coord="c-intro.umt:1787:0">CJK: Chinese, Japanese and Korean.  CJKV: + Vietnamese.  Cover main
+East Asian Languages.  Thousands of characters required.  8 bits
+insufficient.
+</p><p data-coord="c-intro.umt:1791:0">Two major approaches:
+</p><dl data-coord="c-intro.umt:1793:0"><dt data-coord="c-intro.umt:1793:2"> <strong data-coord="c-intro.umt:1793:1">Wide Characters</strong></dt><dd data-coord="c-intro.umt:1794:0"><p data-coord="c-intro.umt:1794:5">Encode characters using 16-bits (or wider).
+</p></dd><dt data-coord="c-intro.umt:1796:2"> <strong data-coord="c-intro.umt:1796:1">Mult-Byte Variable Length Encoding</strong></dt><dd data-coord="c-intro.umt:1797:0"><p data-coord="c-intro.umt:1797:5">Need escape sequences to shift interpretations.  Need to scan
+string sequentially to interpret escape sequences correctly.
+Entire string corrupted if a single bit is corrupted.  Example:
+<em data-coord="c-intro.umt:1797:250"><a href="https://en.wikipedia.org/wiki/Shift_JIS" data-coord="c-intro.umt:1797:250">Shift JIS</a></em>.
+</p></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:1803:0"><h2 data-coord="c-intro.umt:1803:0">Unicode</h2><p data-coord="c-intro.umt:1806:0"><a href="https://en.wikipedia.org/wiki/Unicode" data-coord="c-intro.umt:1806:41">Unicode</a> <em data-coord="c-intro.umt:1806:49">universal character
+set</em> widely used by all modern computer systems to represent
+international characters.
+</p><ul data-coord="c-intro.umt:1810:0"><li data-coord="c-intro.umt:1810:0"><p data-coord="c-intro.umt:1810:4">Over 1 million code points from <samp data-coord="c-intro.umt:1810:36">0x000000</samp> to <samp data-coord="c-intro.umt:1810:50">0x10FFFF</samp>.  
+</p></li><li data-coord="c-intro.umt:1812:0"><p data-coord="c-intro.umt:1812:4"><em data-coord="c-intro.umt:1812:4">Basic Multilingual Plane</em> (BMP): code points less than
+<samp data-coord="c-intro.umt:1812:64">0x10000</samp>.  
+</p></li><li data-coord="c-intro.umt:1815:0"><p data-coord="c-intro.umt:1815:4">Characters often specified by name or by <em data-coord="c-intro.umt:1815:45">code-point</em> as <samp data-coord="c-intro.umt:1815:61">U+xxxx</samp>.
+</p></li><li data-coord="c-intro.umt:1817:0"><p data-coord="c-intro.umt:1817:4">Combining characters.
+</p></li><li data-coord="c-intro.umt:1819:0"><p data-coord="c-intro.umt:1819:4">Can be encoded using a fixed width (UTF-32) or variable
+width encoding (UTF-16 on windows, UTF-8 on unix and www).
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1823:0"><h2 data-coord="c-intro.umt:1823:0">UTF-8 Encoding for Unicode</h2><p data-coord="c-intro.umt:1826:0"><a href="https://en.wikipedia.org/wiki/UTF-8" data-coord="c-intro.umt:1826:39">UTF-8</a> is a popular variable
+width encoding for Unicode which is compatible with ASCII.  Used
+widely on WWW.
+</p><pre data-coord="c-intro.umt:1831:0">-------------------------+----------------------------
+Unicode Range            | Encoding
+-------------------------+----------------------------
+U+000000000 - U+0000007F | 0xxxxxxx
+U+000000080 - U+000007FF | 110xxxxx 10xxxxxx
+U+000000800 - U+0000FFFF | 1110xxxx 10xxxxxx 10xxxxxx
+U+000010000 - U+001FFFFF | 11110xxx 10xxxxxx 10xxxxxx
+                         |          10xxxxxx
+U+000200000 - U+03FFFFFF | 111110xx 10xxxxxx 10xxxxxx
+                         |          10xxxxxx 10xxxxxx
+U+040000000 - U+7FFFFFFF | 1111110x 10xxxxxx 10xxxxxx
+                         |          10xxxxxx 10xxxxxx 
+                         |          10xxxxxx
+-------------------------+----------------------------
+</pre></section><section class="umt-slide" data-coord="c-intro.umt:1847:0"><h2 data-coord="c-intro.umt:1847:0">UTF-8 Encoding for Unicode Continued</h2><ul data-coord="c-intro.umt:1850:0"><li data-coord="c-intro.umt:1850:0"><p data-coord="c-intro.umt:1850:4">Single byte encodings compatible with ASCII.
+</p></li><li data-coord="c-intro.umt:1852:0"><p data-coord="c-intro.umt:1852:4">Leading number of 1s in first byte gives # of bytes in multi-byte
+sequences.
+</p></li><li data-coord="c-intro.umt:1855:0"><p data-coord="c-intro.umt:1855:4">4-byte encoding sufficient to represent all Unicode characters up
+to <samp data-coord="c-intro.umt:1855:77">U+10FFFF</samp>.
+</p></li><li data-coord="c-intro.umt:1858:0"><p data-coord="c-intro.umt:1858:4">Easy to synchronize from middle of string by skipping <samp data-coord="c-intro.umt:1858:58">10xxxxxx</samp>
+bytes.
+</p></li><li data-coord="c-intro.umt:1861:0"><p data-coord="c-intro.umt:1861:4">Designed in 1992 by Ken Thompson on a placemat at a New Jersey
+diner!
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1865:0"><h2 data-coord="c-intro.umt:1865:0">UTF-8 with C</h2><ul data-coord="c-intro.umt:1868:0"><li data-coord="c-intro.umt:1868:0"><p data-coord="c-intro.umt:1868:4">Must set <samp data-coord="c-intro.umt:1868:13">locale</samp> appropriately.
+</p></li><li data-coord="c-intro.umt:1870:0"><p data-coord="c-intro.umt:1870:4"><samp data-coord="c-intro.umt:1870:4">strlen()</samp> gives number of bytes, not number of characters.
+</p></li><li data-coord="c-intro.umt:1872:0"><p data-coord="c-intro.umt:1872:4">Routines in standard library available.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1875:0"><h2 data-coord="c-intro.umt:1875:0">Fractional Binary Numbers</h2><p data-coord="c-intro.umt:1878:0">Given a fractional binary number 
+</p>\[b_mb_{m-1}\ldots b_1b_0.b_{-1}b_{-2}\ldots b_{-n-1}b_{-n}
+\]<p data-coord="c-intro.umt:1885:0">By analogy with decimal notation, its value will be given
+by
+</p>\[\sum_{i=-n}^m 2^i\times b_i
+\]<p data-coord="c-intro.umt:1892:0">So we would have: binary <samp data-coord="c-intro.umt:1892:25">0.1</samp> representing decimal <samp data-coord="c-intro.umt:1892:52">0.5</samp>, binary <samp data-coord="c-intro.umt:1892:66">0.01</samp>
+representing decimal <samp data-coord="c-intro.umt:1892:94">0.25</samp> and binary <samp data-coord="c-intro.umt:1892:112">11.101</samp> representing decimal
+<samp data-coord="c-intro.umt:1892:142">3.625</samp>.
+</p></section><section class="umt-slide" data-coord="c-intro.umt:1897:0"><h2 data-coord="c-intro.umt:1897:0">IEEE Floating Point Representation</h2><ul data-coord="c-intro.umt:1900:0"><li data-coord="c-intro.umt:1900:0"><p data-coord="c-intro.umt:1900:4">Similar to <em data-coord="c-intro.umt:1900:15">scientific notation</em> where a number is represented using
+a <em data-coord="c-intro.umt:1900:79">mantissa</em> and an <em data-coord="c-intro.umt:1900:97">exponent</em>.
+</p></li><li data-coord="c-intro.umt:1903:0"><p data-coord="c-intro.umt:1903:4">Floating point representation contains a single <em data-coord="c-intro.umt:1903:52">sign</em> bit, a \(k\)-bit
+<em data-coord="c-intro.umt:1903:79">exponent</em> field and a \(n\)-bit <em data-coord="c-intro.umt:1903:111">mantissa</em> or <em data-coord="c-intro.umt:1903:125">significand</em> fraction
+field.
+</p></li><li data-coord="c-intro.umt:1907:0"><p data-coord="c-intro.umt:1907:4">Usually, the exponent is adjusted so that the fraction field is always
+of the form \(1.\ldots\), i.e. there is always a <samp data-coord="c-intro.umt:1907:127">1</samp> before the binary
+point.  Hence there is no point in storing it and we say that the
+fraction field is <em data-coord="c-intro.umt:1907:241">normalized</em>.
+</p></li><li data-coord="c-intro.umt:1912:0"><p data-coord="c-intro.umt:1912:4">Exponent is stored with a bias.
+</p></li><li data-coord="c-intro.umt:1914:0"><p data-coord="c-intro.umt:1914:4">Reserve exponent of all 0's and all 1's for exceptional cases.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1916:0"><h2 data-coord="c-intro.umt:1916:0">Floating Point Formats</h2><img src="figs/fp-formats.png" width="289"/><ul data-coord="c-intro.umt:1921:0"><li data-coord="c-intro.umt:1921:0"><p data-coord="c-intro.umt:1921:4">Because of normalization, single precision (usually C <samp data-coord="c-intro.umt:1921:58">float</samp>'s) 
+only store a 23-bit fraction which actually represents 24-bits.
+</p></li><li data-coord="c-intro.umt:1924:0"><p data-coord="c-intro.umt:1924:4">Again, due to normalization double precision (usually C <samp data-coord="c-intro.umt:1924:60">double</samp>'s) only
+store a 52-bit fraction which actually represents 53 bits.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1927:0"><h2 data-coord="c-intro.umt:1927:0">Floating Point Cases</h2><img src="figs/fp-cases.png" width="289"/><ul data-coord="c-intro.umt:1932:0"><li data-coord="c-intro.umt:1932:0"><p data-coord="c-intro.umt:1932:4">Denormalized numbers allow graceful underflow.
+</p></li><li data-coord="c-intro.umt:1934:0"><p data-coord="c-intro.umt:1934:4">Special values of \(\pm \infty\) allows saturating arithmetic.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1937:0"><h2 data-coord="c-intro.umt:1937:0">Not-a-Number (`NaN`)</h2><p data-coord="c-intro.umt:1940:0">When exponent is all 1's and fraction non-zero, we have a <samp data-coord="c-intro.umt:1940:58">NaN</samp>.
+</p><ul data-coord="c-intro.umt:1942:0"><li data-coord="c-intro.umt:1942:0"><p data-coord="c-intro.umt:1942:4"><samp data-coord="c-intro.umt:1942:4">NaN</samp> indicates an invalid result like <samp data-coord="c-intro.umt:1942:43">0/0</samp>.  Can cause 
+an exception ("signalling" <samp data-coord="c-intro.umt:1942:93">NaN</samp>) or simply propagates as
+<samp data-coord="c-intro.umt:1942:128">NaN</samp> ("quiet" <samp data-coord="c-intro.umt:1942:143">NaN</samp>).
+</p></li><li data-coord="c-intro.umt:1946:0"><p data-coord="c-intro.umt:1946:4"><samp data-coord="c-intro.umt:1946:4">NaN</samp> compares false with anything, including itself.  
+</p><pre data-coord="c-intro.umt:1949:0">     double x = 0/0;
+     x == x; //evaluates to 0.
+     x != x; //evaluates to 1.
+     x &lt; y;  //evaluates to 0 for any y.
+     y &lt; x;  //evaluates to 0 for any y.
+</pre></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1956:0"><h2 data-coord="c-intro.umt:1956:0">Floating Point Miscellanea</h2><ul data-coord="c-intro.umt:1959:0"><li data-coord="c-intro.umt:1959:0"><p data-coord="c-intro.umt:1959:4">Can be sorted by treating bit representation lexicographically or as
+signed-magnitude integers.
+</p></li><li data-coord="c-intro.umt:1962:0"><p data-coord="c-intro.umt:1962:4">In C, <samp data-coord="c-intro.umt:1962:10">float</samp> literals must have trailing <samp data-coord="c-intro.umt:1962:46">f</samp> or <samp data-coord="c-intro.umt:1962:53">F</samp>; otherwise
+literal is treated as a <samp data-coord="c-intro.umt:1962:96">double</samp>.
+</p></li><li data-coord="c-intro.umt:1965:0"><p data-coord="c-intro.umt:1965:4">The value contributed by the last bit in the fraction ("unit in last
+place") depends on the value of the number.
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1969:0"><h2 data-coord="c-intro.umt:1969:0">Floating Point Parameters</h2><ul data-coord="c-intro.umt:1972:0"><li data-coord="c-intro.umt:1972:0"><p data-coord="c-intro.umt:1972:4">Floating point format characterized by 2 parameters:
+</p><dl data-coord="c-intro.umt:1974:0"><dt data-coord="c-intro.umt:1974:5"> \(N\)</dt><dd data-coord="c-intro.umt:1975:0"><p data-coord="c-intro.umt:1975:7">total number of bits.
+</p></dd><dt data-coord="c-intro.umt:1977:5"> \(k\)</dt><dd data-coord="c-intro.umt:1978:0"><p data-coord="c-intro.umt:1978:8">number of exponent bits.  Biased by \(2^{k-1} - 1\).
+</p></dd></dl><p data-coord="c-intro.umt:1980:4">It follows that number of bits available for storing mantissa is
+\(m = N - k - 1\).
+</p></li><li data-coord="c-intro.umt:1983:0"><p data-coord="c-intro.umt:1983:4">IEEE single precision: \(N = 32\), \(k = 8\), \(m = 32 - 8 - 1 = 23\).
+The exponent bias is \(2^{8-1} - 1 = 127\).  Normalized exponents
+in inclusive-range \([-126, 127]\).
+</p></li><li data-coord="c-intro.umt:1987:0"><p data-coord="c-intro.umt:1987:4">IEEE double precision: \(N = 64\), \(k = 11\), \(m = 64 - 11 - 1 = 52\).
+The exponent bias is \(2^{11-1} - 1 = 1023\).  Normalized exponents
+in inclusive-range \([-1022, 1023]\).
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:1991:0"><h2 data-coord="c-intro.umt:1991:0">Floating Point Values</h2><ul data-coord="c-intro.umt:1994:0"><li data-coord="c-intro.umt:1994:0"><p data-coord="c-intro.umt:1994:4">Given a non-exceptional floating point number (exponent field is not
+all 0's and not all 1's), it's value is:
+</p>\[    (-1)^{s} \times M \times 2^{e}
+\]<p data-coord="c-intro.umt:2001:4">where \(s\) is the value of the sign-bit, \(M\) is the value of the
+mantissa and \(e\) is the exponent value (after adjusting by the
+bias).
+</p></li><li data-coord="c-intro.umt:2005:0"><p data-coord="c-intro.umt:2005:4">Assuming that the value as an unsigned binary integer of the
+mantissa field is \(m'\), for normalized numbers \(M = 1 + m'/2^m\);
+for denormalized numbers \(M = m'/2^m\).
+</p></li><li data-coord="c-intro.umt:2009:0"><p data-coord="c-intro.umt:2009:4">Assuming that the value as an unsigned binary integer of the
+exponent field is \(e'\), for normalized numbers \(e = e' - (2^{k -
+    1} - 1)\); for denormalized numbers \(e = - (2^{k - 1} - 2)\).
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:2014:0"><h2 data-coord="c-intro.umt:2014:0">Floating Point Values Continued</h2><dl data-coord="c-intro.umt:2017:0"><dt data-coord="c-intro.umt:2017:2"> <strong data-coord="c-intro.umt:2017:1">Normalized values</strong> </dt><dd data-coord="c-intro.umt:2018:0"><p data-coord="c-intro.umt:2018:4">When \(0 < e' < 2^k - 1\):  \(M = 1 + m'/2^m\) and \(e = e' - (2^{k-1} -1)\).  
+Hence value is \((-1)^{s} \times (1 + m'/2^m) 
+    \times 2^{e' - (2^{k-1} - 1)}\).
+</p></dd><dt data-coord="c-intro.umt:2022:2"> <strong data-coord="c-intro.umt:2022:1">Denormalized values</strong> </dt><dd data-coord="c-intro.umt:2023:0"><p data-coord="c-intro.umt:2023:4">When \(e' = 0\): \(M = m'/2^m\) and \(e = -(2^{k-1} - 2)\) and
+value is \((-1)^{s} \times ( m'/2^m) \times 2^{-(2^{k-1} - 2)}\).
+</p></dd><dt data-coord="c-intro.umt:2026:2"> <strong data-coord="c-intro.umt:2026:1">Infinities</strong></dt><dd data-coord="c-intro.umt:2027:0"><p data-coord="c-intro.umt:2027:4">\(e' = 2^k - 1, m' = 0\).  Value is \((-1)^s \times \infty\).
+</p></dd><dt data-coord="c-intro.umt:2029:2"> <strong data-coord="c-intro.umt:2029:1">NaN's</strong></dt><dd data-coord="c-intro.umt:2030:0"><p data-coord="c-intro.umt:2030:4">\(e' = 2^k - 1, m' \neq 0\).  Value is <samp data-coord="c-intro.umt:2030:42">NaN</samp>.
+</p></dd></dl></section><section class="umt-slide" data-coord="c-intro.umt:2033:0"><h2 data-coord="c-intro.umt:2033:0">8-Bit Float Values</h2><p data-coord="c-intro.umt:2036:0">Following slides list all values for a 7-bit float.  Fields from MSB to LSB:
+</p><ul data-coord="c-intro.umt:2038:0"><li data-coord="c-intro.umt:2038:0"><p data-coord="c-intro.umt:2038:4">1-bit sign
+</p></li><li data-coord="c-intro.umt:2040:0"><p data-coord="c-intro.umt:2040:4">3-bit exponent biased by 3. 
+</p><ul data-coord="c-intro.umt:2042:0"><li data-coord="c-intro.umt:2042:0"><p data-coord="c-intro.umt:2042:8">Field value in [1, 6]: exponent value [-2, 3].
+</p></li><li data-coord="c-intro.umt:2044:0"><p data-coord="c-intro.umt:2044:8">Field value 0: denormalized: exponent value -2.
+</p></li><li data-coord="c-intro.umt:2046:0"><p data-coord="c-intro.umt:2046:8">Field value 7: Exceptional cases: Infinities + NaN.
+</p></li></ul></li><li data-coord="c-intro.umt:2048:0"><p data-coord="c-intro.umt:2048:4">3-bit fraction; for normalized numbers, implicit 1 to left of binary
+point. 
+</p></li></ul></section><section class="umt-slide" data-coord="c-intro.umt:2051:0"><h2 data-coord="c-intro.umt:2051:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+0\;000\;000 &      0 &      0 &  +     0.000000 (2^{-2}\times(0 + 0/8))\\
+0\;000\;001 &      0 &      1 &  +     0.031250 (2^{-2}\times(0 + 1/8))\\
+0\;000\;010 &      0 &      2 &  +     0.062500 (2^{-2}\times(0 + 2/8))\\
+0\;000\;011 &      0 &      3 &  +     0.093750 (2^{-2}\times(0 + 3/8))\\
+0\;000\;100 &      0 &      4 &  +     0.125000 (2^{-2}\times(0 + 4/8))\\
+0\;000\;101 &      0 &      5 &  +     0.156250 (2^{-2}\times(0 + 5/8))\\
+0\;000\;110 &      0 &      6 &  +     0.187500 (2^{-2}\times(0 + 6/8))\\
+0\;000\;111 &      0 &      7 &  +     0.218750 (2^{-2}\times(0 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2071:0"><h2 data-coord="c-intro.umt:2071:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+0\;001\;000 &      1 &      0 &  +     0.250000 (2^{-2}\times(1 + 0/8))\\
+0\;001\;001 &      1 &      1 &  +     0.281250 (2^{-2}\times(1 + 1/8))\\
+0\;001\;010 &      1 &      2 &  +     0.312500 (2^{-2}\times(1 + 2/8))\\
+0\;001\;011 &      1 &      3 &  +     0.343750 (2^{-2}\times(1 + 3/8))\\
+0\;001\;100 &      1 &      4 &  +     0.375000 (2^{-2}\times(1 + 4/8))\\
+0\;001\;101 &      1 &      5 &  +     0.406250 (2^{-2}\times(1 + 5/8))\\
+0\;001\;110 &      1 &      6 &  +     0.437500 (2^{-2}\times(1 + 6/8))\\
+0\;001\;111 &      1 &      7 &  +     0.468750 (2^{-2}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2091:0"><h2 data-coord="c-intro.umt:2091:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+0\;010\;000 &      2 &      0 &  +     0.500000 (2^{-1}\times(1 + 0/8))\\
+0\;010\;001 &      2 &      1 &  +     0.562500 (2^{-1}\times(1 + 1/8))\\
+0\;010\;010 &      2 &      2 &  +     0.625000 (2^{-1}\times(1 + 2/8))\\
+0\;010\;011 &      2 &      3 &  +     0.687500 (2^{-1}\times(1 + 3/8))\\
+0\;010\;100 &      2 &      4 &  +     0.750000 (2^{-1}\times(1 + 4/8))\\
+0\;010\;101 &      2 &      5 &  +     0.812500 (2^{-1}\times(1 + 5/8))\\
+0\;010\;110 &      2 &      6 &  +     0.875000 (2^{-1}\times(1 + 6/8))\\
+0\;010\;111 &      2 &      7 &  +     0.937500 (2^{-1}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2111:0"><h2 data-coord="c-intro.umt:2111:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+0\;011\;000 &      3 &      0 &  +     1.000000 (2^{0}\times(1 + 0/8))\\
+0\;011\;001 &      3 &      1 &  +     1.125000 (2^{0}\times(1 + 1/8))\\
+0\;011\;010 &      3 &      2 &  +     1.250000 (2^{0}\times(1 + 2/8))\\
+0\;011\;011 &      3 &      3 &  +     1.375000 (2^{0}\times(1 + 3/8))\\
+0\;011\;100 &      3 &      4 &  +     1.500000 (2^{0}\times(1 + 4/8))\\
+0\;011\;101 &      3 &      5 &  +     1.625000 (2^{0}\times(1 + 5/8))\\
+0\;011\;110 &      3 &      6 &  +     1.750000 (2^{0}\times(1 + 6/8))\\
+0\;011\;111 &      3 &      7 &  +     1.875000 (2^{0}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2131:0"><h2 data-coord="c-intro.umt:2131:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+0\;100\;000 &      4 &      0 &  +     2.000000 (2^{1}\times(1 + 0/8))\\
+0\;100\;001 &      4 &      1 &  +     2.250000 (2^{1}\times(1 + 1/8))\\
+0\;100\;010 &      4 &      2 &  +     2.500000 (2^{1}\times(1 + 2/8))\\
+0\;100\;011 &      4 &      3 &  +     2.750000 (2^{1}\times(1 + 3/8))\\
+0\;100\;100 &      4 &      4 &  +     3.000000 (2^{1}\times(1 + 4/8))\\
+0\;100\;101 &      4 &      5 &  +     3.250000 (2^{1}\times(1 + 5/8))\\
+0\;100\;110 &      4 &      6 &  +     3.500000 (2^{1}\times(1 + 6/8))\\
+0\;100\;111 &      4 &      7 &  +     3.750000 (2^{1}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2151:0"><h2 data-coord="c-intro.umt:2151:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+0\;101\;000 &      5 &      0 &  +     4.000000 (2^{2}\times(1 + 0/8))\\
+0\;101\;001 &      5 &      1 &  +     4.500000 (2^{2}\times(1 + 1/8))\\
+0\;101\;010 &      5 &      2 &  +     5.000000 (2^{2}\times(1 + 2/8))\\
+0\;101\;011 &      5 &      3 &  +     5.500000 (2^{2}\times(1 + 3/8))\\
+0\;101\;100 &      5 &      4 &  +     6.000000 (2^{2}\times(1 + 4/8))\\
+0\;101\;101 &      5 &      5 &  +     6.500000 (2^{2}\times(1 + 5/8))\\
+0\;101\;110 &      5 &      6 &  +     7.000000 (2^{2}\times(1 + 6/8))\\
+0\;101\;111 &      5 &      7 &  +     7.500000 (2^{2}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2171:0"><h2 data-coord="c-intro.umt:2171:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+0\;110\;000 &      6 &      0 &  +     8.000000 (2^{3}\times(1 + 0/8))\\
+0\;110\;001 &      6 &      1 &  +     9.000000 (2^{3}\times(1 + 1/8))\\
+0\;110\;010 &      6 &      2 &  +    10.000000 (2^{3}\times(1 + 2/8))\\
+0\;110\;011 &      6 &      3 &  +    11.000000 (2^{3}\times(1 + 3/8))\\
+0\;110\;100 &      6 &      4 &  +    12.000000 (2^{3}\times(1 + 4/8))\\
+0\;110\;101 &      6 &      5 &  +    13.000000 (2^{3}\times(1 + 5/8))\\
+0\;110\;110 &      6 &      6 &  +    14.000000 (2^{3}\times(1 + 6/8))\\
+0\;110\;111 &      6 &      7 &  +    15.000000 (2^{3}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2191:0"><h2 data-coord="c-intro.umt:2191:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+0\;111\;000 &      7 &      0 &  + infinity \\
+0\;111\;001 &      7 &      1 &  + nan \\
+0\;111\;010 &      7 &      2 &  + nan \\
+0\;111\;011 &      7 &      3 &  + nan \\
+0\;111\;100 &      7 &      4 &  + nan \\
+0\;111\;101 &      7 &      5 &  + nan \\
+0\;111\;110 &      7 &      6 &  + nan \\
+0\;111\;111 &      7 &      7 &  + nan \\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2211:0"><h2 data-coord="c-intro.umt:2211:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+1\;000\;000 &      0 &      0 &  -     0.000000 ( - 2^{-2}\times(0 + 0/8))\\
+1\;000\;001 &      0 &      1 &  -     0.031250 ( - 2^{-2}\times(0 + 1/8))\\
+1\;000\;010 &      0 &      2 &  -     0.062500 ( - 2^{-2}\times(0 + 2/8))\\
+1\;000\;011 &      0 &      3 &  -     0.093750 ( - 2^{-2}\times(0 + 3/8))\\
+1\;000\;100 &      0 &      4 &  -     0.125000 ( - 2^{-2}\times(0 + 4/8))\\
+1\;000\;101 &      0 &      5 &  -     0.156250 ( - 2^{-2}\times(0 + 5/8))\\
+1\;000\;110 &      0 &      6 &  -     0.187500 ( - 2^{-2}\times(0 + 6/8))\\
+1\;000\;111 &      0 &      7 &  -     0.218750 ( - 2^{-2}\times(0 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2231:0"><h2 data-coord="c-intro.umt:2231:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+1\;001\;000 &      1 &      0 &  -     0.250000 ( - 2^{-2}\times(1 + 0/8))\\
+1\;001\;001 &      1 &      1 &  -     0.281250 ( - 2^{-2}\times(1 + 1/8))\\
+1\;001\;010 &      1 &      2 &  -     0.312500 ( - 2^{-2}\times(1 + 2/8))\\
+1\;001\;011 &      1 &      3 &  -     0.343750 ( - 2^{-2}\times(1 + 3/8))\\
+1\;001\;100 &      1 &      4 &  -     0.375000 ( - 2^{-2}\times(1 + 4/8))\\
+1\;001\;101 &      1 &      5 &  -     0.406250 ( - 2^{-2}\times(1 + 5/8))\\
+1\;001\;110 &      1 &      6 &  -     0.437500 ( - 2^{-2}\times(1 + 6/8))\\
+1\;001\;111 &      1 &      7 &  -     0.468750 ( - 2^{-2}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2251:0"><h2 data-coord="c-intro.umt:2251:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+1\;010\;000 &      2 &      0 &  -     0.500000 ( - 2^{-1}\times(1 + 0/8))\\
+1\;010\;001 &      2 &      1 &  -     0.562500 ( - 2^{-1}\times(1 + 1/8))\\
+1\;010\;010 &      2 &      2 &  -     0.625000 ( - 2^{-1}\times(1 + 2/8))\\
+1\;010\;011 &      2 &      3 &  -     0.687500 ( - 2^{-1}\times(1 + 3/8))\\
+1\;010\;100 &      2 &      4 &  -     0.750000 ( - 2^{-1}\times(1 + 4/8))\\
+1\;010\;101 &      2 &      5 &  -     0.812500 ( - 2^{-1}\times(1 + 5/8))\\
+1\;010\;110 &      2 &      6 &  -     0.875000 ( - 2^{-1}\times(1 + 6/8))\\
+1\;010\;111 &      2 &      7 &  -     0.937500 ( - 2^{-1}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2271:0"><h2 data-coord="c-intro.umt:2271:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+1\;011\;000 &      3 &      0 &  -     1.000000 ( - 2^{0}\times(1 + 0/8))\\
+1\;011\;001 &      3 &      1 &  -     1.125000 ( - 2^{0}\times(1 + 1/8))\\
+1\;011\;010 &      3 &      2 &  -     1.250000 ( - 2^{0}\times(1 + 2/8))\\
+1\;011\;011 &      3 &      3 &  -     1.375000 ( - 2^{0}\times(1 + 3/8))\\
+1\;011\;100 &      3 &      4 &  -     1.500000 ( - 2^{0}\times(1 + 4/8))\\
+1\;011\;101 &      3 &      5 &  -     1.625000 ( - 2^{0}\times(1 + 5/8))\\
+1\;011\;110 &      3 &      6 &  -     1.750000 ( - 2^{0}\times(1 + 6/8))\\
+1\;011\;111 &      3 &      7 &  -     1.875000 ( - 2^{0}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2291:0"><h2 data-coord="c-intro.umt:2291:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+1\;100\;000 &      4 &      0 &  -     2.000000 ( - 2^{1}\times(1 + 0/8))\\
+1\;100\;001 &      4 &      1 &  -     2.250000 ( - 2^{1}\times(1 + 1/8))\\
+1\;100\;010 &      4 &      2 &  -     2.500000 ( - 2^{1}\times(1 + 2/8))\\
+1\;100\;011 &      4 &      3 &  -     2.750000 ( - 2^{1}\times(1 + 3/8))\\
+1\;100\;100 &      4 &      4 &  -     3.000000 ( - 2^{1}\times(1 + 4/8))\\
+1\;100\;101 &      4 &      5 &  -     3.250000 ( - 2^{1}\times(1 + 5/8))\\
+1\;100\;110 &      4 &      6 &  -     3.500000 ( - 2^{1}\times(1 + 6/8))\\
+1\;100\;111 &      4 &      7 &  -     3.750000 ( - 2^{1}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2311:0"><h2 data-coord="c-intro.umt:2311:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+1\;101\;000 &      5 &      0 &  -     4.000000 ( - 2^{2}\times(1 + 0/8))\\
+1\;101\;001 &      5 &      1 &  -     4.500000 ( - 2^{2}\times(1 + 1/8))\\
+1\;101\;010 &      5 &      2 &  -     5.000000 ( - 2^{2}\times(1 + 2/8))\\
+1\;101\;011 &      5 &      3 &  -     5.500000 ( - 2^{2}\times(1 + 3/8))\\
+1\;101\;100 &      5 &      4 &  -     6.000000 ( - 2^{2}\times(1 + 4/8))\\
+1\;101\;101 &      5 &      5 &  -     6.500000 ( - 2^{2}\times(1 + 5/8))\\
+1\;101\;110 &      5 &      6 &  -     7.000000 ( - 2^{2}\times(1 + 6/8))\\
+1\;101\;111 &      5 &      7 &  -     7.500000 ( - 2^{2}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2331:0"><h2 data-coord="c-intro.umt:2331:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+1\;110\;000 &      6 &      0 &  -     8.000000 ( - 2^{3}\times(1 + 0/8))\\
+1\;110\;001 &      6 &      1 &  -     9.000000 ( - 2^{3}\times(1 + 1/8))\\
+1\;110\;010 &      6 &      2 &  -    10.000000 ( - 2^{3}\times(1 + 2/8))\\
+1\;110\;011 &      6 &      3 &  -    11.000000 ( - 2^{3}\times(1 + 3/8))\\
+1\;110\;100 &      6 &      4 &  -    12.000000 ( - 2^{3}\times(1 + 4/8))\\
+1\;110\;101 &      6 &      5 &  -    13.000000 ( - 2^{3}\times(1 + 5/8))\\
+1\;110\;110 &      6 &      6 &  -    14.000000 ( - 2^{3}\times(1 + 6/8))\\
+1\;110\;111 &      6 &      7 &  -    15.000000 ( - 2^{3}\times(1 + 7/8))\\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2351:0"><h2 data-coord="c-intro.umt:2351:0">(7-3)-Bit Float Values Continued</h2>\[\begin{array}{|c|c|c|c|}
+\hline
+\mathbf{Bits} & \mathbf{Exp} & \mathbf{Fraction} & \mathbf{Value}\\
+\hline
+1\;111\;000 &      7 &      0 &  - infinity \\
+1\;111\;001 &      7 &      1 &  - nan \\
+1\;111\;010 &      7 &      2 &  - nan \\
+1\;111\;011 &      7 &      3 &  - nan \\
+1\;111\;100 &      7 &      4 &  - nan \\
+1\;111\;101 &      7 &      5 &  - nan \\
+1\;111\;110 &      7 &      6 &  - nan \\
+1\;111\;111 &      7 &      7 &  - nan \\
+\hline
+\end{array}
+\]</section><section class="umt-slide" data-coord="c-intro.umt:2372:0"><h2 data-coord="c-intro.umt:2372:0">References</h2><p data-coord="c-intro.umt:2375:0">Text, Ch 2.
+</p><p data-coord="c-intro.umt:2377:0">K&amp;R2.
+</p><p data-coord="c-intro.umt:2379:0">Steve Summit, <em data-coord="c-intro.umt:2379:14">C Programming FAQs</em>, Addison-Wesley, Nov. 1995.
+Partially <a href="http://www.eskimo.com/~scs/C-faq/top.html" data-coord="c-intro.umt:2379:118">online.</a>
+</p><p data-coord="c-intro.umt:2382:0"><span id="linden" data-coord="c-intro.umt:2382:10">Peter</span> Van Der Linden, <em data-coord="c-intro.umt:2382:32">Expert C Programming: Deep C
+Secrets</em>, Prentice-Hall, 1994.
+</p><p data-coord="c-intro.umt:2385:0">Henry S. Warren, Jr. <em data-coord="c-intro.umt:2385:21">Hacker's Delight</em>, Addison-Wesley, 2003.  Contains
+lots of bit-twiddling tricks.
+</p><p data-coord="c-intro.umt:2388:0">AI Memo 239, Technical Report MIT AI Lab, 1972.  Usually referred to
+as <em data-coord="c-intro.umt:2388:111"><a href="http://en.wikipedia.org/wiki/HAKMEM" data-coord="c-intro.umt:2388:111">HAKMEM</a></em> because of
+6-character file limit.
+</p></section><section class="umt-slide" data-coord="c-intro.umt:2392:0"><h2 data-coord="c-intro.umt:2392:0">References Continued</h2><p data-coord="c-intro.umt:2395:0">Danny Cohen, <em data-coord="c-intro.umt:2395:13">On Holy Wars and a Plea for Peace</em>, Computer, Oct 1981.
+Electronic copy available via BU Libraries.  A earlier text version is
+<a href="http://www.ietf.org/rfc/ien/ien137.txt" data-coord="c-intro.umt:2395:183">online.</a>
+</p><p data-coord="c-intro.umt:2399:0">J. Corpela, <em data-coord="c-intro.umt:2399:12">A Tutorial
+on Character Set Issues</em> at &lt;http://www.cs.tut.fi/~jkorpela/chars.html&gt;.
+
+</p><p data-coord="c-intro.umt:2403:0">Olve Maudal, Jon Jauger,
+<em data-coord="c-intro.umt:2403:72"><a href="http://www.slideshare.net/olvemaudal/deep-c" data-coord="c-intro.umt:2403:72">Deep C</a></em>, Distinguishes
+between superficial and deep understanding of programming languages.
+</p></section></section>
+</div> <!-- #content -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../../assets/scripts/slide-controls.js"></script>
+</body>
+</html>

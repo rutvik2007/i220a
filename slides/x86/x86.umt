@@ -1,0 +1,2251 @@
+g		I n t e l   x 8 6   A r c h i t e c t u r e   1
+
+		  Evolution of ISAs
+		  =================
+
+Some arbitrary points in the evolution of "Instruction Set Architectures"
+(ISAs):
+
+  + *Manchester Mark 1*: 1948.  Pioneered "index registers".
+
+  + *IBM S/360*:  1964.  Same architecture across a wide range
+    of implementations.  Largely compatible with current IBM zSeries.
+
+  + *DEC PDP-8*: 1965.  12-bit mini-computer.
+
+  + *Intel 4004*: 1971. 4-bit Microprocessor. Led to 8-bit 8080.
+
+  + *Intel 8086*: 1978. 16-bit microprocessor.  8-bit variant 8088
+    used in first IBM PC.  1 MB segmented address space.
+
+  + *Intel 80386*: 1985. 32-bit microprocessor.  Linear address
+    space. "Complex Instruction Set Computer" (CISC).
+
+  + *IBM 801*: 1975. Early "Reduced Instruction Set Computer" (RISC).
+    Later RISCs included MIPS, IBM Power PC, Sun SPARC, Acorn Risc
+    Machine (ARM) (currently widely used in mobile apps).
+
+
+			x86 Evolution
+			=============
+
+  : *8086*:
+    1978. 29K transistors.  16-bit with 20-bit segmented address-space.
+    Similar to earlier 8080.  8088 8-bit variant.  8087 floating-point unit.
+
+  : *80286*:
+    1984. 134K transistors.  Added real mode and protected modes with
+    segmented addressing.  
+
+  : *80386*:
+    1985. 275K transistors.  32-bit.  Supported flat 32-bit linear address
+    space.
+
+  : *80486*:
+    1989. 1.2M transistors.  Integrated FPU.
+
+
+			x86 Evolution Continued
+			=======================
+
+  : *Pentium*:
+    1993. 3.1M transistors.  Better performance.
+
+  : *PentiumPro*:
+    1995.  5.5M transistors.   P6 microarchitecture.
+
+  : *Pentium II*:
+    1997.  7M transistors.  Continuation of P6 microarchitecture.
+
+  : *Pentium III*:
+    1999.  8.2M transistors.  Introduced SSE instructions for
+    manipulating integer/float vectors.  Later versions had 
+    level-2 cache on chip.
+
+  : *Pentium 4*:
+    2000.  42M transistors.  Extended SSE to SSE2 which could
+    replace x87 floating-point instructions.  "NetBurst" microarchitecture. 
+
+
+			x86 Evolution Continued
+			=======================
+
+  : *Pentium 4E*:
+    2004. 125M transistors.  Added "hyperthreading" and AMD's x86-64
+    64-bit extension.
+
+  : *Core 2*:
+    2006. 291M transistors.  "Multi-core".
+
+  : *Core i7 Nehalem*:
+    2008.  781M transistors.  Multi-core + hyperthreading.
+
+  
+  : *Core i7 Sandy Bridge*:
+    2011.  1.17G transistors.  AVX extension to SSE, allowing data
+    packed into 256-bit vectors.
+
+  : *Core i7 Haswell*:
+    2013.  1.4G transistors.  AVX2 extension to AVX, more instructions
+    and formats.
+
+Continuing evolution.
+
+
+  
+			Moore's Law
+			===========
+
+  "Transistor count doubles every 18 months".
+
+Similar evolution in disk capacities, performance, etc.  
+
+
+		     Example Program
+		     ===============
+
+In .<./code/mstore/mstore.c> mstore.c:
+
+.include("code/mstore/mstore.c")
+
+Assemble using:
+
+```
+$ gcc -Og -S sum1.c  #assembly output in mstore.s
+```
+
+		Assembly Program
+		================
+
+Edited output from .<./code/mstore/mstore.s> mstore.s:
+
+.code(lang="s")
+~~~
+#parameters x, y and dest in rdi, rsi, rdx
+multStore:                       #global label
+.LFB0:                           #local label
+	.cfi_startproc           #pseudo-op
+	pushq	%rbx             #save rbx on stack
+	movq	%rdx, %rbx       #save rdx in rbx
+	call	mult2@PLT        #mult2(x, y)
+	movq	%rax, (%rbx)     #*dest = t
+	popq	%rbx             #restore rbx from stack
+	ret			 #return to caller
+	.cfi_endproc
+~~~
+
+                  Assembly Program Discussion
+		  ===========================
+
+  + Identifiers starting with a period `.` do not correspond to
+    machine instructions; they are directives to the assembler,
+    also known as "pseudo-ops" or "pseudo-instructions".
+
+  + On x86-64 Linux the calling convention is that arguments which fit
+    in registers can be passed using registers `%rdi`, `%rsi`, `%rdx`,
+    `%rcx`, `%r8` and `%r9`.  Result returned in `%rax` (if it fits).
+
+  + Different calling conventions on Windows.
+
+    	      	      Machine Language Program
+		      ========================
+
+In .<./code/mstore/mstore.dump> mstore.dump produced using
+
+```
+$ gcc -Og -c mstore.c #compile into mstore.o object file
+$ objdump -d mstore.o #disassemble mstore.o
+```
+
+.include("./code/mstore/mstore.dump", lang="objdump")
+
+		         Executable
+			 ==========
+
+Need a `main()` function as well as `mult2()`.
+In .<code/mstore/main.c> main.c:
+
+.include("code/mstore/main.c", end_label=".1.")
+
+		         Executable Continued
+			 ====================
+
+.include("code/mstore/main.c", begin_label=".1.")
+
+			   Executable Continued
+			   ====================
+
+  + Executable `mstore` can be produced directly from
+    .<code/mstore/mstore.c> mstore.c and .<code/mstore/main.c> main.c`
+    using command:
+
+    ```
+    $ gcc -Og mstore.c main.c -o mstore
+    ```
+
+  + More common to produce separate `mstore.o` and `main.o` using `gcc
+    -c` and then link them together using `gcc` to perform an explicit
+    link step.
+
+  + Size of `mstore` executable is around 8 KB.
+
+
+    	    	     Evolution of x86 ISA Sizes
+		     ==========================
+
+  + 8086: 16-bit registers, 20-bit addresses.  Original IBM-PC based on
+    8088/8086.
+
+  + x86-32: 80386: 32-bit registers, 32-bit addresses.
+
+  + x86-64: 64-bit registers, 64-bit addresses (currently, at most 52
+    address bits used externally).
+
+Smaller registers for legacy ISAs still available in current
+ISA.
+
+
+               X86-64 General Purpose Registers (U. Washington).
+	       =================================================
+
+.image(src="figs/x86-64_registers.png", height="8cm")
+
+
+
+
+%%%
+
+		      x86-32 versus x86-64
+		      ====================
+
+  + 64-bit version of x86 architecture referred to as x86-64.
+
+  + x86-64 has many more general purpose registers and is generally more
+    RISC like and allows alternate floating point registers.
+
+  + Note that it is possible to generate x86-32 code even on a x86-64
+    system by using `gcc`'s `-m32` option.
+
+		      x86-32 Registers
+		      ================
+
+.<DIV ALIGN="CENTER">
+.<IMG SRC="figs/x86-regs.gif">
+.</DIV>
+
+
+			Register Preferences
+			====================
+
+Currently, registers can be used quite uniformly.  However, historically
+registers had special uses:
+
+  + *EAX* - accumulator for operands and results data.
+
+  + *EBX* - pointer to data in the `DS` segment.
+
+  + *ECX* - counter for string and loop operations.
+
+  + *EDX* - i/o pointer, accumulator extension for multiplication
+    / division.
+ 
+  + *ESI* - pointer to data in segment pointed to by `DS` segment register;
+    source pointer for string instructions.
+
+  + *EDI* - pointer to data in segment pointed to by `ES` segment register;
+    destination pointer for string operations.
+  
+  + *EBP* - pointer to stack data (in `SS` segment).
+
+
+		      x86-32 Alternate Registers
+		      ==========================
+
+.<DIV ALIGN="CENTER">
+.<IMG SRC="figs/x86-alt-regs.gif">
+.</DIV>
+
+		      x86-32 Segment Registers
+		      ========================
+
+Segment registers usually set to base of memory for "linear addressing":
+
+.<DIV ALIGN="CENTER">
+.<IMG SRC="figs/x86-seg-regs.gif">
+.</DIV>
+
+
+			Compiling for x86-32
+			====================
+
+Example program in <./code/simple/simple.c>:
+
+------------------------------------------------------------
+int simple(int *xp, int y) {
+  int t = *xp + y;
+  *xp = t;
+  return t;
+}
+------------------------------------------------------------
+
+Use `-m32` option to force 32-bit instructions:
+
+------------------------------------------------------------
+$ gcc -m32 -O1 -S simple.c 
+------------------------------------------------------------
+		
+			Generated Assembly
+			==================
+
+
+Annotated version of <./code/simple/simple.s>:
+
+------------------------------------------------------------
+	.file	"simple.c"
+	.text
+.globl simple
+	.type	simple, @function
+simple:
+	pushl	%ebp		#save frame pointer
+	movl	%esp, %ebp	#create new frame 
+	movl	8(%ebp), %edx	#move xp to %edx
+	movl	12(%ebp), %eax	#move y to %eax
+	addl	(%edx), %eax	#add *xp to %eax
+	movl	%eax, (%edx)	#put result in *xp
+	popl	%ebp  		#restore callers frame pointer
+	ret			#return to caller
+	.size	simple, .-simple
+	.ident	"GCC: (Ubuntu/Linaro 4.5.2-8ubuntu4) 4.5.2"
+	.section	.note.GNU-stack,"",@progbits
+------------------------------------------------------------
+						
+                Intel/Microsoft Assembly Language Syntax
+		========================================
+
+  + Above syntax is AT&T.
+
+  + Alternate Intel syntax often used for x86.
+
+  + AT&T syntax traditionally output by Unix compilers; Intel syntax 
+    is some times written by hand.  Many features like macros for
+    manual assembly in MASM.
+
+  + Generate Intel syntax by adding `-masm=intel` option to `gcc`
+    command.
+
+  + Opposite order of operands.
+
+  + Will not revisit after example.
+
+
+    	     Intel/Microsoft Assembly Language Example
+	     =========================================
+
+In <./code/simple/simple-intel.s>:
+
+------------------------------------------------------------
+	.file	"simple.c"
+	.intel_syntax noprefix
+	.text
+.globl simple
+	.type	simple, @function
+simple:
+	push	ebp
+	mov	ebp, esp
+	mov	edx, DWORD PTR [ebp+8]
+	mov	eax, DWORD PTR [ebp+12]
+	add	eax, DWORD PTR [edx]
+	mov	DWORD PTR [edx], eax
+	pop	ebp
+	ret
+	.size	simple, .-simple
+	.ident	"GCC: (Ubuntu/Linaro 4.5.2-8ubuntu4) 4.5.2"
+	.section	.note.GNU-stack,"",@progbits
+------------------------------------------------------------
+
+
+			x86-32 Primitive Data Types
+			===========================
+
+Recall that x86-32 evolved from 16-bit 8086.  Hence "word" refers to
+16-bits.
+
+  *Byte*::
+    C `char`.  1 byte.  Denoted using `b` suffix on op-code.
+
+  *Word*::
+    C `short`.  2 bytes.  Denoted using `w` suffix on op-code.
+
+  *Double word*::
+    C `int`, `long` or pointer type.  4 bytes.  Denoted using 
+    `l` suffix on op-code.
+
+			x86-32 Primitive Data Types Continued
+			=====================================
+
+  *Single precision*::
+    C `float`.  4 bytes.  Denoted using `s` suffix on op-code.
+
+  *Double precision*::
+    C `double`.  8 bytes.  Denoted using `l` suffix floating-point 
+    on op-codes.
+
+  *Extended precision*::
+    C `long double`.  10/12 bytes.  Denoted using `t` suffix on op-code.
+
+
+      	    	      AT&T Instruction Format
+		      =======================
+
+  + Instruction consists of a op-code mnemonic followed by 0-or-more
+    operands.
+
+  + Op-code consists of a base op-code mnemonic (like `mov`) followed
+    by a data-type suffix (like `l`).  Example: `movl`.
+
+  + Destination operand is the last operand.
+
+
+      	    	      Instruction Operands
+		      ====================
+
+Operands to instructions come from 3 sources:
+
+  + Within the instruction stream.  These are referred to as "immediate" 
+    operands and are denoted in AT&T syntax as `$`"N" where "N" is a
+    C integer literal.  Examples: `$-12`, `$014`, `$0x80`.  
+
+  + From a register.  Specified as `%` followed by lower-case register name.
+    Can use word and byte registers.  Examples: `%eax`, `%ax`, `%ah`,
+    `%ebp`.  
+
+  + From memory: in this case, a memory address must be specified.  Two
+    possibilities:
+
+      1) The address is specified in the instruction as an integer literal
+         without any prefix.  This is referred to as an "absolute" address.
+	 Sparingly used.
+
+      2) The address is computed dynamically based on the values
+         of 1 or 2 registers.  
+
+       	      		  Operand Constraints
+			  ===================
+
+
+  + It never makes sense for an immediate operand to be specified as a
+    destination operand.
+
+  + A single x86-32 instruction cannot have more than one memory operand.
+
+			Addressing Modes
+			================
+
+In the simplest case, a non-absolute address specified via a single
+register.  The most complex case involves a address computed by
+adding a constant to a base register and a scaled index register.  Results
+in following "addressing modes":
+
+  *Indirect*::
+    Register contains address of memory operand.  Denoted as `(`"r"`)`,
+    where "r" specifies register.  Example: `(%esi)`.
+
+  *Displacement + Base*::
+    Address computed as sum of a immediate "displacement" and a "base"
+    register.  Denoted as "Imm"`(`"b"`)` for displacement "Imm" and base
+    register "b".  Example: `0xA0(%esi)`.
+
+
+			Addressing Modes Continued
+			==========================
+
+
+  *Base + Index*::
+    Address computed as sum of a "base" register and a "index" register.
+    Denoted as `(`"b"`,` "i"`)` for base register "b" and index register "i".
+    Example: `(%ebp, %esi)`.
+
+  *Displacement + Base + Index*::
+    Address computed as sum of a immediate "displacement", a "base" register
+    and a "index" register.  Denoted as "Imm"`(`"b"`,` "i"`)` for
+    displacement "Imm", base register "b" and index register "i".  Example:
+    `0xA0(%ebp, %esi)`.
+
+
+    	     		 Scaled Index Addressing
+			 =======================
+
+It is possible to scale (multiply) the index register by a scale factor
+of 1, 2, 4 or 8 as it participates in the address computation.
+
+  *Scaled Index*::
+    Register contains address of memory operand after scaling.  Denoted as
+    `(,`"r"`,` "s"`)`, where "r" specifies register and "s" specifies scale
+    factor.  Example: `(, %esi, 4)`. Not terribly useful.
+
+  *Displacement + Scaled Index*::
+    Address computed as sum of a immediate "displacement" and a "scaled
+    index" register.  Denoted as "Imm"`(,`"i"`,` "s"`)` for displacement
+    "Imm", index register register "i" and scale factor "s".  Example:
+    `0xA0(, %esi, 4)`.
+		
+    	     		 Scaled Index Addressing Continued
+			 =================================
+
+  *Base + Scaled Index*::
+    Address computed as sum of a "base" register and a "scaled index"
+    register.  Denoted as `(`"b"`,`"i"`,` "s"`)` for base register "b",
+    index register register "i" and scale factor "s".  Example: `(%ebp, %esi,
+    4)`.
+
+  *Displacement + Base + Scaled Index*::
+    Most general addressing mode.  Address computed as sum of a immediate
+    "displacement", a "base" register and a "scaled index" register.
+    Denoted as "Imm"`(`"b"`,`"i"`,` "s"`)` for immediate displacement "Imm",
+    base register "b", index register register "i" and scale factor "s".
+    Example: `0xA0(%ebp, %esi, 4)`.
+
+        	     	 `lea` Instruction
+			 =================
+
+  + Usually, a address computed by an addressing mode is used to directly
+    access memory at the computed address.
+
+  + The `lea` instruction simply retrieves the computed address.
+
+  + For example, `leal 0xA0(%edx, %edx, 2), %eax` will set `%eax` to `160 +
+    3*%edx`.
+
+  + Is often used by a compiler to compute using addressing mode.
+
+       	     	         Move Instructions
+			 =================
+
+  *Simple move*::
+     Used when destination size is equal to source size.  Base
+     op-code mnemonic `mov` results in `movb`, `movw`, `movl`.  Example:
+     `movl %eax, (%edx)` writes the contents of `%eax` into the memory
+     location pointed to by `%edx`.
+
+  *Move with Sign Extend*::
+     Used when destination size is greater than source size and source value
+     is sign-extended in the destination.  Base op-code mnemonic `movs`
+     results in `movsbw`, `movsbl`, `movswl`.  Example: `movsbl %al, (%edx)`
+     writes the contents of `%al` into the memory location pointed to by
+     `%edx` and extends the sign of `%al` into the top 3 most significant
+     bytes of the memory location.
+      
+       	     	         Move Instructions Continued
+			 ===========================
+
+  *Move with Zero Extend*::
+     Used when destination size is greater than source size and source value
+     is zero-extended in the destination.  Base op-code mnemonic `movz`
+     results in `movzbw`, `movzbl`, `movzwl`.  Example: `movzbl %al, (%edx)`
+     writes the contents of `%al` into the memory location pointed to by
+     `%edx` and zeros out the top 3 most significant bytes of the memory
+     location.
+
+			Move Example
+			============
+
+In <./code/move/move.c>:
+
+------------------------------------------------------------
+int 
+move(int *ip, unsigned char *cp)
+{
+  unsigned short s1 = *ip;
+  unsigned short s2 = *cp;
+  unsigned short t = s1 + s2;
+  return t;
+}
+------------------------------------------------------------
+
+Compiled using `gcc -m32 -S -O1 move.c`.
+
+	       	    Move Example Assembly
+		    =====================
+
+Annotated version of <./code/move/move.s>:
+
+------------------------------------------------------------
+	.file	"move.c"
+	.text
+.globl move
+	.type	move, @function
+move:
+	pushl	%ebp		#save caller frame pointer
+	movl	%esp, %ebp	#establish frame pointer for this routine
+	movl	12(%ebp), %eax	#move cp into %eax
+	movzbl	(%eax), %eax	#move *cp into %eax (zero-extend)
+	movl	8(%ebp), %edx	#move ip into %edx
+	addw	(%edx), %ax	#add lo-half of *ip to %ax.
+	movzwl	%ax, %eax	#zero extend %ax to %eax
+	popl	%ebp 		#restore caller stack frame pointer
+	ret
+	.size	move, .-move
+	.ident	"GCC: (Ubuntu/Linaro 4.5.2-8ubuntu4) 4.5.2"
+	.section	.note.GNU-stack,"",@progbits
+------------------------------------------------------------
+
+
+		    Conventions
+		    ===========
+
+
+  + Unless stated otherwise, all assembly listings produced using
+    `gcc -S -m32 -O1 -std=c99`.
+
+  + Functions have double-word arguments at `8(%ebp)`, `12(%ebp)`, etc.
+
+  + If function uses local variables, then double-word local variables at
+    `-4(%ebp)`, `-8(%ebp)`, etc.
+
+
+		      	The Stack
+			=========
+
+  + Stack is used for supporting function calls and storage for
+    data with lifetime equal to that of a function call.
+
+  + Usually supported by having a dedicated "stack-pointer" register
+    pointing to "top-of-stack" in memory.
+
+  + Basic stack operations are strictly "last-in-first-out" (LIFO),
+    but extended operations support accessing data relative
+    to top-of-stack.
+
+  + Typical stacks are characterized by 2 parameters:
+
+      a) Does stack grow towards low-memory addresses or towards 
+         high memory addresses.
+
+      b) Does stack pointer point to next location to be *read from*
+         stack or next location about to be *written to* on stack.
+
+
+	       	       x86-32 Stack Operations
+		       =======================
+
+  + x86 stack grows towards low memory address.
+
+  + x86-32 "stack-pointer" register `esp` points to next address about to be
+    read.
+
+  + `push` operations write operand to top-of-stack.  Specifically, it
+    decrements stack-pointer by operand size and saves operand on
+    top-of-stack.  In C syntax for a generic stack-pointer `sp` and operand
+    `rand`, `*--sp = rand`;
+
+  + `pop` operations reads data from top-of-stack into register operand and
+    increments stack-pointer by size of operand.  In C syntax for a generic
+    stack-pointer `sp` and operand `rand`, `rand = *sp++;`.
+
+
+		      	Push and Pop Stack Operations Continued
+			=======================================
+
+.<DIV ALIGN="CENTER">
+.<IMG SRC="figs/stack-ops.gif">
+.</DIV>
+
+
+			Function Context 
+			================
+
+A stack-frame contains the context for a particular function invocation.
+The stack-frame must contain enough information so that:
+
+  + The function can return to its caller and have the caller resume
+    execution where it left off.  This is achieved by having the
+    stack-frame save the address to return to in the caller code
+    as well as the frame-pointer for the caller's stack frame.
+
+  + The arguments and local variables of the function
+    are retained over calls to other functions.  This is achieved
+    by saving them in the stack-frame.
+
+       	      	   Typical Call / Return Sequence
+		   ==============================
+
+Setup of stack-frame for a called function is done jointly both by
+caller and callee.  Assume call is to `int f(a, b, c)`.
+
+  1) The caller pushes values of arguments on stack (in C, this is usually 
+     done in reverse order: first push `c`, then push `b` and finally
+     push `a`).
+
+  2) The caller calls the function.  This is usually done by means of
+     some kind of `call` instruction which pushes the return address
+     on the stack.
+
+  3) The callee is entered.  It saves the caller's frame pointer
+     on the stack, sets up the frame pointer to point to the
+     new frame it is just setting up and adjusts the stack pointer
+     to make sure that the frame is large enough.
+
+  4) The callee executes its code, doing similar things for functions
+     which it calls.
+
+  5) The callee puts its return value into a register, pop's off
+     its stack-frame, restores the caller's frame pointer and 
+     returns to its caller (usually by means of a `ret` instruction
+     which returns to the address pop'd off the stack).
+
+
+     	   	   Stack Frame Example
+		   ===================
+
+In <./code/stack-frame.c>:
+
+------------------------------------------------------------
+int sum(int a, int b, int c) {
+  int s = a + b + c;
+  printf("%d + %d + %d = %d\n", a, b, c, s);
+  return s;
+}
+
+int
+main()
+{
+  int s = sum(22, 33, 44);
+  return 0;
+}
+------------------------------------------------------------
+
+     	   	   Stack Frame Example: main() Assembly
+		   ====================================
+
+Compiled using `gcc -Wall -m32 -std=c99 -S stack-frame.c`.  In
+<./code/stack-frame.s>, annotated with assembler pseudo-ops
+removed.
+
+------------------------------------------------------------
+main:
+	pushl	%ebp
+	movl	%esp, %ebp
+	andl	$-16, %esp
+	subl	$32, %esp
+
+	#start call to sum()
+	movl	$44, 8(%esp)	#push 3rd parameter	
+	movl	$33, 4(%esp)	#push 2nd parameter
+	movl	$22, (%esp)	#push 1st parameter
+	call	sum  		#push ret address, enter sum code
+	movl	%eax, 28(%esp)	#get return value
+
+	movl	$0, %eax
+	leave
+	ret
+------------------------------------------------------------
+
+     	   	   Stack Frame Example: sum() Assembly
+		   ===================================
+
+------------------------------------------------------------
+.LC0:
+	.string	"%d + %d + %d = %d\n"
+
+sum:
+	pushl	%ebp		#save caller's frame pointer
+	movl	%esp, %ebp	#setup frame-pointer for new frame
+	subl	$56, %esp	#reserve space for new frame
+	movl	12(%ebp), %eax	#eax contains value of b
+	movl	8(%ebp), %edx	#edx contains value of a
+	addl	%eax, %edx	#edx contains a + b
+	movl	16(%ebp), %eax	#eax contains value of c
+	addl	%edx, %eax	#eax contains a + b + c
+	movl	%eax, -12(%ebp)	#store a + b + c in s (-12(%ebp)).
+------------------------------------------------------------
+
+     	   	   Stack Frame Example: sum() Assembly
+		   ===================================
+
+------------------------------------------------------------
+	#setup for printf() call
+	movl	-12(%ebp), %eax	#move value of s to eax (already there)
+	movl	%eax, 16(%esp)	#push s on stack
+	movl	16(%ebp), %eax	#move value of c to eax
+	movl	%eax, 12(%esp)	#push c on stack
+	movl	12(%ebp), %eax	#move value of b to eax
+	movl	%eax, 8(%esp)	#push b on stack
+	movl	8(%ebp), %eax	#move value of a to eax
+	movl	%eax, 4(%esp)	#push a on stack
+	movl	$.LC0, (%esp)	#push pointer to format string
+	call	printf 		#call printf() with ret addr on stack
+
+	#return from function
+	movl	-12(%ebp), %eax	#return value s in eax
+	leave		   	#pop stack-frame; esp = ebp; pop top into ebp
+	ret			#return to caller by popping ret address to eip
+------------------------------------------------------------
+
+			Stack Frame Example: Stack
+			==========================
+
+On entry to `printf()`:
+
+------------------------------------------------------------
+		:		       :
+		:		       :
+		+----------------------+
+	ebp + 16|	    44	       |
+		+----------------------+
+	ebp + 12|	    33	       |
+		+----------------------+
+	ebp + 8	|	    22         |
+		+----------------------+
+		| ret addr in main()   |
+		+----------------------+
+   %ebp ------->| saved ebp for main() |
+   		+----------------------+
+        ebp - 4	|		       |
+   		+----------------------+
+	ebp - 8	|		       |
+   		+----------------------+
+	ebp - 12|	   s	       |
+   		+----------------------+
+		:		       :
+		:		       :
+------------------------------------------------------------
+
+			Stack Frame Example: Stack Continued
+			====================================
+
+------------------------------------------------------------
+		:		       :
+		:		       :
+   		+----------------------+
+       esp0 - 16|	   s	       |     		
+   		+----------------------+
+       esp0 - 12|	   c	       |     		
+   		+----------------------+
+       esp0 - 8 |	   b	       |     		
+   		+----------------------+
+       esp0 - 4 |	   a	       |     		
+   		+----------------------+
+       esp0  -->|         &LC0 	       |--->"%d + %d + %d = %d\n"     		
+      (ebp - 56)+----------------------+
+	esp  -->|   ret addr in sum()  |    
+		+----------------------+
+
+      esp0 refers to esp before call to printf().
+------------------------------------------------------------
+
+
+
+		No Stack Frame Example
+		======================
+
+In <./code/no-frame.c>:
+
+------------------------------------------------------------
+int sum(int a, int b, int c) {
+  int s = a + b + c;
+  return s;
+}
+------------------------------------------------------------
+
+		No Stack Frame Example Assembly
+		===============================
+
+Produced using `gcc -Wall -m32 -O1 -std=c99 -S no-frame.c`,
+in <./code/no-frame.s>:	 
+
+------------------------------------------------------------
+sum:
+	movl	8(%esp), %eax	#eax = b
+	addl	4(%esp), %eax	#eax = a + b
+	addl	12(%esp), %eax	#return eax = a + b + c
+	ret
+------------------------------------------------------------
+		
+			Integer Arithmetic and Bitwise Instructions
+			===========================================
+
+  *Unary*::
+    Single operand: `inc` increments operand, `dec` decrements operand,
+    `neg` negates operand and `not` does a bitwise complement of operand.
+
+  *Binary*:: 
+    `op rand1, rand2` does `rand2 = rand2 op rand1` for `op` in `add`
+    (addition), `sub` (subtraction), `imul` (integer multiply), `and`
+    (bitwise and), `or` (bitwise or) and `xor` (bitwise xor).
+
+    	     	   Integer Shift Instructions
+		   ==========================
+
+  *Left Shifts*:: 
+    `sal` and `shl` shift 2nd operand left by # of bits specified by
+    first operand (both instructions identical and shift-in zeros on
+    left).  
+
+  *Right Shifts*::
+    `sar` and `shr` shift 2nd operand right by # of bits specified by first
+    operand; `sar` replicates sign-bit whereas `shr` shifts-in zeros on
+    right.  
+
+First operand must be specified as an immediate or in `cl` register (only 5
+least-significant bits considered for shifts of 0 to 31 bits).
+    
+
+		Integer Arithmetic and Bitwise Operations C Example
+		===================================================
+
+In <./code/arith.c>:
+
+------------------------------------------------------------
+int 
+f(int a, int b, int c)
+{
+  unsigned t1 = b * 33;
+  unsigned t2 = c >> 4;
+  return a + t1 * t2;  
+}
+------------------------------------------------------------
+
+	Integer Arithmetic and Bitwise Operations Example Generated Assembly
+	====================================================================
+
+Annotated version of code from <./code/arith.s>:
+
+------------------------------------------------------------
+f:
+	pushl	%ebp		  #save frame-pointer
+	movl	%esp, %ebp	  #setup stack frame for f()
+	movl	12(%ebp), %edx	  #edx contains b
+	movl	16(%ebp), %eax	  #eax contains c
+	sarl	$4, %eax  	  #eax contains c >> 4
+	movl	%edx, %ecx	  #ecx contains b
+	sall	$5, %ecx	  #ecx contains 32*b
+	leal	(%ecx,%edx), %edx #edx set to 33*b
+	imull	%edx, %eax   	  #eax contains 33*b * (c >> 4)
+	addl	8(%ebp), %eax	  #eax contains (33*b * (c >> 4)) + a
+	popl	%ebp	 	  #restore frame pointer
+	ret
+------------------------------------------------------------
+
+			
+		Extended Precision Multiplication and Division
+		==============================================
+
+  + In general, multiplying 2 32-bit operands would produce a 64-bit result.  
+
+  + Previous `imul` instruction produced a 32-bit result by truncation.
+
+  + Can have 64-bit results for multiply or 64-bit dividend for divide.
+
+  + `edx`:`eax` register-pair is used as a 64-bit register.
+
+  + `ctld` instruction (without any operands) sign-extends `eax` to
+    `edx:eax`.
+
+	Extended Precision Multiplication and Division Continued
+	========================================================
+
+  + Unary `imul rand` instruction sets `edx:eax` register-pair to product of
+    `eax` and operand `rand`.
+
+  + Similar unary `mul` instruction for unsigned multiply.
+
+  + Unary `idiv rand` instruction divides dividend in `edx:eax`
+    register-pair by `divisor` in operand `rand` and leaves quotient in
+    `eax` and remainder in `edx`.
+
+  + Similar unary `div` instruction for unsigned division.
+  
+
+	Extended Precision Multiplication C Example
+	===========================================
+
+In <./code/mul.c>:
+
+------------------------------------------------------------
+long long
+f(long long x, long long y) {
+  return x * y;
+}
+------------------------------------------------------------
+
+
+	Extended Precision Multiplicate Example Code Generation
+	=======================================================
+
+Each `long long` contains 2 double-words `lo` and `hi`.  Hence:
+
+     ------------------------------------------------------------
+     (x_hi:x_lo * y_hi:y_lo)_lo = (x_lo * y_lo)_lo
+     (x_hi:x_lo * y_hi:x_lo)_hi = 
+       (x_hi * y_lo)_lo + (x_lo * y_hi)_lo + (x_lo*y_lo)_hi     
+     ------------------------------------------------------------
+
+Note the truncation of:
+
+      ------------------------------------------------------------
+      x_hi * y_hi, (x_hi * y_lo)_hi, (x_lo * y_hi)_hi
+      ------------------------------------------------------------
+
+Result generated in `edx:eax` based on
+
+------------------------------------------------------------
+  eax =  (x_lo * y_lo)_lo
+  edx =  (x_hi * y_lo)_lo + (x_lo * y_hi)_lo + (x_lo*y_lo)_hi
+------------------------------------------------------------
+
+
+	Extended Precision Multiplication Example Generated Assembly
+	============================================================
+
+Annotated code from <./code/mul.s>:
+
+------------------------------------------------------------
+f:
+	pushl	%ebp		   #save frame-pointer
+	movl	%esp, %ebp	   #setup frame for f()
+	pushl	%ebx  		   #save bx
+	movl	8(%ebp), %eax	   #eax contains x_lo
+	movl	16(%ebp), %edx	   #edx contains y_lo
+	movl	20(%ebp), %ecx	   #ecx contains y_hi
+	imull	%eax, %ecx	   #ecx contains (x_lo * y_hi)_lo
+	movl	12(%ebp), %ebx	   #ebx contains x_hi
+	imull	%edx, %ebx	   #ebx contains (x_hi * y_lo)_lo
+	addl	%ebx, %ecx	   #ecx has (x_lo * y_hi)_lo + (x_hi * y_lo)_lo
+	mull	%edx  		   #edx:eax contains x_lo * y_lo
+	leal	(%ecx,%edx), %edx  #edx contains truncated (x * y)_hi
+	popl	%ebx	     	   #restore ebx
+	popl	%ebp		   #restore frame-pointer
+	ret
+------------------------------------------------------------
+
+	Extended Precision Division C Example
+	=====================================
+
+In <./code/div-mod.c>:
+
+------------------------------------------------------------
+int 
+f(int x, int y) 
+{
+  int t1 = x / y;
+  int t2 = x % y;
+  return t1 + t2;
+}
+------------------------------------------------------------
+
+
+   Extended Precision Division Example Generated Assembly
+   ======================================================
+
+Annotated code from <./code/div-mod.s>:
+
+------------------------------------------------------------
+f:
+	pushl	%ebp		   #save frame-pointer
+	movl	%esp, %ebp	   #setup frame-pointer for f()
+	movl	8(%ebp), %eax	   #mov x to eax
+	movl	%eax, %edx	   #mov x to edx
+	sarl	$31, %edx	   #sign extend x to edx:eax
+	idivl	12(%ebp)	   #edx:eax/12(%bp): divide x by y
+	leal	(%edx,%eax), %eax  #add quotient and remainder into eax
+	popl	%ebp	     	   #restore frame-pointer
+	ret
+------------------------------------------------------------
+
+			Flags Register
+			==============
+
+The flags register (compatible 16-bit `flags`, 32-bit `eflags` and 64-bit
+`rflags` registers) contains the current state of the processor.  Among the
+contained bits are:
+
+  *Carry Flag* `CF`::
+    Set on unsigned overflow.
+
+  *Zero Flag* `ZF`::
+    Last result was zero.
+
+  *Sign Flag* `SF`::
+    Last result was negative.
+
+  *Overflow Flag* `OF`::
+    Most recent operation caused a 2's complement overflow (positive or
+    negative).
+
+		Explicitly Setting Condition Codes Based on Comparisons
+		=======================================================
+
+  *Subtraction Codes*::
+    `cmp` instructions take 2 operands.  Flags set based on subtracting
+    first operand from second operand, except that no registers are
+    affected.  As usual, instructions specified based on operand length:
+    `cmpb`, `cmpw`, `cmpl`.
+
+  *And Codes*::
+    `test` instructions take 2 operands.  Flags set based on and'ing first
+    operand with second operand, except that no registers are affected.  As
+    usual, instructions specified based on operand length: `testb`, `testw`,
+    `testl`.
+
+			Condition Code Instruction Suffixes
+			===================================
+
+  `e`, `z`::
+    Synonyms "equal", "zero".
+
+  `ne`, `nz`::
+    Synonyms "not-equal", "non-zero".
+
+  `s`::
+     Negative: "sign"
+
+  `ns`::
+    Non-negative: "not-sign"
+
+			Condition Code Instruction Suffixes Continued
+			=============================================
+
+  `g`, `nle`::
+    Synonyms "greater-than", "not-less-than-or-equal-to" (signed).
+
+  `ge`, `nl`::
+    Synonyms "greater-than-or-equal-to", "not-less-than" (signed).
+
+  `l`, `nge`::
+    Synonyms "less-than", "not-greater-than-or-equal-to" (signed).  
+    Do not confuse with `l` operand-length suffix.
+
+  `le`, `ng`::
+    Synonyms "less-than-or-equal-to", "not-greater-than" (signed).
+
+			Condition Code Instruction Suffixes Continued
+			=============================================
+
+  `a`, `nbe`::
+    Synonyms "above", "not-below-or-equal-to" (unsigned).
+
+  `ae`, `nb`::
+    Synonyms "above-or-equal-to", "not-below" (unsigned).
+
+  `b`, `nae`::
+    Synonyms "below", "not-above-or-equal-to" (unsigned).  
+    Do not confuse with `b` operand-length suffix.
+
+  `be`, `na`::
+    Synonyms "below-or-equal-to", "not-above" (unsigned).
+
+
+    	     		Set Instruction
+			===============
+
+Set instruction sets a single byte to `0` or `1` based on the suffix.
+
+Variants include synonym pairs `sete` and `setz`, `setg` and `setnle`,
+`setge` and `setnl`, `setl` and `setnge`, `setle` and `setng`, `seta` and
+`setnbe`, `setae` and `setnb`, `setb` and `setnae`, `setbe` and `setna`, as
+well as individual sign tests `sets` and `setns`.
+
+
+     		   Compare and Set C Example
+		   =========================
+
+In <./code/cmp-sets.c>:
+
+------------------------------------------------------------
+int 
+f(int x, int y, unsigned a, unsigned b)
+{
+  int xlty = x < y;
+  int ageb = a >= b;
+  int aeq0 = (a == 0);
+  return xlty + ageb + aeq0;
+}
+------------------------------------------------------------
+
+     		   Compare and Set Example Generated Assembly
+		   ==========================================
+
+Annotated code from <./code/cmp-sets.s>:
+
+------------------------------------------------------------
+f:
+	pushl	%ebp		  #save frame-pointer
+	movl	%esp, %ebp	  #setup frame for f()
+	movl	16(%ebp), %edx	  #edx contains a
+	testl	%edx, %edx	  #test a
+	sete	%cl   		  #cl = (a == 0)
+	movzbl	%cl, %ecx	  #ecx = (a == 0)
+	movl	12(%ebp), %eax	  #eax contains y
+	cmpl	%eax, 8(%ebp)	  #compare y with x
+	setl	%al   		  #al = (x < y)
+	movzbl	%al, %eax	  #eax = (x < y)
+	leal	(%ecx,%eax), %eax #eax = (a == 0) + (x < y)
+	cmpl	20(%ebp), %edx	  #compare b, a
+	setae	%dl	  	  #dl = (a >= b)
+	movzbl	%dl, %edx	  #edx = (a >= b)
+	addl	%edx, %eax	  #eax = (a == 0) + (x < y) + (a >= b)
+	popl	%ebp  		  #restore frame-pointer
+	ret
+------------------------------------------------------------
+
+			Jump Instructions
+			=================
+
+Used for interrupting sequential flow of control.  
+
+  *Conditional*::
+    Conditional opcode is `j` followed by condition suffix, for example,
+    `jz`, `jnz`, `je`, `ja`, `jlt` etc.  Operand giving address must be
+    coded as part of instruction and cannot involve a memory reference.
+    Usually coded as pc-relative, where offset is relative to address of
+    *next* instruction.
+    
+
+  *Unconditional*::
+    Unconditional opcode is `jmp`.  If the operand species a address
+    as part of the instruction (often pc-relative), then it results
+    in a *absolute jump*.  If the operand-mode specifies a address
+    from memory, then it results in a *indirect jump*.
+
+
+    	 	      If-then-else C Example
+		      ======================
+
+In <./code/abs-diff.c>:
+
+------------------------------------------------------------
+int 
+abs_diff(int x, int y)
+{
+  return (x < y) ? y - x : x - y;
+}
+------------------------------------------------------------
+
+Assembly produced omitting `-O1` switch as:
+
+------------------------------------------------------------
+gcc -S -m32 -Wall abs-diff.c 
+------------------------------------------------------------    
+
+    	 	      If-then-else Example Generated Assembly
+		      =======================================
+
+Annotated code from <./code/abs-diff.s>:
+
+------------------------------------------------------------
+abs_diff:
+	pushl	%ebp		#save frame-pointer
+	movl	%esp, %ebp	#setup frame for abs_diff(0
+	movl	8(%ebp), %eax	#eax contains x
+	cmpl	12(%ebp), %eax	#compare y with x
+	jge	.L2	  	#if x >= y goto L2
+	movl	8(%ebp), %eax	#eax contains x
+	movl	12(%ebp), %edx	#edx contains y
+	movl	%edx, %ecx	#ecx contains y
+	subl	%eax, %ecx	#ecx contains y - x
+	movl	%ecx, %eax	#return y - x
+	jmp	.L3   		#goto function epilog
+.L2:				#target for jge above
+	movl	12(%ebp), %eax	#eax contains y
+	movl	8(%ebp), %edx	#edx contains x
+	movl	%edx, %ecx	#ecx contains x
+	subl	%eax, %ecx	#ecx contains x - y
+	movl	%ecx, %eax	#return x - y
+.L3:
+	popl	%ebp		#restore frame-pointer
+	ret
+------------------------------------------------------------
+
+		Factorial do-while Loop C Example
+		=================================
+
+In <./code/fact-do-while.c>:
+
+------------------------------------------------------------
+int 
+fact(int n) 
+{
+  int f = 1;
+  int i = 1;
+  do {
+    f *= i;
+    i += 1;
+  } while (i < n);
+  return f;
+}
+------------------------------------------------------------
+
+
+		Factorial do-while Loop Example Generated Code
+		==============================================
+
+Annotated code from <./code/fact-do-while
+
+------------------------------------------------------------
+fact:
+	pushl	%ebp		#save frame-pointer
+	movl	%esp, %ebp	#setup frame for fact()
+	movl	8(%ebp), %ecx	#ecx contains n
+	movl	$1, %edx 	#edx contains i initialized to 1
+	movl	$1, %eax	#eax contains f initialized to 1
+.L2:		    		#target of below jl instruction
+	imull	%edx, %eax	#multiply f by i
+	addl	$1, %edx	#increment i
+	cmpl	%ecx, %edx	#compare n and i
+	jl	.L2   		#jump to L2 if i < n
+	popl	%ebp		#restore frame-pointer
+	ret
+------------------------------------------------------------
+
+		Factorial while Loop C Example
+		==============================
+
+In <./code/fact-while.c>:
+
+------------------------------------------------------------
+int 
+fact(int n) 
+{
+  int f = 1;
+  int i = 1;
+  while (i <= n) {
+    f *= i;
+    i++;
+  }
+  return f;
+}
+------------------------------------------------------------
+
+	Factorial while Loop C Example Generated Code No Optimization
+	=============================================================
+
+Annotated code from <./code/fact-while-O0.s> generated using:
+
+------------------------------------------------------------
+gcc -S  -m32 fact-while.c -o fact-while-O0.s
+------------------------------------------------------------
+
+------------------------------------------------------------
+fact:
+	pushl	%ebp		#save frame-pointer
+	movl	%esp, %ebp	#setup frame-pointer for fact()
+	subl	$16, %esp	#reserve space for local vars: f and i
+	movl	$1, -4(%ebp)	#set f to 1
+	movl	$1, -8(%ebp)	#set i to 1
+	jmp	.L2 		#goto L2
+.L3:				#target of jle instruction below
+	movl	-4(%ebp), %eax	#eax contains f	
+	imull	-8(%ebp), %eax	#eax contains f*i
+	movl	%eax, -4(%ebp)	#update f
+	addl	$1, -8(%ebp)	#increment i
+.L2:		    		#target of jmp instruction above
+	movl	-8(%ebp), %eax	#eax contains i
+	cmpl	8(%ebp), %eax	#compare n with i
+	jle	.L3	 	#goto L3 if i <= n
+	movl	-4(%ebp), %eax	#put f into eax for return value
+	leave		  	#deallocate local storage
+	ret			
+------------------------------------------------------------
+
+
+		Factorial while Loop C Example Generated Code
+		=============================================
+
+Annotated code from <./code/fact-while.s>:
+
+------------------------------------------------------------
+fact:
+	pushl	%ebp		#save frame-pointer
+	movl	%esp, %ebp	#setup frame for fact()
+	movl	8(%ebp), %ecx	#ecx contains n
+	movl	$1, %eax 	#eax contains f initialized to 1
+	testl	%ecx, %ecx	#test n for 0
+	jle	.L2   		#goto L2 if n <= 0
+	movl	$1, %edx	#set edx to i initialized to 1
+.L3:
+	imull	%edx, %eax	#set f to f * i
+	addl	$1, %edx	#increment i
+	cmpl	%edx, %ecx	#compare i and n
+	jge	.L3   		#jump back to L3 if n >= i
+.L2:
+	popl	%ebp
+	ret
+------------------------------------------------------------
+
+			Sum for Loop C Example
+			======================
+
+In <./code/sum.c>
+
+------------------------------------------------------------
+int 
+sum(int a[], int n)
+{
+  int s = 0;
+  for (int i = 0; i < n; i++) {
+    s += a[i];
+  }
+  return s;
+}
+------------------------------------------------------------
+
+
+			Sum for Loop Example Generated Code
+			===================================
+
+Annotated code from <./code/sum.s>
+
+------------------------------------------------------------
+sum:
+	pushl	%ebp		     #save frame-pointer
+	movl	%esp, %ebp	     #setup frame for sum()
+	pushl	%ebx  		     #save ebx register
+	movl	8(%ebp), %ebx	     #ebx contains address of a[]
+	movl	12(%ebp), %ecx	     #ecx contains n
+	movl	$0, %eax  	     #eax contains sum initialized to 0
+	testl	%ecx, %ecx	     #test n
+	jle	.L2   		     #goto L2 if n <= 0
+	movl	$0, %edx	     #edx contains i initialized to 0
+.L3:		    		     #target of jne instruction below
+	addl	(%ebx,%edx,4), %eax  #add a[i] to sum (scale i by sizeof(int))
+	addl	$1, %edx       	     #increment i
+	cmpl	%ecx, %edx	     #compare n with i
+	jne	.L3   		     #goto L3 if i != n
+.L2:				     #target of jle instruction above
+	popl	%ebx		     #restore ebx register
+	popl	%ebp		     #restore frame-pointer
+	ret
+------------------------------------------------------------
+
+			Indirect Jumps
+			==============
+
+Extension in gcc allows passing code pointers as `void *` pointers.  This
+allows indirect jump's: In <./code/indirect-goto.c>:
+
+------------------------------------------------------------
+void 
+f(void *target) 
+{
+  goto *target;
+}
+------------------------------------------------------------
+
+with generated assembly (annotated):
+
+------------------------------------------------------------
+f:
+	pushl	%ebp		#save frame pointer
+	movl	%esp, %ebp	#setup frame for f()
+	jmp	*8(%ebp)	#goto *target
+				#assume target will clean-up stack
+------------------------------------------------------------
+
+			Switch Statement 
+			================
+
+  + C switch statement can be used for comparing an expression with
+    a constant expression.
+    
+      ------------------------------------------------------------
+      switch (exp) {
+        case const_expression1:
+	  statement1;
+        case const_expression2:
+	  statement2;
+        ...
+        default:
+          default_statement;
+      }
+      ------------------------------------------------------------
+
+  + Usually, each statement for a `case` is terminated with a `break`,
+    otherwise control falls through to the next `case`.  This is a 
+    C gotcha.  If the fall-through is desired, then it is a good
+    idea to insert a comment to that effect.
+
+  + If `exp` does not match any `const_expression` and there is no
+    `default` case, then the entire statement is skipped.
+
+
+    	      	    Switch Statement C Example
+		    ==========================
+
+In <./code/switch.c>:
+
+------------------------------------------------------------
+int 
+f(int n) 
+{
+  //could replace with
+  //int zs[] = { 22, 33, 45, 99, 77, 100, 87, 212, 23, 32 };	
+  //int z = (0 <= n && n <= 9) ? zs[n] : -1;
+  int z;
+  switch (n) {
+    case 0:
+      z = 22;
+      break;
+    case 1:
+      z = 33;
+      break;
+    case 2:
+      z = 45;
+      break;
+    case 3:
+      z = 99;
+      break;
+------------------------------------------------------------
+
+    	      	    Switch Statement C Example Continued
+		    ====================================
+
+
+------------------------------------------------------------
+    case 4:
+      z = 77;
+      break;
+    case 5:
+      z = 100;
+      break;
+    case 6:
+      z = 87;
+      break;
+    case 7:
+      z = 212;
+      break;
+    case 8:
+      z = 23;
+      break;
+    case 9:
+      z = 32;
+      break;
+    default:
+      z = -1;
+  }
+  return z;
+}
+------------------------------------------------------------
+
+    	      	    Switch Statement Example Generated Assembly
+		    ===========================================
+
+Annotated code from <./code/switch.s>:
+
+------------------------------------------------------------
+f:
+	pushl	%ebp			#save frame pointer
+	movl	%esp, %ebp		#setup frame for f()
+	movl	8(%ebp), %edx		#edx contains n
+	movl	$-1, %eax		#eax contains -1
+	cmpl	$9, %edx		#compare 9 and n
+	ja	.L4 			#jump to L4 if n > 9 (unsigned)
+	jmp	*.L13(,%edx,4)		#jump indirect via L13[n]
+------------------------------------------------------------
+
+      	    Switch Statement Example Generated Assembly Continued
+	    =====================================================
+
+------------------------------------------------------------
+	.section	.rodata		#read-only data
+	.align 4
+	.align 4
+.L13:					#jump table
+	.long	.L3			#0
+	.long	.L14			#1
+	.long	.L5			#2
+	.long	.L6			#3
+	.long	.L7			#4
+	.long	.L8			#5
+	.long	.L9			#6
+	.long	.L10			#7
+	.long	.L11			#8
+	.long	.L12			#9
+------------------------------------------------------------
+
+      	    Switch Statement Example Generated Assembly Continued
+	    =====================================================
+
+------------------------------------------------------------
+	.text				#code section
+.L3:					#case 0
+	movl	$22, %eax		#eax set to 22
+	jmp	.L4  			#goto epilog
+.L5:					#case 2
+	movl	$45, %eax		#eax set to 45
+	jmp	.L4  			#goto epilog
+.L6:					#case 3
+	movl	$99, %eax		#eax set to 99
+	jmp	.L4  			#goto epilog
+.L7:					#case 4:
+	movl	$77, %eax		#eax set to 77
+	jmp	.L4  			#goto epilog
+.L8:					#case 5
+	movl	$100, %eax		#eax set to 100
+	jmp	.L4   			#goto epilog
+------------------------------------------------------------
+
+      	    Switch Statement Example Generated Assembly Continued
+	    =====================================================
+
+------------------------------------------------------------
+.L9:					#case 6
+	movl	$87, %eax		#eax set to 87
+	jmp	.L4  			#goto epilog
+.L10:					#case 7
+	movl	$212, %eax		#eax set to 212
+	jmp	.L4   			#goto epilog
+.L11:					#case 8
+	movl	$23, %eax		#eax set to 23
+	jmp	.L4  			#goto epilog
+.L12:					#case 9
+	movl	$32, %eax		#eax set to 32
+	jmp	.L4  			#goto epilog
+.L14:					#case 1
+	movl	$33, %eax		#eax set to 33
+.L4:		     			#start epilog
+	popl	%ebp			#restore frame-pointer
+	ret
+------------------------------------------------------------
+
+		Code Generation Patterns for `switch`
+		=====================================
+
+  + Example had a fully dense "jump-table".  Text example has a more
+    typical situation.
+
+  + `switch` may not always use a "jump-table".  Depends on range
+     and distribution of `case`'s.  
+
+  + If range is wide and `case`'s are sparse, then compiler may generate
+    `if-then-else` branching code.
+
+  + If clusters of `case`'s, then compiler may generate multiple jump-tables
+    selected using `if-then-else` branching code.
+
+  + Alternately, compiler could generate code to do a linear search, binary
+    search or hash-table search.
+
+
+    	      		 Conditional Move Instructions
+			 =============================
+
+  + Modern processors are heavily pipelined and have several instructions
+    in execution simultaneously in an execution pipe.  Simple pipe would
+    be "decode" - "execute" - "write-back".  
+
+  + Branches are very expensive in that they break the pipe-line.
+
+  + Processors try to predict which branch is taken and optimize for that
+    case.  
+
+  + However, when prediction is wrong, the cost is high.
+
+  + Conditional move instructions avoid branching: perform move if condition
+    is true, other NOP.  
+
+  + Instruction has base `cmov` with suffix condition.  Examples:
+    `cmovle`, `cmovz`, `cmova`.
+
+			Conditional Move C Example
+			==========================
+
+------------------------------------------------------------
+int 
+abs_diff(int x, int y)
+{
+  int retval = y - x;
+  int altval = x - y;
+  int xlty = x < y;
+  if (xlty) retval = altval;
+  return retval;
+}
+------------------------------------------------------------
+
+Compile to assembly language using:
+
+------------------------------------------------------------
+gcc -O1 -Wall -std=c99  -m32 -S -march=i686 conditional-move.c 
+------------------------------------------------------------
+  
+			Conditional Move Example Generated Assembly
+			===========================================
+
+------------------------------------------------------------
+abs_diff:
+	pushl	%ebp		#save frame-pointer
+	movl	%esp, %ebp	#setup fram for abs_diff()
+	pushl	%ebx  		#save ebx
+	movl	8(%ebp), %edx	#edx contains x
+	movl	12(%ebp), %ecx	#ecx contains y
+	movl	%edx, %ebx	#ebx contains x
+	subl	%ecx, %ebx	#ebx contains x - y
+	movl	%ecx, %eax	#eax contains y
+	subl	%edx, %eax	#eax contains y - x
+	cmpl	%edx, %ecx	#compare x and y
+	cmovg	%ebx, %eax	#move x - y to eax if x > y
+	popl	%ebx  		#pop ebx
+	popl	%ebp		#restore frame-pointer
+	ret
+------------------------------------------------------------
+
+			Conditional Move Performance
+			============================
+
+  + Text reports that time for code without conditional moves ranged
+    between 13 to 57 cycles, depending on whether or not branch was
+    predicted successfully.
+
+  + Branch misdirection penalty of 44 cycles.
+
+  + Time for code which uses conditional move instruction reported at
+    14 cycles, irrespective of data.
+
+  + With conditional move, code for all branches always executed.  Hence
+    cannot be used if any branch code has a "side-effect" (like updating
+    a global variable).
+
+  + With conditional move, code for all branches always on critical path.
+    With branching code and branch correctly predicted, only code for
+    selected branch on critical path (in fact, code for test *not* on
+    critical path).
+
+
+		      Stack Frame
+		      ===========
+
+  + When a function is invoked, the stack is grown to contain control
+    and data information specific to that invocation.  The stack locations
+    associated with that function invocation are referred to as a "stack
+    frame".  
+
+  + Typically, a stack frame contains control information like a return
+    address as well as storage for local variables, parameters, temporaries,
+    saved registers, etc.
+
+  + Since the stack pointer may change during the lifetime of a function
+    invocation, there is typically a different register called a "frame
+    pointer" which is fixed to point to a specific location in the 
+    frame during the function prolog.
+
+  + Stack frame registers for x86-32 are `esp` stack pointer and `ebp` frame
+    pointer.  
+    
+
+		      Stack Frame Layout
+		      ==================
+
+
+.<DIV ALIGN="CENTER">
+.<IMG SRC="figs/stack-frame.gif">
+.</DIV>
+
+
+			Use of Registers versus Stack Locations
+			=======================================
+
+  + Some architectures (like RISC architectures) try to pass arguments
+    via registers when possible,
+
+  + Since x86-32 is a register deficient architecture, arguments are
+    always passed via the stack.
+
+  + If there are not sufficient registers for local variables, then those
+    variables too must be allocated on the stack.
+
+  + Variables which are arrays or structures may not fit within a 
+    register and must be allocated on the stack.
+
+  + If the address of a variable is taken (using the `&` address-of
+    operator), then it must be allocated on the stack.
+
+
+    	       	    Function Control Instructions
+		    =============================
+
+  *Direct call*::
+    `call` "Label" will push address of next instruction on stack and
+    transfer control to "Label".  
+
+  *Indirect call*::
+    `call *`"Operand" will push address of next instruction on stack and
+    transfer control to address specified by "Operand",
+
+  *Return*::
+    `ret` instruction will pop return address off top-of-stack and
+    transfer control to it.
+
+  *Leave*::
+    `leave` instruction will prepare stack frame for return:
+
+       ------------------------------------------------------------
+       movl %ebp, %esp		#restore esp to what it was on frame creation
+       popl %ebp  		#restore frame pointer of caller
+       ------------------------------------------------------------
+
+		Use of `call` and `ret`
+		======================
+
+------------------------------------------------------------
+   8048394:  <sum>:
+   8048394:  55                 push   %ebp
+             ...
+   80483a4:  c3                 ret
+   ...
+   80483dc:   e8 b3 ff ff ff    call  8048394 <sum>
+   80483e1:   ...
+------------------------------------------------------------
+
+
+.<DIV ALIGN="CENTER">
+.<IMG SRC="figs/call-ret.gif">
+.</DIV>
+
+			Calling Conventions
+			===================
+
+  + For any architecture/OS combination, there is usually a convention 
+    detailing how arguments are passed, which registers are saved by
+    caller/callee, etc.  
+
+  + For x86-32, `eax`, `edx` and `ecx` are "caller-save" registers (callee
+    can change them, caller must save them if necessary), and `ebx` and
+    `esi` are "callee-save" (callee cannot change them and must save them
+    if necessary).  
+
+			Swap Add Example
+			================
+
+In <./code/swap.c>:
+
+------------------------------------------------------------
+int swap_add(int *xp, int *yp) {
+  int x = *xp;
+  int y = *yp;
+  *xp = y;
+  *yp = x;
+  return x + y;
+}
+
+int caller() {
+  int arg1 = 534;
+  int arg2 = 1057;
+  int sum = swap_add(&arg1, &arg2);
+  int diff = arg1 - arg2;
+  return sum + diff;
+}
+------------------------------------------------------------
+
+		Swap Add Example Generated Assembly for `caller()`
+		==================================================
+
+Annotated version of `caller()` from <./code/swap.s>:		
+
+------------------------------------------------------------
+.globl caller
+	.type	caller, @function
+caller:
+	pushl	%ebp		#save caller frame pointer
+	movl	%esp, %ebp	#setup frame for caller()
+	subl	$24, %esp	#reserve space for locals
+	movl	$534, -4(%ebp)	#store arg1
+	movl	$1057, -8(%ebp)	#store arg2
+	leal	-8(%ebp), %eax	#eax = &arg2
+	movl	%eax, 4(%esp)	#store on stack in arg 2 position
+	leal	-4(%ebp), %eax  #eax = &arg1
+	movl	%eax, (%esp)	#store on stack in arg 1 position
+	call	swap_add	#call routine
+	addl	-4(%ebp), %eax	#add arg1 to result
+	subl	-8(%ebp), %eax	#sub arg2 from result
+	leave		  	#restore stack frame
+	ret			#return
+	.size	caller, .-caller
+	.ident	"GCC: (Ubuntu/Linaro 4.5.2-8ubuntu4) 4.5.2"
+	.section	.note.GNU-stack,"",@progbits
+------------------------------------------------------------
+
+		Swap Add Example Generated Assembly for `swap_add()`
+		====================================================
+
+Annotated version of `swap_add()` from <./code/swap.s>:		
+
+------------------------------------------------------------
+	.file	"swap.c"
+	.text
+.globl swap_add
+	.type	swap_add, @function
+swap_add:
+	pushl	%ebp		   #save frame pointer
+	movl	%esp, %ebp	   #setup frame for swap_add()
+	pushl	%ebx  		   #save callee-save register
+	movl	8(%ebp), %ebx	   #ebx = xp
+	movl	12(%ebp), %ecx	   #ecx = yp
+	movl	(%ebx), %eax	   #eax = *xp = x
+	movl	(%ecx), %edx	   #edx = *yp = y
+	movl	%edx, (%ebx)	   #*xp = y
+	movl	%eax, (%ecx)	   #*yp = x
+	leal	(%edx,%eax), %eax  #eax = x + y
+	popl	%ebx	     	   #restore callee-save register
+	popl	%ebp		   #restore frame pointer
+	ret			   #return
+	.size	swap_add, .-swap_add
+------------------------------------------------------------
+
+			Recursive Factorial
+			===================
+
+In <./code/fact.c>
+			
+------------------------------------------------------------
+int rfact(int n) {
+  return (n <= 1) ? 1 : n * fact(n - 1);
+}
+------------------------------------------------------------
+
+			Recursive Factorial Generated Assembly
+			======================================
+
+Annotated version of <./code/fact.s>
+			
+------------------------------------------------------------
+rfact:
+	pushl	%ebp		#save frame pointer
+	movl	%esp, %ebp	#setup frame for fact()
+	pushl	%ebx  		#save callee-save register
+	subl	$20, %esp	#allocate local storage
+	movl	8(%ebp), %ebx	#ebx = n
+	movl	$1, %eax 	#eax = 1
+	cmpl	$1, %ebx	#cmp ebx with 1
+	jle	.L2 		#goto L2 if ebx <= 1 (i.e. if n <= 1)
+	leal	-1(%ebx), %eax	#eax = n - 1
+	movl	%eax, (%esp)	#put onto stack
+	call	rfact  		#recursive call, 
+				#returns with fact(n-1) in eax
+	imull	%ebx, %eax	#eax = n * fact(n - 1)
+.L2:
+	addl	$20, %esp	#remove local storage
+	popl	%ebx 		#restore callee-save register
+	popl	%ebp		#restore frame pointer
+	ret			#return
+------------------------------------------------------------
+
+			Recursive Factorial Stack Frame
+			===============================
+
+.<DIV ALIGN="CENTER">
+.<IMG SRC="figs/fact-frame.gif">
+.</DIV>
+
+			Using Stack for Procedure Linkage Retrospective
+			===============================================
+
+  + Stack frame active only when function is active.  Save memory can
+    be used for other stack frames when function returns.  Makes
+    efficient use of memory.
+
+  + Recursive calls easily supported.
+
+  + Does not support situation where values "escape" from called function
+    (in C, this would correspond to a dangling pointer).  In languages which
+    support such semantics, stack allocation not adequate for such values.
+
+			Other Calling Conventions
+			=========================
+
+  + RISC architectures keep return address in a register and try to
+    avoid creating a stack frame if at all possible (possible for
+    "leaf" procedures which do not call any other procedures).
+
+  + Many old architectures used a dedicated memory location associated with 
+    function to store return address.  Made recursive calls impossible.
+
+    	     	      Array Access
+		      ============
+
+In <./code/find.c>:
+
+------------------------------------------------------------
+/** Return index of first element in a[n] which is k, 
+ *  < 0 if not found. 
+ */
+int find(int a[], int n, int k) {
+  for (int i = 0; i < n; i++) {
+    if (a[i] == k) return i;
+  }
+  return -1;
+}
+------------------------------------------------------------
+
+    	     	      Array Access Generated Assembly
+		      ===============================
+
+Annotated version of <./code/find.s>:
+
+------------------------------------------------------------
+find:
+	pushl	%ebp		#save frame pointer
+	movl	%esp, %ebp	#setup frame for find()
+	pushl	%ebx  		#save callee-save register
+	movl	8(%ebp), %ecx	#ecx contains address of a[]
+	movl	12(%ebp), %edx	#edx contains n
+	movl	16(%ebp), %ebx	#ebx contains k
+	movl	$-1, %eax 	#eax = -1
+	testl	%edx, %edx	#compare n with itself
+	jle	.L2   		#goto L2 if n <= 0
+	movl	$0, %eax	#eax = 0 (i = 0)
+	cmpl	%ebx, (%ecx)	#compare a[0] with k
+	jne	.L4   		#goto L4 if not equal
+	jmp	.L2		#goto L2 unconditionally: will return 0
+------------------------------------------------------------
+
+    	     	      Array Access Generated Assembly Continued
+		      =========================================
+
+Annotated version of <./code/find.s> continued:
+
+------------------------------------------------------------
+.L5:				     #top of loop	
+	cmpl	%ebx, (%ecx,%eax,4)  #compare a[i] with k
+	je	.L2   		     #goto L2 if equal
+.L4:
+	addl	$1, %eax	     #i = i + 1	
+	cmpl	%eax, %edx	     #compare n with i
+	.p2align 4,,3
+	jg	.L5		     #goto L5 if n > i	
+	movl	$-1, %eax	     #eax = -1: failure return
+.L2:		     		     #get here to return with value in eax
+	popl	%ebx		     #restore callee-save register
+	popl	%ebp		     #restore frame pointer
+	ret
+------------------------------------------------------------
+
+			Multi-Dimensional Array Access
+			==============================
+
+In <./code/multi-dim.c>:
+			
+------------------------------------------------------------
+int f(int a[][33][10], int i, int j, int k) {
+  return a[i][j][k];
+}
+------------------------------------------------------------
+
+Address of a[i][j][k] is 
+
+  ------------------------------------------------------------
+     &a + ((33 * 10 * i) + (10*j) + k)*sizeof(int) =
+     &a + 1320*i + 40*j + 4*k
+  ------------------------------------------------------------
+
+(assuming `sizeof(int) == 4`).
+	
+		Multi-Dimensional Array Access Generated Assembly
+		=================================================
+
+Annotated version of <./code/multi-dim.s>:
+			
+------------------------------------------------------------
+f:
+	pushl	%ebp			#save frame-pointer
+	movl	%esp, %ebp		#setup frame for f()
+	movl	16(%ebp), %eax		#eax contains j
+	imull	$1320, 12(%ebp), %edx	#edx contains 1320*i
+	addl	8(%ebp), %edx	 	#edx contains &a + 1320*i
+	leal	(%eax,%eax,4), %eax	#eax contains j*5
+	addl	%eax, %eax     		#eax contains j*10
+	addl	20(%ebp), %eax		#eax contains j*10 + k
+	movl	(%edx,%eax,4), %eax	#eax contains a[i][j][k]
+	popl	%ebp	       		#restore frame pointer
+	ret
+------------------------------------------------------------
+
+		Structure Example
+		=================
+
+In <./code/rect.c>:
+
+------------------------------------------------------------
+typedef struct {
+  int x;	/** x-coordinate of lower-left corner: offset 0 */
+  int y;	/** y-coordinate of lower-left corner: offset 4 */
+  int color;	/** coding for color used to draw rectangle: offset 8 */
+  int width;	/** width of rectange: offset 12 */
+  int height;	/** height of rectangle: offset 16 */
+} Rectangle;
+
+int perimeter(const Rectangle *rectP) {
+  return 2*(rectP->width + rectP->height);
+}
+------------------------------------------------------------
+
+		Structure Example Generated Assembly
+		====================================
+
+Annotated version of <./code/rect.s>:
+
+------------------------------------------------------------
+perimeter:
+	pushl	%ebp		#save frame pointer
+	movl	%esp, %ebp	#setup frame for perimeter()
+	movl	8(%ebp), %edx	#edx contains rectP
+	movl	16(%edx), %eax	#eax contains rectP->height
+	addl	12(%edx), %eax	#eax contains rectP->width + rectP->height
+	addl	%eax, %eax	#eax contains 2*(rectP->width + rectP->height)
+	popl	%ebp  		#restore frame pointer
+	ret
+------------------------------------------------------------
+
+
+
+
+		Dynamically Sized Array Example
+		===============================
+
+In <./code/dynamic-array.c>:
+
+------------------------------------------------------------
+int g(int *a, int n);
+
+int f(int n) {
+  int m = 2*n + 1;
+  int a[m];
+  for (int i = 0; i < m; i++) {
+    a[i] = i;
+  }
+  return g(a, m);
+}
+------------------------------------------------------------
+
+		Dynamically Sized Array Example Generated Assembly
+		==================================================
+
+Annotated code from <./code/dynamic-array.s>:
+
+------------------------------------------------------------
+f:
+	pushl	%ebp			#save callers frame pointer
+	movl	%esp, %ebp		#setup frame for f()
+	pushl	%ebx  			#save callee-save register
+	subl	$36, %esp		#reserve space for local vars
+	movl	%gs:20, %eax		#load stack sentinel into eax
+	movl	%eax, -12(%ebp)		#put stack sentinel on stack
+	xorl	%eax, %eax		#clear stack sentinel???
+	movl	8(%ebp), %eax		#eax contains n
+	leal	1(%eax,%eax), %edx	#edx contains m
+	leal	30(,%edx,4), %eax	#eax contains 4*m + 30
+	andl	$-16, %eax   		#eax contains (4*m + 30)&0xfffffff0
+	subl	%eax, %esp		#reserve space for a[m] + 30 extra
+	leal	23(%esp), %ebx		#ebx within allocated space
+	andl	$-16, %ebx		#ebx in allocated space dword aligned
+	movl	%ebx, %ecx		#ecx in allocated space dword aligned	
+	testl	%edx, %edx		#is m 0
+	jle	.L2   			#if <= 0, goto L2
+	movl	$0, %eax		#eax contains i intialized to 0
+------------------------------------------------------------
+
+		Dynamically Sized Array Example Generated Assembly Continued
+		============================================================
+
+------------------------------------------------------------
+.L3:
+	movl	%eax, (%ecx,%eax,4)	#a[i] = i
+	addl	$1, %eax		#i = i + 1
+	cmpl	%eax, %edx		#compare m and i
+	jg	.L3   			#if m > i goto L3
+.L2:
+	movl	%edx, 4(%esp)		#push m on stack
+	movl	%ebx, (%esp)		#push &a[0] on stack
+	call	g     			#call g
+	movl	-12(%ebp), %edx		#load sentinel from stack to edx
+	xorl	%gs:20, %edx		#compare with sentinel in gs
+	je	.L4			#if same, goto L4
+	call	__stack_chk_fail	#report stack failure
+.L4:	
+	movl	-4(%ebp), %ebx		#restore callee-save register
+	leave		  		#restore local vars and frame pointer
+	.p2align 4,,2
+	ret				#return to caller
+------------------------------------------------------------
+
+		Array of Structures Example
+		===========================
+
+In <./code/rect-array.c>:
+
+------------------------------------------------------------
+typedef struct {
+  int x;	/** x-coordinate of lower-left corner */
+  int y;	/** y-coordinate of lower-left corner */
+  int color;	/** coding for color used to draw rectangle */
+  int width;	/** width of rectange */
+  int height;	/** height of rectangle */
+} Rectangle;
+
+int sum_perimeters(Rectangle rects[], int n) {
+  int sum = 0;
+  for (int i = 0; i < n; i++) {
+    sum += 2*(rects[i].width + rects[i].height);
+  }
+  return sum;
+}
+------------------------------------------------------------
+
+		Array of Structures Example Generated Assembly
+		==============================================
+
+Annotated code from <./code/rect-array.s>:
+
+------------------------------------------------------------
+sum_perimeters:
+	pushl	%ebp		#save frame pointer
+	movl	%esp, %ebp	#setup frame pointer for sum_perimeters()
+	pushl	%esi  		#save callee-save register
+	pushl	%ebx		#save callee-save register
+	movl	12(%ebp), %esi	#esi contains n
+	movl	$0, %eax  	#eax contains sum initialized to 0
+	testl	%esi, %esi	#test n
+	jle	.L2   		#goto L2 if <= 0
+	movl	8(%ebp), %edx	#edx &a[i]
+	movl	$0, %ecx 	#ecx contains i initialized to 0
+------------------------------------------------------------
+
+		Array of Structures Example Generated Assembly Continued
+		========================================================
+
+------------------------------------------------------------
+.L3:
+	movl	16(%edx), %ebx		#ebx contains a[i].height
+	addl	12(%edx), %ebx		#ebx contains a[i].height + a[i].width
+	leal	(%eax,%ebx,2), %eax	#update sum
+	addl	$1, %ecx       		#increment i
+	addl	$20, %edx		#point edx to next element of a[]
+	cmpl	%esi, %ecx		#compare i with n
+	jne	.L3   			#goto L3 if not equal
+.L2:
+	popl	%ebx			#restore ebx
+	popl	%esi			#restore esi
+	popl	%ebp			#restore frame pointer
+	ret				#return to caller
+------------------------------------------------------------
+
+
+%%%
+
+			References
+			==========
+
+Text: Chapter 3.
+
+Intel Corporation,
+.<https://software.intel.com/en-us/articles/intel-sdm> "Intel 64 and
+IA-32 Architectures: Software Developer's Manual", Source for some of
+the figures.
+
+Linus Torvalds,
+.<https://yarchive.net/comp/linux/cmov.html> "Why
+Conditional Moves Are a Bad Idea".
+
+
+Xiao-Feng Li,
+.<http://people.apache.org/~xli/presentations/history_Intel_CPU.pdf> "A
+Brief History of Intel CPU Microarchitectures".
+

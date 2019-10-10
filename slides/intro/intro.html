@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../../assets/styles/slides.css" rel="stylesheet" type="text/css" />
+  <title>CS 220: Introduction</title>
+<link href="intro/hl-fine_blue.css" rel="stylesheet"/>
+</head>
+<body>
+    <nav>
+      <ul>
+	<li><a href="../../index.html" class="material-icons">house</a></li>
+	<li><a href="../../docs/index.html">Docs</a></li>
+	<li><a href="../../exams-quizzes/index.html">Exams &amp; Quizzes</a></li>
+	<li><a href="../../exercises/index.html">Exercises</a></li>
+	<li><a href="../../hws/index.html">Homeworks</a></li>
+	<li><a href="../../labs/index.html">Labs</a></li>
+	<li><a href="../../misc/index.html">Misc</a></li>
+	<li><a href="../../projects/index.html">Projects</a></li>
+	<li><a href="../../slides/index.html">Slides</a></li>
+      </ul>
+    </nav>
+  <div class="slide-controls" style="display: none;">
+    <span class="float-left">
+      <span class="first-control">
+	<a href="#">
+	  <img src="../../assets/images/go-first.png">
+	</a>
+      </span>
+      <span class="previous-control">
+	<a href="#">
+	  <img src="../../assets/images/go-previous.png">
+	</a>
+      </span>
+    </span>
+    <span class="float-right">
+      <span class="next-control">
+	<a href="#">
+	  <img src="../../assets/images/go-next.png">
+	</a>
+      </span>
+      <span class="last-control">
+	<a href="#">
+	  <img src="../../assets/images/go-last.png">
+	</a>
+      </span>
+    </span>
+    <div class="slide-end">&nbsp;<br></div> <!-- hack -->
+  </div>
+<div class="content">
+<section data-coord="intro.umt:1:0"><h1 data-coord="intro.umt:1:0">Introduction</h1><section class="umt-slide" data-coord="intro.umt:3:0"><h2 data-coord="intro.umt:3:0">Layers of a Modern Computer System</h2><p data-coord="intro.umt:6:0">A computer system is organized in layers with each layer usually interacting
+only with the layer immediately below it.  
+</p><img src="./figs/layers.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:11:0"><h2 data-coord="intro.umt:11:0">Layers of a Modern Computer System Continued</h2><p data-coord="intro.umt:14:0">In more detail, top-to-bottom layers are the following:
+</p><dl data-coord="intro.umt:16:0"><dt data-coord="intro.umt:16:2"> <strong data-coord="intro.umt:16:1">Application</strong></dt><dd data-coord="intro.umt:17:0"><p data-coord="intro.umt:17:5">The application which is seen by the end-user of the computer
+system.  Examples: word, excel, emacs, gcc.  Most general-purpose
+computers are capable of running many different applications
+simultaneously.
+</p></dd><dt data-coord="intro.umt:22:2"> <strong data-coord="intro.umt:22:1">System-independent programming language</strong></dt><dd data-coord="intro.umt:23:0"><p data-coord="intro.umt:23:5">Most applications are implemented in <em data-coord="intro.umt:23:42">high-level</em> programming languages
+like C or Java which are independent of the actual computer system on
+which the application will run.  Different programming languages can
+themselves be classified as very high level (Prolog, Haskell),
+high-level (Java, Perl, Python) or low-level (exemplified by C).
+</p></dd></dl></section><section class="umt-slide" data-coord="intro.umt:29:0"><h2 data-coord="intro.umt:29:0">Layers of a Modern Computer System Continued</h2><dl data-coord="intro.umt:32:0"><dt data-coord="intro.umt:32:2"> <strong data-coord="intro.umt:32:1">Assembly Language</strong></dt><dd data-coord="intro.umt:33:0"><p data-coord="intro.umt:33:4">Mnemonic form of the instructions executed by a specific computer
+architecture.  Under Unix, programs in system-independent programming
+languages are usually translated to assembly language by a program
+called a <strong data-coord="intro.umt:33:228">compiler</strong>.
+</p></dd><dt data-coord="intro.umt:38:2"> <strong data-coord="intro.umt:38:1">Machine Language</strong></dt><dd data-coord="intro.umt:39:0"><p data-coord="intro.umt:39:5">The numeric encoding of the instructions executed by a specific
+computer architecture.  Assembly language programs are translated
+to machine language programs using a program called a <strong data-coord="intro.umt:39:199">assembler</strong>.
+</p></dd></dl></section><section class="umt-slide" data-coord="intro.umt:43:0"><h2 data-coord="intro.umt:43:0">Layers of a Modern Computer System Continued</h2><dl data-coord="intro.umt:46:0"><dt data-coord="intro.umt:46:2"> <strong data-coord="intro.umt:46:1">Operating System</strong></dt><dd data-coord="intro.umt:47:0"><p data-coord="intro.umt:47:4">Access by programs to all computer resources (including CPU,
+memory, I/O devices) is usually mediated by an OS program like
+Unix or Windows.  Operating systems are often implemented in C or
+C++.
+</p></dd><dt data-coord="intro.umt:52:2"> <strong data-coord="intro.umt:52:1">Computer System Architecture</strong></dt><dd data-coord="intro.umt:53:0"><p data-coord="intro.umt:53:4">This includes the <em data-coord="intro.umt:53:22">instruction-set architecture</em> seen by assembly
+language programs as well as details of the computer system CPU(s),
+memory system, I/O devices, system buses, networks seen by the OS.
+</p></dd><dt data-coord="intro.umt:57:2"> <strong data-coord="intro.umt:57:1">Micro-Architecture</strong></dt><dd data-coord="intro.umt:58:0"><p data-coord="intro.umt:58:4">Different implementations of a computer system architecture use
+different micro-architectures.  For example, the basic x86 architecture
+was implemented differently by the 80386, 80486, Pentium, P6, Pentium 4,
+etc.
+</p></dd></dl></section><section class="umt-slide" data-coord="intro.umt:64:0"><h2 data-coord="intro.umt:64:0">Abstractions</h2><p data-coord="intro.umt:67:0">Computer system design is the design of abstractions:
+</p><dl data-coord="intro.umt:69:0"><dt data-coord="intro.umt:69:2"> <a href="http://en.wiktionary.org/wiki/abstraction" data-coord="intro.umt:69:46">Abstraction</a></dt><dd data-coord="intro.umt:70:0"><p data-coord="intro.umt:70:4">Any generalization technique that ignores or hides details to
+capture some kind of commonality between different instances for
+the purpose of controlling the intellectual complexity of
+engineered systems, particularly software systems.
+</p></dd></dl><p data-coord="intro.umt:75:0">For example, the layers within a computer systems constitute a set of
+successively less abstract views of the system.  So for example, an
+application programmer needs only to understand the details of the
+system-independent programming language used and largely ignore details of
+the computer system on which the application will run.
+</p></section><section class="umt-slide" data-coord="intro.umt:82:0"><h2 data-coord="intro.umt:82:0">Leaky Abstractions</h2><p data-coord="intro.umt:85:0">Unfortunately, many abstractions are
+<a href="http://www.joelonsoftware.com/articles/LeakyAbstractions.html" data-coord="intro.umt:85:102">leaky.</a>
+</p><ul data-coord="intro.umt:88:0"><li data-coord="intro.umt:88:0"><p data-coord="intro.umt:88:4">The choice of column-wise versus row-wise initialization of a matrix can
+have drastically different performance implications depending on the
+matrix layout and memory hierarchy implementation.
+</p></li><li data-coord="intro.umt:92:0"><p data-coord="intro.umt:92:4">SQL allows accessing a database using an abstract query language but
+two logically equivalent SQL queries can have drastically different
+performance depending on the database implementation.
+</p></li><li data-coord="intro.umt:96:0"><p data-coord="intro.umt:96:4">Remote file systems allow accessing a remote file just like a local
+file but if a email <samp data-coord="intro.umt:96:96">.forward</samp> file is on a remote file system which
+is down, then email will not be forwarded.
+</p></li></ul><p data-coord="intro.umt:100:0">This is why it is necessary for any competent application programmer to
+understand the material which will be covered in this course.
+</p></section><section class="umt-slide" data-coord="intro.umt:103:0"><h2 data-coord="intro.umt:103:0">A Simple C Program</h2><p data-coord="intro.umt:106:0">In <a href="./code/hello.c" data-coord="intro.umt:106:21">hello.c:</a>
+</p><pre><span class="hl ppc">#include &lt;stdio.h&gt;</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">main</span><span class="hl opt">() {</span>
+  <span class="hl kwd">printf</span><span class="hl opt">(</span><span class="hl str">&quot;hello world</span><span class="hl esc">\n</span><span class="hl str">&quot;</span><span class="hl opt">);</span>
+  <span class="hl kwa">return</span> <span class="hl num">0</span><span class="hl opt">;</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="intro.umt:118:0"><h2 data-coord="intro.umt:118:0">Compilation</h2><pre data-coord="intro.umt:122:0">$ gcc -o hello hello.c
+</pre><p data-coord="intro.umt:125:0">Compilation proceeds <em data-coord="intro.umt:125:21">conceptually</em> as follows:
+</p><ol data-coord="intro.umt:127:0"><li data-coord="intro.umt:127:0"><p data-coord="intro.umt:127:4">Preprocess <samp data-coord="intro.umt:127:15">.c</samp> file (expanding macros, performing file
+inclusions, etc) to <a href="./code/hello.i" data-coord="intro.umt:127:102">hello.i</a> file.  The
+<samp data-coord="intro.umt:127:125">stdio.h</samp> <em data-coord="intro.umt:127:135">header</em> file contains a <strong data-coord="intro.umt:127:160">declaration</strong> for the
+<samp data-coord="intro.umt:127:186">printf()</samp> function.
+</p></li><li data-coord="intro.umt:132:0"><p data-coord="intro.umt:132:4">Compile pre-processed <samp data-coord="intro.umt:132:26">hello.i</samp> file to assembly language
+<a href="./code/hello.s" data-coord="intro.umt:132:84">hello.s</a> file.
+</p></li><li data-coord="intro.umt:135:0"><p data-coord="intro.umt:135:4">Assemble assembly language <samp data-coord="intro.umt:135:31">hello.s</samp> file to <samp data-coord="intro.umt:135:49">hello.o</samp> object file.
+</p></li><li data-coord="intro.umt:137:0"><p data-coord="intro.umt:137:4">Link <samp data-coord="intro.umt:137:9">hello.o</samp> file with system libraries (which contain definition
+of <samp data-coord="intro.umt:137:79">printf()</samp> function) to <samp data-coord="intro.umt:137:103">hello</samp> executable.
+</p></li></ol><img src="./figs/compilation.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:144:0"><h2 data-coord="intro.umt:144:0">Running the Program</h2><p data-coord="intro.umt:147:0">Using a command-line shell:
+</p><pre data-coord="intro.umt:150:0">$ ./hello
+hello world
+$
+</pre></section><section class="umt-slide" data-coord="intro.umt:155:0"><h2 data-coord="intro.umt:155:0">Computer Hardware Organization</h2><img src="./figs/hardware.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:161:0"><h2 data-coord="intro.umt:161:0">Component Speeds</h2><p data-coord="intro.umt:164:0">Assuming 1 GHz clock:
+</p><table data-coord="intro.umt:168:0"><tr data-coord="intro.umt:168:0"><th data-coord="intro.umt:168:0">Component      
+</th><th data-coord="intro.umt:168:0">   Access Speed
+</th><th data-coord="intro.umt:168:0">   Human Scale        
+</th></tr><tr data-coord="intro.umt:168:131"><td data-coord="intro.umt:168:131">Register       
+</td><td data-coord="intro.umt:168:131">   1 nanosec   
+</td><td data-coord="intro.umt:168:131">   1 second          
+</td></tr><tr data-coord="intro.umt:168:196"><td data-coord="intro.umt:168:196">Memory         
+</td><td data-coord="intro.umt:168:196">  100 nanosec  
+</td><td data-coord="intro.umt:168:196">  100 seconds         
+</td></tr><tr data-coord="intro.umt:168:262"><td data-coord="intro.umt:168:262">Disk           
+</td><td data-coord="intro.umt:168:262">   10 millisec 
+</td><td data-coord="intro.umt:168:262">  116 days            
+</td></tr><tr data-coord="intro.umt:168:328"><td data-coord="intro.umt:168:328">Keyboard       
+</td><td data-coord="intro.umt:168:328">  500 millisec 
+</td><td data-coord="intro.umt:168:328">   16 years           
+</td></tr></table></section><section class="umt-slide" data-coord="intro.umt:177:0"><h2 data-coord="intro.umt:177:0">Cache</h2><ul data-coord="intro.umt:180:0"><li data-coord="intro.umt:180:0"><p data-coord="intro.umt:180:4">Registers are a couple of orders of magnitude faster than main memory,
+but much more expensive.
+</p></li><li data-coord="intro.umt:183:0"><p data-coord="intro.umt:183:4">Multi-level caches use <em data-coord="intro.umt:183:27">locality-of-reference</em> to access memory with
+speed close to that of the cache technology but with cost close to that
+of main memory.
+</p></li></ul><img src="./figs/cachebus.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:190:0"><h2 data-coord="intro.umt:190:0">Memory Hierarchy</h2><p data-coord="intro.umt:193:0">Idea of caching can be extended to disks too:
+</p><ul data-coord="intro.umt:195:0"><li data-coord="intro.umt:195:0"><p data-coord="intro.umt:195:4">Main memory a cache for local disk.
+</p></li><li data-coord="intro.umt:197:0"><p data-coord="intro.umt:197:4">Memory-management hardware allows automated mapping of <em data-coord="intro.umt:197:59">virtual memory</em>
+to physical memory and disk.
+</p></li><li data-coord="intro.umt:200:0"><p data-coord="intro.umt:200:4">Local disk a cache for remote disk.
+</p></li></ul></section><section class="umt-slide" data-coord="intro.umt:202:0"><h2 data-coord="intro.umt:202:0">Memory Hierarchy Pyramid</h2><img src="./figs/memhier.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:207:0"><h2 data-coord="intro.umt:207:0">Visibility of Components to Application Programming Languages</h2><ul data-coord="intro.umt:210:0"><li data-coord="intro.umt:210:0"><p data-coord="intro.umt:210:4">Assembly language makes registers and (virtual) memory visible.
+</p></li><li data-coord="intro.umt:212:0"><p data-coord="intro.umt:212:4">Low-level languages like C make (virtual) memory visible.
+</p></li><li data-coord="intro.umt:214:0"><p data-coord="intro.umt:214:4">High-level languages like Java, Perl do not make any components visible.
+</p></li><li data-coord="intro.umt:216:0"><p data-coord="intro.umt:216:4">All language levels hide disk and I/O behind some kind of file abstraction
+provided by the OS.
+</p></li></ul></section><section class="umt-slide" data-coord="intro.umt:220:0"><h2 data-coord="intro.umt:220:0">Memory Addressing</h2><ul data-coord="intro.umt:223:0"><li data-coord="intro.umt:223:0"><p data-coord="intro.umt:223:4">Modern computers represent memory as a sequence of 8-bit <em data-coord="intro.umt:223:61">bytes</em>
+with each byte individually addressable by a address.
+</p></li><li data-coord="intro.umt:226:0"><p data-coord="intro.umt:226:4">Memory addresses are usually specified in hexadecimal and range
+from <samp data-coord="intro.umt:226:77">0x00000000</samp> to <samp data-coord="intro.umt:226:93">0xffffffff</samp> (i.e. 8 <samp data-coord="intro.umt:226:114">f</samp>'s) for 32-bit
+machines and from <samp data-coord="intro.umt:226:154">0x0000000000000000</samp> to <samp data-coord="intro.umt:226:178">0xffffffffffffffff</samp>
+(i.e. 16 <samp data-coord="intro.umt:226:212">f</samp>'s) for 64-bit machines.
+</p></li><li data-coord="intro.umt:231:0"><p data-coord="intro.umt:231:4">Typically, memory bytes are grouped into 4 or 8-byte <em data-coord="intro.umt:231:57">words</em>.
+</p></li></ul></section><section class="umt-slide" data-coord="intro.umt:234:0"><h2 data-coord="intro.umt:234:0">Memory Addresses</h2><p data-coord="intro.umt:237:3">Addressing of memory for a 32-bit machine:
+</p><pre data-coord="intro.umt:240:0">                +------+------+------+------+
+    0xfffffffc  |      |      |      |      |
+                +------+------+------+------+
+    0xfffffff8  |      |      |      |      |
+                +------+------+------+------+
+    0xfffffff4  |      |      |      |      |
+                +------+------+------+------+
+                :                           :                
+                :                           :                
+                +------+------+------+------+
+    0x00000008  |      |      |      |      |
+                +------+------+------+------+
+    0x00000004  |      |      |      |      |
+                +------+------+------+------+
+    0x00000000  |      |      |      |      |
+                +------+------+------+------+
+</pre></section><section class="umt-slide" data-coord="intro.umt:260:0"><h2 data-coord="intro.umt:260:0">OS Abstraction</h2><p data-coord="intro.umt:263:0">Operating system mediates access to physical computer resources.
+</p><img src="./figs/abstractions-os.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:267:0"><h2 data-coord="intro.umt:267:0">Process Switching</h2><p data-coord="intro.umt:270:0">A single CPU can run multiple processes concurrently using <em data-coord="intro.umt:270:59">process
+switching</em>.  Because of high switching speed, it appears that the processes
+are running simultaneously.  
+</p><img src="./figs/switch.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:276:0"><h2 data-coord="intro.umt:276:0">Process Virtual Address Space</h2><p data-coord="intro.umt:279:0">Typically, memory management hardware gives each process the illusion
+of a separate dedicated virtual memory.  The virtual memory of a
+process is typically organized as shown below:
+</p><img src="./figs/rtimage.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:286:0"><h2 data-coord="intro.umt:286:0">Multiple Processors</h2><p data-coord="intro.umt:289:0">With multiple processors, each processor can run processes simultaneously.
+</p><img src="./figs/processors.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:293:0"><h2 data-coord="intro.umt:293:0">Multi Core Architecture</h2><p data-coord="intro.umt:296:0">Have multiple cores on a single chip where the cores share memory and I/O.
+</p><img src="./figs/corei7caches.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:301:0"><h2 data-coord="intro.umt:301:0">Virtual Machine Abstraction</h2><p data-coord="intro.umt:304:0">Introduced by IBM, a VM provides an abstraction of a complete computer system:
+</p><img src="./figs/abstractions-multi.png" width="289"/></section><section class="umt-slide" data-coord="intro.umt:309:0"><h2 data-coord="intro.umt:309:0">Input / Output</h2><p data-coord="intro.umt:312:0">Only way for a computer to exchange information with its environment is
+via I/O.
+</p><p data-coord="intro.umt:315:0">Typically, two I/O models:
+</p><dl data-coord="intro.umt:317:0"><dt data-coord="intro.umt:317:2"> <strong data-coord="intro.umt:317:1">Polling</strong></dt><dd data-coord="intro.umt:318:0"><p data-coord="intro.umt:318:4">CPU repeately polls a I/O device to see when input data is
+available or whether the device can accept output data.
+</p></dd><dt data-coord="intro.umt:321:2"> <strong data-coord="intro.umt:321:1">Interrupts</strong></dt><dd data-coord="intro.umt:322:0"><p data-coord="intro.umt:322:4">The I/O device interrupts the CPU when it is ready to perform
+I/O.  The CPU saves the context of its current task and runs
+a special <em data-coord="intro.umt:322:145">interrupt-service routine</em> to handle the I/O device's
+request and then restores and resumes the interrupted task.
+</p></dd></dl><p data-coord="intro.umt:327:0">Polling is used currently only by very simply microcontrollers; most
+high-performance modern computers use interrupts.
+</p></section><section class="umt-slide" data-coord="intro.umt:330:0"><h2 data-coord="intro.umt:330:0">References</h2><p data-coord="intro.umt:333:0">Text, Ch. 1.
+</p><p data-coord="intro.umt:335:0">More details on the compilation process available at
+<em data-coord="intro.umt:335:92"><a href="../../misc/compiling/compiling.html" data-coord="intro.umt:335:92">Compilation Details</a></em>.
+</p></section></section>
+</div> <!-- #content -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../../assets/scripts/slide-controls.js"></script>
+</body>
+</html>

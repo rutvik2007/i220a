@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang='en-US'>
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../../assets/styles/slides.css" rel="stylesheet" type="text/css" />
+  <title>CS 220: Abstract Data Types</title>
+<link href="adts/hl-fine_blue.css" rel="stylesheet"/>
+</head>
+<body>
+    <nav>
+      <ul>
+	<li><a href="../../index.html" class="material-icons">house</a></li>
+	<li><a href="../../docs/index.html">Docs</a></li>
+	<li><a href="../../exams-quizzes/index.html">Exams &amp; Quizzes</a></li>
+	<li><a href="../../exercises/index.html">Exercises</a></li>
+	<li><a href="../../hws/index.html">Homeworks</a></li>
+	<li><a href="../../labs/index.html">Labs</a></li>
+	<li><a href="../../misc/index.html">Misc</a></li>
+	<li><a href="../../projects/index.html">Projects</a></li>
+	<li><a href="../../slides/index.html">Slides</a></li>
+      </ul>
+    </nav>
+  <div class="slide-controls" style="display: none;">
+    <span class="float-left">
+      <span class="first-control">
+	<a href="#">
+	  <img src="../../assets/images/go-first.png">
+	</a>
+      </span>
+      <span class="previous-control">
+	<a href="#">
+	  <img src="../../assets/images/go-previous.png">
+	</a>
+      </span>
+    </span>
+    <span class="float-right">
+      <span class="next-control">
+	<a href="#">
+	  <img src="../../assets/images/go-next.png">
+	</a>
+      </span>
+      <span class="last-control">
+	<a href="#">
+	  <img src="../../assets/images/go-last.png">
+	</a>
+      </span>
+    </span>
+    <div class="slide-end">&nbsp;<br></div> <!-- hack -->
+  </div>
+<div class="content">
+<section data-coord="adts.umt:1:0"><h1 data-coord="adts.umt:1:0">Abstract Data Types</h1><section class="umt-slide" data-coord="adts.umt:3:0"><h2 data-coord="adts.umt:3:0">Overview</h2><ul data-coord="adts.umt:6:0"><li data-coord="adts.umt:6:0"><p data-coord="adts.umt:6:4">Information hiding.
+</p></li><li data-coord="adts.umt:8:0"><p data-coord="adts.umt:8:4">Scope.
+</p></li><li data-coord="adts.umt:10:0"><p data-coord="adts.umt:10:4">Modules.
+</p></li><li data-coord="adts.umt:12:0"><p data-coord="adts.umt:12:4">Abstract data types (ADTs).
+</p></li><li data-coord="adts.umt:14:0"><p data-coord="adts.umt:14:4">Lifetime.
+</p></li><li data-coord="adts.umt:16:0"><p data-coord="adts.umt:16:4">Dynamic memory allocation.
+</p></li><li data-coord="adts.umt:18:0"><p data-coord="adts.umt:18:4">Stack ADT.
+</p></li></ul></section><section class="umt-slide" data-coord="adts.umt:20:0"><h2 data-coord="adts.umt:20:0">Information Hiding</h2><ul data-coord="adts.umt:23:0"><li data-coord="adts.umt:23:0"><p data-coord="adts.umt:23:4">Keep details of some code hidden from rest of code as far as
+possible.
+</p></li><li data-coord="adts.umt:26:0"><p data-coord="adts.umt:26:4">Makes it possible to understand some code locally.
+</p></li><li data-coord="adts.umt:28:0"><p data-coord="adts.umt:28:4">A <strong data-coord="adts.umt:28:6">function</strong> is a basic unit of abstraction and provides
+information hiding.  For example, a user of the <samp data-coord="adts.umt:28:113">printf()</samp>
+function is not exposed to the details of how the format
+string is parsed or how output is performed.
+</p></li></ul></section><section class="umt-slide" data-coord="adts.umt:34:0"><h2 data-coord="adts.umt:34:0">Scope</h2><p data-coord="adts.umt:37:0">The <strong data-coord="adts.umt:37:4">scope</strong> of an identifier is that region of the program where
+a use of that identifier refers to the same entity (variable or function).
+C provides 3 kinds of scope:
+</p><dl data-coord="adts.umt:41:0"><dt data-coord="adts.umt:41:2">Block Scope</dt><dd data-coord="adts.umt:42:0"><p data-coord="adts.umt:42:4">A declaration of an identifier within a <samp data-coord="adts.umt:42:44">{}</samp>-enclosed block
+is visible only from that declaration till the end of the block.
+</p></dd><dt data-coord="adts.umt:45:2">File Scope</dt><dd data-coord="adts.umt:46:0"><p data-coord="adts.umt:46:4">A top-level declaration which uses the <samp data-coord="adts.umt:46:43">static</samp> keyword is
+visible only from that declaration till the end of the file.
+If another file has another <samp data-coord="adts.umt:46:160">static</samp> declaration for the
+same identifier, then that declaration is totally independent.
+</p></dd><dt data-coord="adts.umt:51:2">Program or Global Scope</dt><dd data-coord="adts.umt:52:0"><p data-coord="adts.umt:52:4">A top-level declaration which may or may not make explicit use of
+the <samp data-coord="adts.umt:52:78">extern</samp> keyword and does not use the <samp data-coord="adts.umt:52:116">static</samp> keyword is
+visible across the entire program.  Unfortunately, it is necessary
+to follow some simple rules to ensure that different files
+agree on the declaration.
+</p></dd></dl></section><section class="umt-slide" data-coord="adts.umt:58:0"><h2 data-coord="adts.umt:58:0">Scope Example</h2><pre><span class="hl kwb">int</span> programScope <span class="hl opt">=</span> <span class="hl num">0</span><span class="hl opt">;</span>  <span class="hl slc">//program scope</span>
+
+<span class="hl kwb">static int</span> fileScope<span class="hl opt">;</span>  <span class="hl slc">//file scoped variable.</span>
+
+<span class="hl kwb">int</span> <span class="hl kwd">f</span><span class="hl opt">(</span><span class="hl kwb">int</span> val<span class="hl opt">) {</span> <span class="hl slc">//program scope function</span>
+  <span class="hl opt">...</span>val<span class="hl opt">...</span>          <span class="hl slc">//reference to val parameter</span>
+  <span class="hl opt">...</span>fileScope<span class="hl opt">...</span>    <span class="hl slc">//ref to fileScope variable</span>
+  <span class="hl opt">...</span>programScope<span class="hl opt">...</span> <span class="hl slc">//ref to programScope variable</span>
+  <span class="hl kwa">if</span> <span class="hl opt">(...) {</span>
+    <span class="hl kwb">double</span> val<span class="hl opt">;</span> <span class="hl slc">//hides outer declaration</span>
+    <span class="hl opt">...</span>val<span class="hl opt">...</span>   <span class="hl slc">//reference to val within if-block</span>
+  <span class="hl opt">}</span>
+  <span class="hl opt">...</span>val<span class="hl opt">...</span> <span class="hl slc">//reference to val parameter</span>
+<span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="adts.umt:78:0"><h2 data-coord="adts.umt:78:0">Name Spaces</h2><p data-coord="adts.umt:81:0">The same identifier can be used for different purposes, even in the same
+scope, if the uses are in different name spaces.  The different name spaces
+in C are: 
+</p><ul data-coord="adts.umt:85:0"><li data-coord="adts.umt:85:0"><p data-coord="adts.umt:85:4">Labels.  The identifier occurs before a <samp data-coord="adts.umt:85:44">:</samp> or after the <code><span class="hl kwa">goto</span></code>
+keyword.
+</p></li><li data-coord="adts.umt:88:0"><p data-coord="adts.umt:88:4"><samp data-coord="adts.umt:88:4">struct</samp>, <samp data-coord="adts.umt:88:14">union</samp> and <samp data-coord="adts.umt:88:26">enum</samp> tags.  The identifier occurs immediately
+after a <samp data-coord="adts.umt:88:86">struct</samp>, <samp data-coord="adts.umt:88:96">union</samp> or <samp data-coord="adts.umt:88:107">enum</samp> keywords.
+</p></li><li data-coord="adts.umt:91:0"><p data-coord="adts.umt:91:4">A separate name space for the fields of each <samp data-coord="adts.umt:91:49">struct</samp> or <samp data-coord="adts.umt:91:61">union</samp>.
+The identifier is always preceeded by a variable which specifies
+the type of the <samp data-coord="adts.umt:91:159">struct</samp> or <samp data-coord="adts.umt:91:171">union</samp> as in <samp data-coord="adts.umt:91:185">s.field</samp> or <samp data-coord="adts.umt:91:198">s-&gt;field</samp>.
+</p></li><li data-coord="adts.umt:95:0"><p data-coord="adts.umt:95:4">Objects (variables), functions, typedef and <samp data-coord="adts.umt:95:48">enum</samp>-constants.  No
+syntactic context like above; can call this the <strong data-coord="adts.umt:95:122">default
+    namespace</strong>.
+</p></li></ul></section><section class="umt-slide" data-coord="adts.umt:100:0"><h2 data-coord="adts.umt:100:0">Name Spaces Example</h2><pre>  <span class="hl kwb">int</span> <span class="hl kwd">f</span><span class="hl opt">(</span><span class="hl kwb">int</span> a<span class="hl opt">) {</span>  <span class="hl slc">//def f in default namespace</span>
+    <span class="hl kwc">typedef</span> <span class="hl kwb">struct</span> f <span class="hl opt">{</span> <span class="hl slc">//def f in tag namespace</span>
+      <span class="hl kwb">int</span> f<span class="hl opt">;</span>           <span class="hl slc">//def f as field in F struct&apos;s.</span>
+      <span class="hl kwb">struct</span> f <span class="hl opt">*</span>a<span class="hl opt">;</span> <span class="hl slc">//def a as field; f refs struct tag</span>
+    <span class="hl opt">}</span> F<span class="hl opt">;</span>
+    F s<span class="hl opt">;</span>
+    f<span class="hl opt">:</span> <span class="hl com">/* f is a label */</span>
+    <span class="hl opt">...</span>
+    s<span class="hl opt">.</span>a<span class="hl opt">-&gt;</span>f <span class="hl slc">//s refs default namespace; a, f are field refs</span>
+    <span class="hl kwd">f</span><span class="hl opt">(</span>a <span class="hl opt">+</span> <span class="hl num">1</span><span class="hl opt">);</span> <span class="hl slc">//default namespace f() and a; a is param</span>
+    <span class="hl kwa">goto</span> f<span class="hl opt">;</span>  <span class="hl slc">//ref label</span>
+  <span class="hl opt">}</span></pre></section><section class="umt-slide" data-coord="adts.umt:119:0"><h2 data-coord="adts.umt:119:0">Modules</h2><ul data-coord="adts.umt:122:0"><li data-coord="adts.umt:122:0"><p data-coord="adts.umt:122:4">Many programming languages provide some kind of <strong data-coord="adts.umt:122:52">module</strong> construct
+for information hiding.
+</p></li><li data-coord="adts.umt:125:0"><p data-coord="adts.umt:125:4">All that the clients of a module care about is the specification
+for a module.  All implementation details of the module are hidden
+from the clients.
+</p></li><li data-coord="adts.umt:129:0"><p data-coord="adts.umt:129:4">This allows the module's implementation to be changed without
+affecting clients as long as the specification does not change.
+</p></li><li data-coord="adts.umt:132:0"><p data-coord="adts.umt:132:4">Using some kind of module system is absolutely essential for
+managing the complexity of large programs.
+</p></li></ul></section><section class="umt-slide" data-coord="adts.umt:136:0"><h2 data-coord="adts.umt:136:0">Modules in C</h2><p data-coord="adts.umt:139:0">C does not explicitly provide a module system, but it is still
+possible to implement modules in C by following a few simple rules.
+</p><ul data-coord="adts.umt:142:0"><li data-coord="adts.umt:142:0"><p data-coord="adts.umt:142:4">Build each module using two separate <samp data-coord="adts.umt:142:41">module.h</samp> and <samp data-coord="adts.umt:142:56">module.c</samp>
+files.
+</p></li><li data-coord="adts.umt:145:0"><p data-coord="adts.umt:145:4">The <samp data-coord="adts.umt:145:8">module.h</samp> file contains the module's exports.  It should only
+contain declarations of types, functions and constants.  Normally,
+it will not contain function or variable definitions.
+</p></li><li data-coord="adts.umt:149:0"><p data-coord="adts.umt:149:4">The <samp data-coord="adts.umt:149:8">module.c</samp> file implements the module and will provide
+definitions for the declarations in <samp data-coord="adts.umt:149:103">module.h</samp>.  All functions or
+variables which are local to the module should be declared
+<samp data-coord="adts.umt:149:200">static</samp>.
+</p></li></ul></section><section class="umt-slide" data-coord="adts.umt:154:0"><h2 data-coord="adts.umt:154:0">Modules in C Continued</h2><ul data-coord="adts.umt:157:0"><li data-coord="adts.umt:157:0"><p data-coord="adts.umt:157:4">Clients will access the module by <samp data-coord="adts.umt:157:38">#include</samp>'ing the <samp data-coord="adts.umt:157:57">module.h</samp> file.
+This will give them compile-time access to the module's declarations.
+</p></li><li data-coord="adts.umt:160:0"><p data-coord="adts.umt:160:4">The <samp data-coord="adts.umt:160:8">module.c</samp> file should also <samp data-coord="adts.umt:160:36">#include</samp> the <samp data-coord="adts.umt:160:51">module.h</samp> file.  This
+ensures that the definitions in <samp data-coord="adts.umt:160:110">module.c</samp> are consistent with the
+declarations in <samp data-coord="adts.umt:160:165">module.h</samp>.
+</p></li><li data-coord="adts.umt:164:0"><p data-coord="adts.umt:164:4">When the program is linked together, the <samp data-coord="adts.umt:164:45">module.o</samp> file produced
+by the compiler from the <samp data-coord="adts.umt:164:99">module.c</samp> file is included in the final
+executable.  This ensures that the actual code for the module
+definitions is available to all clients.
+</p></li></ul></section><section class="umt-slide" data-coord="adts.umt:169:0"><h2 data-coord="adts.umt:169:0">Generic Pointers</h2><ul data-coord="adts.umt:172:0"><li data-coord="adts.umt:172:0"><p data-coord="adts.umt:172:4">In C <samp data-coord="adts.umt:172:9">void *</samp> is used as a <em data-coord="adts.umt:172:31">generic data pointer</em>, pointing to an
+element of unspecified type.
+</p></li><li data-coord="adts.umt:175:0"><p data-coord="adts.umt:175:4">Before a generic pointer can be dereferenced, it <strong data-coord="adts.umt:175:53">must</strong> be cast as
+a pointer to a specific type.
+</p></li><li data-coord="adts.umt:178:0"><p data-coord="adts.umt:178:4">Often (but not always) a C <samp data-coord="adts.umt:178:31">int</samp> can fit within a pointer.
+</p></li><li data-coord="adts.umt:180:0"><p data-coord="adts.umt:180:4">Often (but not always) code pointers are same size as data pointers.
+</p></li></ul></section><section class="umt-slide" data-coord="adts.umt:182:0"><h2 data-coord="adts.umt:182:0">Abstract Data Types</h2><p data-coord="adts.umt:185:0">An ADT hides the implementation of a type.  All that is visible to
+clients are the operations supported by the type.
+</p><p data-coord="adts.umt:188:0">Stack ADT specification file <a href="code/stack.h" data-coord="adts.umt:188:45">stack.h</a>
+</p></section><section class="umt-slide" data-coord="adts.umt:191:0"><h2 data-coord="adts.umt:191:0">Lifetime</h2><dl data-coord="adts.umt:194:0"><dt data-coord="adts.umt:194:2">Program Lifetime</dt><dd data-coord="adts.umt:195:0"><p data-coord="adts.umt:195:4">Values assigned to variables declared outside any function have
+lifetime equal to that of the entire program.  This is the
+case whether the variable is declared <samp data-coord="adts.umt:195:173">extern</samp> or <samp data-coord="adts.umt:195:185">static</samp>.
+This is also the case for variables declared <samp data-coord="adts.umt:195:244">extern</samp> or <samp data-coord="adts.umt:195:256">static</samp>
+within a function.
+</p></dd><dt data-coord="adts.umt:201:2">Block Lifetime</dt><dd data-coord="adts.umt:202:0"><p data-coord="adts.umt:202:4">Values assigned to variables declared within a block (without
+<samp data-coord="adts.umt:202:70">extern</samp> or <samp data-coord="adts.umt:202:82">static</samp> modifiers) have lifetime equal to that
+of the block.  Those values disappear when execution of
+the block terminates.  If the block is re-entered, new
+values are created.
+</p><p data-coord="adts.umt:208:4">Block lifetime variables are allocated from a memory area
+called the <strong data-coord="adts.umt:208:77">stack</strong>.
+</p></dd></dl><p data-coord="adts.umt:211:0">Scope is a static concept; it depends on the static structure of
+the program code.  Lifetime is a dynamic concept, depending on the
+dynamic behavior of the program when it is executing.
+</p></section><section class="umt-slide" data-coord="adts.umt:216:0"><h2 data-coord="adts.umt:216:0">Problem with Block Lifetime</h2><pre><span class="hl kwb">int</span> <span class="hl opt">*</span>
+<span class="hl kwd">danglingPointer</span><span class="hl opt">() {</span>
+  <span class="hl kwb">int</span> v <span class="hl opt">=</span> <span class="hl num">42</span><span class="hl opt">;</span>   <span class="hl slc">//disappears after function execution</span>
+  <span class="hl kwa">return</span> <span class="hl opt">&amp;</span>v<span class="hl opt">;</span>    <span class="hl slc">//&amp;v meaningless once function returns</span>
+<span class="hl opt">}</span></pre><p data-coord="adts.umt:227:0">Program may appear to work because the memory pointed to by the
+returned dangling pointer may not have yet been repurposed.
+</p></section><section class="umt-slide" data-coord="adts.umt:230:0"><h2 data-coord="adts.umt:230:0">Dynamic Memory Allocation</h2><p data-coord="adts.umt:233:0">When program or block lifetime is not sufficient, dynamic memory allocation
+needs to be used:
+</p><dl data-coord="adts.umt:236:0"><dt data-coord="adts.umt:236:3"> <code><span class="hl kwb">void</span> <span class="hl opt">*</span><span class="hl kwd">malloc</span><span class="hl opt">(</span><span class="hl kwb">size_t</span> size<span class="hl opt">)</span></code></dt><dd data-coord="adts.umt:237:0"><p data-coord="adts.umt:237:6">Returns a pointer to <samp data-coord="adts.umt:237:27">size</samp> bytes of memory freshly allocated from
+the heap. The memory is not initialized in any way.
+</p></dd><dt data-coord="adts.umt:240:3"> <code><span class="hl kwb">void</span> <span class="hl opt">*</span><span class="hl kwd">realloc</span><span class="hl opt">(</span><span class="hl kwb">void</span> <span class="hl opt">*</span>p<span class="hl opt">,</span> <span class="hl kwb">size_t</span> size<span class="hl opt">)</span></code></dt><dd data-coord="adts.umt:241:0"><p data-coord="adts.umt:241:6">Adjust size of previously allocated memory pointed to by <samp data-coord="adts.umt:241:63">p</samp> to <samp data-coord="adts.umt:241:70">size</samp>
+and returns pointer to reallocated memory (which may be different from
+<samp data-coord="adts.umt:241:160">p</samp>).  The contents of the returned memory matches that of the old
+memory to the minimum of the old and new size.  If <samp data-coord="adts.umt:241:284">p</samp> is <samp data-coord="adts.umt:241:291">NULL</samp>, then
+like <samp data-coord="adts.umt:241:315">malloc()</samp>.  If <samp data-coord="adts.umt:241:331">p</samp> is not <samp data-coord="adts.umt:241:342">NULL</samp>, then it must have been
+returned by a previous call to <samp data-coord="adts.umt:241:410">malloc()</samp>, <samp data-coord="adts.umt:241:422">realloc()</samp> or <samp data-coord="adts.umt:241:437">calloc()</samp>.
+</p></dd></dl></section><section class="umt-slide" data-coord="adts.umt:248:0"><h2 data-coord="adts.umt:248:0">Dynamic Memory Allocation Routines Continued</h2><dl data-coord="adts.umt:251:0"><dt data-coord="adts.umt:251:3"> <code><span class="hl kwb">void</span> <span class="hl opt">*</span><span class="hl kwd">calloc</span><span class="hl opt">(</span><span class="hl kwb">size_t</span> nmemb<span class="hl opt">,</span> <span class="hl kwb">size_t</span> size<span class="hl opt">)</span></code></dt><dd data-coord="adts.umt:252:0"><p data-coord="adts.umt:252:6">Returns pointer to newly allocated heap memory for an array of <samp data-coord="adts.umt:252:69">nmemb</samp>
+elements of <samp data-coord="adts.umt:252:95">size</samp> bytes.   The allocated memory is initialized to 
+all 0's.
+</p></dd><dt data-coord="adts.umt:256:3"> <code><span class="hl kwb">void</span> <span class="hl kwd">free</span><span class="hl opt">(</span><span class="hl kwb">void</span> <span class="hl opt">*</span>p<span class="hl opt">)</span></code></dt><dd data-coord="adts.umt:257:0"><p data-coord="adts.umt:257:6">Free memory pointed to by <samp data-coord="adts.umt:257:32">p</samp>.  <samp data-coord="adts.umt:257:38">p</samp> must be a previous return value of
+malloc(), <samp data-coord="adts.umt:257:93">realloc()</samp> or <samp data-coord="adts.umt:257:108">calloc()</samp> or NULL.  Behavior undefined if
+<samp data-coord="adts.umt:257:157">free()</samp> called multiple times for the same memory block.
+</p></dd></dl></section><section class="umt-slide" data-coord="adts.umt:262:0"><h2 data-coord="adts.umt:262:0">Dynamic Memory Allocation Routines</h2><ul data-coord="adts.umt:265:0"><li data-coord="adts.umt:265:0"><p data-coord="adts.umt:265:4">Dynamically allocated memory is allocated from a memory area
+called the <strong data-coord="adts.umt:265:80">heap</strong>.
+</p></li><li data-coord="adts.umt:268:0"><p data-coord="adts.umt:268:4">Pointer to newly allocated memory is aligned suitably for any kind of
+variable.
+</p></li><li data-coord="adts.umt:271:0"><p data-coord="adts.umt:271:4">Allocation routines return <samp data-coord="adts.umt:271:31">NULL</samp> on failure.  Must check return value.
+</p></li><li data-coord="adts.umt:273:0"><p data-coord="adts.umt:273:4">Note that <samp data-coord="adts.umt:273:14">free()</samp> call does not require passing <samp data-coord="adts.umt:273:53">size</samp> of memory block
+being <samp data-coord="adts.umt:273:86">free</samp>'d. 
+</p></li><li data-coord="adts.umt:276:0"><p data-coord="adts.umt:276:4">Some memory overhead.
+</p></li><li data-coord="adts.umt:278:0"><p data-coord="adts.umt:278:4">Lot of programmer overhead: programmer must remember to free memory
+when no longer needed.  Significant source of bugs.
+</p></li></ul></section><section class="umt-slide" data-coord="adts.umt:282:0"><h2 data-coord="adts.umt:282:0">Unix Virtual Memory Layout</h2><img src="figs/rtimage.png" height="227"/></section><section class="umt-slide" data-coord="adts.umt:287:0"><h2 data-coord="adts.umt:287:0">Stack Module Implementation</h2><p data-coord="adts.umt:290:0">Stack ADT implementation file <a href="code/stack.c" data-coord="adts.umt:290:46">stack.c</a>
+</p></section></section>
+</div> <!-- #content -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../../assets/scripts/slide-controls.js"></script>
+</body>
+</html>
