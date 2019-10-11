@@ -1,6 +1,6 @@
 #include "big-bits.h"
 #include "hex-util.h"
-
+#include<stdio.h>
 #include <assert.h>
 #include <errno.h>
 #include <limits.h>
@@ -12,36 +12,33 @@
  *  abstract BigBits data type.
  */
 struct BigBits {
-  char byte;
-  BigBits* nextByte;
-  char nibblesUsed;
+  char nibble;
+  BigBits* nextNibble;
 };
 
-typedef struct CharByte{
-  char hexets[2];
-  int numHexets;
-}CharByte;
 
-CharByte getCharsFromByte(BigBits *bigbit){
-  CharByte cb;
-  cb.numHexets=0;
-  if(bigbit->nibblesUsed==2){
-    cb.numHexets=2;
-    
-  }
-}
+
+
 
 /** Counts the number of hex digits stored in the whole number by summing the number of nibbles used in each of the BigBits
 */
 int numHexets(const BigBits *bb){
   int count=0;
   while(bb!=NULL){
-    count+=bb->nibblesUsed;
-    bb=bb->nextByte;
+    count++;
+    bb=bb->nextNibble;
   }
   return count;
 }
 
+BigBits* normalizeBigBits(BigBits *bb){
+  while(bb->nextNibble!=NULL && bb->nibble==0){
+    BigBits *temp=bb->nextNibble;
+    free(bb);
+    bb=temp;
+  }
+  return bb;
+}
 
 
 /** Return a pointer to a representation of a big integer with value
@@ -56,28 +53,23 @@ int numHexets(const BigBits *bb){
 const BigBits *
 newBigBits(const char *hex)
 {
-  BigBits *current;
+  BigBits *start;
   assert(CHAR_BIT == 8);
   if(strlen(hex)==0){
-    current=NULL;
+    start=NULL;
   }
   else{
-    current=calloc(1,sizeof(BigBits));
+    start=calloc(1,sizeof(BigBits));
+    BigBits *current=start;
     while(*hex!='\0'){
-      if(current->nibblesUsed==2){
-        current->nextByte=calloc(1,sizeof(BigBits));
-        current=current->nextByte;
-      }
-      current->byte+=charToHexet(*hex);
-      if(current->nibblesUsed==0){
-      current->byte<<=4;
-      }
-      current->nibblesUsed++;    
+      current->nibble=(char)charToHexet(*hex);
+      if(*(hex+1)!='\0') current->nextNibble=calloc(1,sizeof(BigBits));
+      current=current->nextNibble;  
+      hex++;
     }
-    hex++;
   }
   //@TODO
-  return current;
+  return normalizeBigBits(start);
 }
 
 
@@ -88,7 +80,7 @@ void
 freeBigBits(BigBits *bigBits)
 {
   while(bigBits!=NULL){
-    BigBits *next=bigBits->nextByte;
+    BigBits *next=bigBits->nextNibble;
     free(bigBits);
     bigBits=next;
   }
@@ -114,18 +106,14 @@ stringBigBits(const BigBits *bigBits)
     BigBits *current=(BigBits*)bigBits;
     int index=0;
     while(current!=NULL){
-      if(current->nibblesUsed==2){
-        str[index++]=hexetToChar((int)((current->byte&0xf0)>>4));
-        str[index++]=hexetToChar((int)(current->byte&0x0f));
-      }
-      else if(current->nibblesUsed==1){
-        str[index++]=hexetToChar((int) ((current->byte&0xf0)>>4));
-      }
-      current=current->nextByte;
+      str[index++]=hexetToChar(current->nibble);
+      current=current->nextNibble;
     }
+    for(;*str=='0' && *(str+1)=='0'; str++){}
   }
   return str;
 }
+
 
 
 /** Return a new BigBits which is the bitwise-& of bigBits1 and bigBits2.
@@ -134,20 +122,40 @@ stringBigBits(const BigBits *bigBits)
 const BigBits *
 andBigBits(const BigBits *bigBits1, const BigBits *bigBits2)
 {
-  BigBits *result=NULL;
+  BigBits *result,*op1,*op2;
+  op1=(BigBits*)bigBits1;
+  op2=(BigBits*)bigBits2;
   int len1=numHexets(bigBits1);
   int len2=numHexets(bigBits2);
-  int lenResult=(len1>len2?len1:len2);
-  char *hex=calloc(1,(sizeof(char)*lenResult)+1);
-  hex[lenResult]='\0';
-  if(len1>len2){
-    for(int i=0;i<len1-len2;i++){
-      hex[i]='0';
-    }
-
+  int diff=len1-len2;
+  if(len1==0 || len2==0){
+    result=NULL;
   }
-  return result;
+  else{
+    if(diff<0){
+      op1=(BigBits*)bigBits2;
+      op2=(BigBits*)bigBits1;
+      diff=len2-len1;
+    }
+    for(int i=0;i<diff;i++){
+      op1=op1->nextNibble;
+    }
+    result=calloc(1,sizeof(BigBits));
+    BigBits *current=result;
+    while(op1!=NULL && op2!=NULL){
+      current->nibble= op1->nibble&op2->nibble;
+      if((op1->nextNibble!=NULL) && (op2->nextNibble!=NULL)){
+        current->nextNibble=calloc(1,sizeof(BigBits));
+        current=current->nextNibble;
+      }
+      op1=op1->nextNibble;
+      op2=op2->nextNibble;
+    }
+  }
+  return ((const BigBits*)normalizeBigBits(result));
 }
+
+
 
 
 /** Return a new BigBits which is the bitwise-| of bigBits1 and bigBits2.
@@ -156,9 +164,37 @@ andBigBits(const BigBits *bigBits1, const BigBits *bigBits2)
 const BigBits *
 orBigBits(const BigBits *bigBits1, const BigBits *bigBits2)
 {
-  //const BigBits *result=calloc(1,(numHexets))
-
-  return NULL;
+  BigBits *result,*op1,*op2;
+  op1=(BigBits*)bigBits1;
+  op2=(BigBits*)bigBits2;
+  int len1=numHexets(bigBits1);
+  int len2=numHexets(bigBits2);
+  int diff=len1-len2;
+  if(len1==0 || len2==0){
+    return NULL;
+  }
+  else{
+    if(diff<0){
+      op1=(BigBits*)bigBits2;
+      op2=(BigBits*)bigBits1;
+      diff=len2-len1;
+    }
+    result=calloc(1,sizeof(BigBits));
+    BigBits *current=result;
+    for(int i=0;i<diff;i++){
+      current->nibble=op1->nibble;
+      op1=op1->nextNibble;
+      current->nextNibble=calloc(1,sizeof(BigBits));
+      current=current->nextNibble;
+    }
+    while(op1!=NULL && op2!=NULL){
+      current->nibble=op1->nibble|op2->nibble;
+      if((op1->nextNibble!=NULL) && (op2->nextNibble!=NULL)) current->nextNibble=calloc(1,sizeof(BigBits));
+      op1=op1->nextNibble;
+      op2=op2->nextNibble;
+    }
+  }
+  return((const BigBits*)normalizeBigBits(result));
 }
 
 
@@ -168,6 +204,35 @@ orBigBits(const BigBits *bigBits1, const BigBits *bigBits2)
 const BigBits *
 xorBigBits(const BigBits *bigBits1, const BigBits *bigBits2)
 {
-  //@TODO
-  return NULL;
+  BigBits *result,*op1,*op2;
+  op1=(BigBits*)bigBits1;
+  op2=(BigBits*)bigBits2;
+  int len1=numHexets(bigBits1);
+  int len2=numHexets(bigBits2);
+  int diff=len1-len2;
+  if(len1==0 || len2==0){
+    return NULL;
+  }
+  else{
+    if(diff<0){
+      op1=(BigBits*)bigBits2;
+      op2=(BigBits*)bigBits1;
+      diff=len2-len1;
+    }
+    result=calloc(1,sizeof(BigBits));
+    BigBits *current=result;
+    for(int i=0;i<diff;i++){
+      current->nibble=op1->nibble;
+      op1=op1->nextNibble;
+      current->nextNibble=calloc(1,sizeof(BigBits));
+      current=current->nextNibble;
+    }
+    while(op1!=NULL && op2!=NULL){
+      current->nibble=op1->nibble^op2->nibble;
+      if((op1->nextNibble!=NULL) && (op2->nextNibble!=NULL)) current->nextNibble=calloc(1,sizeof(BigBits));
+      op1=op1->nextNibble;
+      op2=op2->nextNibble;
+    }
+  }
+  return((const BigBits*)normalizeBigBits(result));
 }
