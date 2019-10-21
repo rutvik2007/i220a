@@ -1,0 +1,4 @@
+Exercise 2: the mask is 7fffff
+exercise 4: use ni until the next instruction is the call instruction, then using p (char *)$rdx
+we get the output as - $4 = 0x7fffffffe26d "joe"
+
