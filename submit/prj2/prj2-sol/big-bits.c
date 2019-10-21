@@ -190,6 +190,7 @@ orBigBits(const BigBits *bigBits1, const BigBits *bigBits2)
     while(op1!=NULL && op2!=NULL){
       current->nibble=op1->nibble|op2->nibble;
       if((op1->nextNibble!=NULL) && (op2->nextNibble!=NULL)) current->nextNibble=calloc(1,sizeof(BigBits));
+      current=current->nextNibble;
       op1=op1->nextNibble;
       op2=op2->nextNibble;
     }
@@ -230,6 +231,7 @@ xorBigBits(const BigBits *bigBits1, const BigBits *bigBits2)
     while(op1!=NULL && op2!=NULL){
       current->nibble=op1->nibble^op2->nibble;
       if((op1->nextNibble!=NULL) && (op2->nextNibble!=NULL)) current->nextNibble=calloc(1,sizeof(BigBits));
+      current=current->nextNibble;
       op1=op1->nextNibble;
       op2=op2->nextNibble;
     }
