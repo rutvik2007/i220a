@@ -1,0 +1,15 @@
+Exercise 3:
+Change the assmebly function to get the value for eax to specify what details we want from edi
+Push the r8 and rcx register onto the stack so that we dont modify them
+
+Exercise 4:
+using a jpe statement, set the value of eax to 0 if the parity is odd and set the value of eax to 1 if the parity is even
+
+Exercise 5:
+__asm__("leaq (%%rip), %0": "=r"(rip));
+&get_rip() = 0x56154c5b766a; rip = 0x56154c5b7671
+Verified that the instruction pointer has the addr of the return instr
+
+Excercise 6:
+__asm__("leaq (%%rsp), %0": "=r"(rsp));
+

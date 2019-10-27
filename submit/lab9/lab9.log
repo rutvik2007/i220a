@@ -1982,4 +1982,51 @@ Program received signal SIGSEGV, Segmentation fault.
 (gdb) q
 A debugging session is active.
 
-	Inferior 1 [process 8014] will be k
+	Inferior 1 [process 8014] will be killed.
+
+Quit anyway? (y or n) y
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab9/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab9/files[00m$ g cd  .
+g: command not found
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab9/files[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab9/files[00m$ cd . .
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work/lab9[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work/lab9[00m$ cd ..
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work[00m$ cd .[K[K[K[Kmv lab9/ ../sub mit/[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgmv lab9/ ../submit/[A]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work[00m$ [Cimv lab9/ ../submit/[A]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work[00m$ [C[Ctmv lab9/ ../submit/[A]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work[00m$ [C[C[C mv lab9/ ../submit/[A]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work[00m$ [C[C[C[C
+
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work[00m$ git ad [K[Kdd .
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a/work[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a/work[00m$ cd ..
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a[00m$ git add ..
+fatal: ..: '..' is outside repository
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a[00m$ git add ..[C[K
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a[00m$ git p[Kcommit
+hint: Waiting for your editor to close the file... [?1049h[22;0;0t[1;36r(B[m[4l[?7h[39;49m[?1h=[?1h=[?1h=[?25l[39;49m(B[m[H[2J[34;24H(B[0;7m[ Reading File ](B[m[34;30H(B[0;7m 20 lines ](B[m[H(B[0;7m     /home/rutvik/cs220/i220a/.git/COMMIT_EDITMSG              [1;62H(B[m[35d(B[0;7m^G(B[m Get Help (B[0;7m^O(B[m Write Out(B[0;7m^W(B[m Where Is (B[0;7m^K(B[m Cut Text (B[0;7m^J(B[m Justify[36d(B[0;7m^X(B[m Exit     (B[0;7m^R(B[m Read File(B[0;7m^\(B[m Replace  (B[0;7m^U(B[m Uncut Tex(B[0;7m^T(B[m To Spell[34d[4d[39;49m[36m# Please enter the commit message for your changes. Lines star[39m(B[m$[5;1H[36m# with '#' will be ignored, and an empty message aborts the co[39m(B[m$[6;1H[36m#[7d# On branch master[8d# Your branch is up to date with 'origin/master'.[9d#[10d# Changes to be committed:[11d#       renamed:    work/lab9/Makefile -> submit/lab9/Makefile[12d#       renamed:    work/lab9/files/.gitignore -> submit/lab9/[39m(B[m$[13;1H[36m#       renamed:    work/lab9/files/Makefile -> submit/lab9/fi[39m(B[m$[14;1H[36m#       renamed:    work/lab9/files/hello.c -> submit/lab9/fil[39m(B[m$[15;1H[36m#       new file:   submit/lab9/files/hello.s[16d#       new file:   submit/lab9/files/lab9.text[17d#       renamed:    work/lab9/files/mystery.o -> submit/lab9/f[39m(B[m$[18;1H[36m#       renamed:    work/lab9/lab9.html -> submit/lab9/lab9.ht[39m(B[m$[19;1H[36m#       renamed:    work/lab9/lab9.log -> submit/lab9/lab9.log[20d#       renamed:    work/lab9/lab9.pdf -> submit/lab9/lab9.pdf[21d#       renamed:    work/lab9/lab9.umt -> submit/lab9/lab9.umt[22d#[3d[39m(B[m[?12l[?25h[?25l[1;54H(B[0;7mModified(B[m[3dm[?12l[?25h[?25lo[?12l[?25h[?25lv[?12l[?25h[?25le[?12l[?25h[?25ld[?12l[?25h[?25l [?12l[?25h[?25l[?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l [?12l[?25h[?25l[K[?12l[?25h[?25ls[?12l[?25h[?25lu[?12l[?25h[?25lb[?12l[?25h[?25lm[?12l[?25h[?25li[?12l[?25h[?25lt[?12l[?25h[?25lt[?12l[?25h[?25le[?12l[?25h[?25ld[?12l[?25h[?25l [?12l[?25h[?25ll[?12l[?25h[?25la[?12l[?25h[?25lb[?12l[?25h[?25l[34d[K[3;15H[?12l[?25h[?25l9[?12l[?25h[?25l [?12l[?25h[?25l[?12l[?25h[?25l9[?12l[?25h[?25l[1;62H[1;54H(B[0;7m        (B[m[34;23H(B[0;7m[ Wrote 20 lines ](B[m[3;15H[?12l[?25h[?25l[34d[J[36;63H[?12l[?25h[36;1H[?1049l[23;0;0t[?1l>[K[master b79e511] submitted lab9
+ 12 files changed, 2975 insertions(+), 1095 deletions(-)
+ rename {work => submit}/lab9/Makefile (100%)
+ rename {work => submit}/lab9/files/.gitignore (100%)
+ rename {work => submit}/lab9/files/Makefile (100%)
+ rename {work => submit}/lab9/files/hello.c (100%)
+ create mode 100644 submit/lab9/files/hello.s
+ create mode 100644 submit/lab9/files/lab9.text
+ rename {work => submit}/lab9/files/mystery.o (100%)
+ rename {work => submit}/lab9/lab9.html (100%)
+ create mode 100644 submit/lab9/lab9.log
+ rename {work => submit}/lab9/lab9.pdf (100%)
+ rename {work => submit}/lab9/lab9.umt (100%)
+ delete mode 100644 work/lab9/lab9.log
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a[00m$ gti[K[Kit push
+Username for 'https://github.com': rsaptar2
+Password for 'https://rsaptar2@github.com': 
+Counting objects: 9, done.
+Delta compression using up to 4 threads.
+Compressing objects:  11% (1/9)   Compressing objects:  22% (2/9)   Compressing objects:  33% (3/9)   Compressing objects:  44% (4/9)   Compressing objects:  55% (5/9)   Compressing objects:  66% (6/9)   Compressing objects:  77% (7/9)   Compressing objects:  88% (8/9)   Compressing objects: 100% (9/9)   Compressing objects: 100% (9/9), done.
+Writing objects:  11% (1/9)   Writing objects:  22% (2/9)   Writing objects:  33% (3/9)   Writing objects:  44% (4/9)   Writing objects:  55% (5/9)   Writing objects:  66% (6/9)   Writing objects:  77% (7/9)   Writing objects:  88% (8/9)   Writing objects: 100% (9/9)   Writing objects: 100% (9/9), 25.55 KiB | 1.34 MiB/s, done.
+Total 9 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/3)[Kremote: Resolving deltas:  33% (1/3)[Kremote: Resolving deltas:  66% (2/3)[Kremote: Resolving deltas: 100% (3/3)[Kremote: Resolving deltas: 100% (3/3), completed with 3 local objects.[K
+To https://github.com/rsaptar2/i220a
+   ffa2680..b79e511  master -> master
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a[00m$ [K]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a[00m$ [K]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a[00m$ Unsupported return type 65 QPixmap in method "grab"
+Unsupported return type 65 QPixmap in method "grab"
+Unsupported return type 1071 QAction* in method "addAction"
+Skipped method "setDefaultShortcuts" : Pointers are not supported: QAction*
+^C
+]0;rutvik@rutvik-aspire-e5-575: ~/cs220/i220a[01;32mrutvik@rutvik-aspire-e5-575[00m:[01;34m~/cs220/i220a[00m$ cd [K[K[Kexit
+
+Script done on 2019-10-21 01:46:56-0400
