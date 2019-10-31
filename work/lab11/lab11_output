@@ -1,0 +1,130 @@
+EX1:
+
+rsaptar2@g7-28:~/i220a/work/lab11/files$ time ls
+coverage  int-search  matmul-cache  parity
+
+real	0m0.005s
+user	0m0.000s
+sys	    0m0.003s
+
+rsaptar2@g7-28:~/i220a/work/lab11/files$ time sleep 5
+
+real	0m5.005s
+user	0m0.002s
+sys	    0m0.001s
+
+rsaptar2@g7-28:~/i220a/work/lab11/files$ time wc -l 'find /etc -type f 2>/dev/null' 2>/dev/null | tail
+
+real	0m0.007s
+user	0m0.005s
+sys	0m0.000s
+rsaptar2@g7-28:~/i220a/work/lab11/files$ time wc -l 'find /etc -type f 2>/dev/null' 2>/dev/null | tail
+
+real	0m0.003s
+user	0m0.004s
+sys	0m0.000s
+rsaptar2@g7-28:~/i220a/work/lab11/files$ time wc -l 'find /etc -type f 2>/dev/null' 2>/dev/null | tail
+
+real	0m0.003s
+user	0m0.002s
+sys	    0m0.002s
+
+rsaptar2@g7-28:~/i220a/work/lab11/files$ time cat ../lab11_output
+real	0m0.003s
+user	0m0.002s
+sys	    0m0.000s
+
+EX2:
+
+rsaptar2@g7-28:~/i220a/work/lab11/files/parity$ time !!
+time ./parity-c -d 10
+67: 0
+c6: 1
+69: 1
+73: 0
+51: 0
+ff: 1
+4a: 0
+ec: 0
+29: 0
+cd: 0
+3
+
+real	0m0.003s
+user	0m0.000s
+sys	    0m0.002s
+
+time ./parity-c -d 1000000
+real	0m2.544s
+user	0m0.402s
+sys	    0m1.761s
+
+rsaptar2@g7-28:~/i220a/work/lab11/files/parity$ time ./parity-s -d 10
+67: 0
+c6: 1
+69: 1
+73: 0
+51: 0
+ff: 1
+4a: 0
+ec: 0
+29: 0
+cd: 0
+3
+
+time ./parity-s -d 1000000
+real	0m0.003s
+user	0m0.001s
+sys	    0m0.000s
+
+real	0m2.563s
+user	0m0.514s
+sys	    0m1.673s
+
+rsaptar2@g7-28:~/i220a/work/lab11/files/parity$ time ./parity-c 10000000
+5000346
+
+real	0m0.252s
+user	0m0.251s
+sys	    0m0.000s
+
+rsaptar2@g7-28:~/i220a/work/lab11/files/parity$ time ./parity-s 10000000
+5000131
+
+real	0m0.139s
+user	0m0.138s
+sys	    0m0.000s
+
+EX3:
+
+rsaptar2@g7-28:~/i220a/work/lab11/files/matmul-cache$ time !!
+time ./transpose-matmul 4 1
+2.22116e+17 7.02729e+17 9.76657e+17 2.08306e+17 
+2.17616e+18 2.16772e+18 3.40213e+18 1.2273e+18 
+4.86494e+18 4.48803e+18 7.27046e+18 2.8719e+18 
+7.68709e+18 2.14813e+18 5.99903e+18 4.12269e+18 
+
+real	0m0.002s
+user	0m0.001s
+sys	0m0.000s
+
+rsaptar2@g7-28:~/i220a/work/lab11/files/matmul-cache$ for s in 'seq 1000 500 2500';\
+> do \
+> echo -n "*** Size $s: simple"; time ./simple-matmul $s 1 ; echo ; \
+> echo -n "*** Size $s: simple"; time ./transpose-matmul $s 1 ; echo ; \
+> done
+*** Size seq 1000 500 2500: simpleusage: ./simple-matmul MATRIX_SIZE N_TRIALS
+
+real	0m0.003s
+user	0m0.001s
+sys	0m0.000s
+
+*** Size seq 1000 500 2500: simpleusage: ./transpose-matmul MATRIX_SIZE N_TRIALS
+
+real	0m0.002s
+user	0m0.001s
+sys	0m0.000s
+
+
+
+
