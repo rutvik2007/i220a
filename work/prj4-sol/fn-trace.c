@@ -39,7 +39,7 @@ void getTrace(void *rootFn, FnsData *fns){
         else{
             if(fns == NULL){
                 fns = calloc(sizeof(FnsData),1);
-                fns -> n = 1;
+                fns -> numFns = 1;
                 printf("%ld",*current);
             }
             else{
