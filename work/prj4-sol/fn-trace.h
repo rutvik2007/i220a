@@ -14,7 +14,10 @@ typedef struct {
  *  desired by an implementation. This struct will hold a collection
  *  of FnInfo's.
  */
-typedef struct FnsData FnsData;
+typedef struct{
+  FnInfo *fns;
+  int numFns; 
+} FnsData;
 
 /** Return pointer to opaque data structure containing collection of
  *  FnInfo's for functions which are callable directly or indirectly
