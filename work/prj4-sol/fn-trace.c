@@ -47,7 +47,7 @@ void traceFns(void *rootFn, FnsData *fns){
         unsigned char c = *(current+i);
         addr+=power(c,currentLength-i-2);
       }
-      printf("%d\n", get_op_length(addr));
+      printf("%d\n", get_op_length((void *) addr));
       
     }
     current = current + currentLength;
