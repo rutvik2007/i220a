@@ -35,9 +35,9 @@ void traceFns(void *rootFn, FnsData *fns){
       if(fns == NULL){
         fns = calloc(sizeof(FnsData),1);
         fns -> numFns = 1;
-        printf("%lx",*current);
+        printf("%lx",*((unsigned long*)current));
       }
-    } 
+    }
     current = current + currentLength;
     currentLength = get_op_length(current);  
     //for(int i=0; i<currentLength; i++){
