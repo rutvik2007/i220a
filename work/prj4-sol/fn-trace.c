@@ -30,8 +30,8 @@ int inFnsData(void* fnPtr, FnsData *fns){
 }
 
 int comparator(const void *p, const void *q){ 
-    FnInfo p1 = *(((FnInfo *)p)->address); 
-    FnInfo q1 = *(((FnInfo *)q)->address); 
+    void* p1 = *(((FnInfo *)p)->address); 
+    void* q1 = *(((FnInfo *)q)->address); 
     if(p1>q1){
       return 1;
     }
