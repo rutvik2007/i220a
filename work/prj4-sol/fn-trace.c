@@ -43,7 +43,7 @@ void traceFns(void *rootFn, FnsData *fns){
       fns->size=1;
     }
     else{
-      fns->fns = realloc(fns, 2*fns->size*sizeof(FnInfo));
+      fns->fns = realloc(fns->fns, 2*fns->size*sizeof(FnInfo));
       fns->size*=2;
     }
   }
