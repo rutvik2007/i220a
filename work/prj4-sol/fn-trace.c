@@ -21,7 +21,13 @@ static inline bool is_ret(unsigned op) {
     op == RET_FAR_OP || op == RET_FAR_WITH_POP_OP;
 }
 
-
+unsigned long power(char c, unsigned long n){
+  unsigned long retVal = c;
+  for(int i=0; i<n*8; i++){
+    retVal*=2;
+  }
+  return retVal;
+}
 /** Return pointer to opaque data structure containing collection of
  *  FnInfo's for functions which are callable directly or indirectly
  *  from the function whose address is rootFn.
@@ -34,9 +40,14 @@ void traceFns(void *rootFn, FnsData *fns){
     else if(is_call(*current)){
       if(fns == NULL){
         fns = calloc(sizeof(FnsData),1);
-        fns -> numFns = 1;
-        printf("%lx",*((unsigned long*)current));
+        fns -> numFns = 1;  
       }
+      unsigned long addr=0;
+      for(int i=1; i<currentLength; i++){
+        unsigned char c = *(current+i);
+        addr+=power(c,currentLength-i-2);
+      }
+      traceFns((void *)addr, *fns);
     }
     current = current + currentLength;
     currentLength = get_op_length(current);  
@@ -56,6 +67,7 @@ new_fns_data(void *rootFn)
   assert(sizeof(int) == 4);
   FnsData *fns = NULL;
   traceFns(rootFn, fns);
+  return fns;
 }
 
 /** Free all resources occupied by fnsData. fnsData must have been
