@@ -35,7 +35,7 @@ int inFnsData(void* fnPtr, FnsData *fns){
  *  from the function whose address is rootFn.
  */
 void traceFns(void *rootFn, FnsData *fns){
-  printf("Entered\n")
+  printf("Entered\n");
   int currentIndex=fns->numFns;
   if(currentIndex==fns->size){
     if(fns->size==0){
@@ -56,7 +56,7 @@ void traceFns(void *rootFn, FnsData *fns){
   int currentLength = get_op_length(current);
   while(!is_ret(*current)){
     if(is_call(*current)){
-      printf("Entered2\n")
+      printf("Entered2\n");
       fns->fns[currentIndex].nOutCalls++;
       int offset = *(int *)(current+1);
       void *nextFn = offset+current+currentLength;
