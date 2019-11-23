@@ -16,7 +16,8 @@ typedef struct {
  */
 typedef struct{
   FnInfo *fns;
-  int numFns; 
+  int numFns;
+  int size;
 } FnsData;
 
 /** Return pointer to opaque data structure containing collection of

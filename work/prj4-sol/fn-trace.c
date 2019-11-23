@@ -20,46 +20,58 @@ static inline bool is_ret(unsigned op) {
     op == RET_NEAR_OP || op == RET_NEAR_WITH_POP_OP ||
     op == RET_FAR_OP || op == RET_FAR_WITH_POP_OP;
 }
-
-unsigned long power(char c, unsigned long n){
-  unsigned long retVal = c;
-  for(int i=0; i<n*8; i++){
-    retVal*=2;
+int inFnsData(void* fnPtr, FnsData *fns){
+  for(int i=0;i<fns->numFns;i++){
+    if(fns->fns[i].address==fnPtr){
+      return i;
+    }
   }
-  return retVal;
+  return -1;
 }
+
+
 /** Return pointer to opaque data structure containing collection of
  *  FnInfo's for functions which are callable directly or indirectly
  *  from the function whose address is rootFn.
  */
 void traceFns(void *rootFn, FnsData *fns){
-    unsigned char *current = rootFn;
-    int currentLength = get_op_length(current);
-    while(!(currentLength<0)){
-    if(is_ret(*current)) return;
-    else if(is_call(*current)){
-      if(fns == NULL){
-        fns = calloc(sizeof(FnsData),1);
-        fns -> numFns = 1;  
+  currentIndex=fns->numFns;
+  if(currentIndex==size){
+    if(size==0){
+      fns->fns = calloc(sizeof(FnInfo));
+      fns->size=1;
+    }
+    else{
+      fns->fns = realloc(fns, 2*size*sizeof(FnInfo));
+      fns->size*=2;
+    }
+  }
+  fns->numFns++;
+  fns->fns[currentIndex].address=rootFn;
+  fns->fns[currentIndex].nInCalls=1;
+  fns->fns[currentIndex].nOutCalls=0;
+  fns->fns[currentIndex].length=0;  
+  unsigned char *current = rootFn;
+  int currentLength = get_op_length(current);
+  while(!is_ret(*current)){
+    if(is_call(*current)){
+      fns->fns[currentIndex].nOutCalls++;
+      int offset = *(int *)(current+1);
+      void *nextFn = offset+current+currentLength;
+      int isIn = inFnsData(nextFn);
+      if(isIn==-1){
+        traceFns(nextFn, fns);
       }
-      unsigned long addr=0;
-      for(int i=1; i<currentLength; i++){
-        unsigned char c = *(current+i);
-        addr+=power(c,currentLength-i-2);
+      else{
+          fns->fns[isIn].nInCalls++;
       }
-      printf("%d\n", get_op_length((void *) addr));
-      
     }
     current = current + currentLength;
-    currentLength = get_op_length(current);  
-    //for(int i=0; i<currentLength; i++){
-    //  unsigned char c = *(current+i);
-      //printf("%x ", c);
-    //}
-        
+    currentLength = get_op_length(current);    
   }
-  //return NULL;
+  return;
 }
+
 
 const FnsData *
 new_fns_data(void *rootFn)
@@ -67,6 +79,7 @@ new_fns_data(void *rootFn)
   //verify assumption used when decoding call address
   assert(sizeof(int) == 4);
   FnsData *fns = NULL;
+  fns = calloc(sizeof(FnsData),1);
   traceFns(rootFn, fns);
   return fns;
 }
