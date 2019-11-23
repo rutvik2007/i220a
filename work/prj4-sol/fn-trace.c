@@ -55,11 +55,7 @@ new_fns_data(void *rootFn)
   //verify assumption used when decoding call address
   assert(sizeof(int) == 4);
   FnsData *fns = NULL;
-<<<<<<< HEAD
   traceFns(rootFn, fns);
-=======
-  const FnsData* getTrace(rootFn, fns);
->>>>>>> e08c735e4e36df26e692408a8a2ce0d91e52f263
 }
 
 /** Free all resources occupied by fnsData. fnsData must have been
