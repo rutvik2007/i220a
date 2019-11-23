@@ -1,0 +1,278 @@
+EX1:
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/stdin-char-count$ make
+gcc -g -Wall -std=c11 -funsigned-char    stdin-char-count.c   -o stdin-char-count
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/stdin-char-count$ ./stdin-char-count < stdin-char-count.c
+EOF = -1
+205
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/stdin-char-count$ wc stdin-char-count.c
+ 12  32 205 stdin-char-count.c
+
+EX2:
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-char-count$ ./file-char-count file-char-count.c
+566
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-char-count$ wc file-char-count.c
+ 27  81 566 file-char-count.c
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-char-count$ valgrind ./file-char-count file-char-count.c
+==18564== Memcheck, a memory error detector
+==18564== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==18564== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==18564== Command: ./file-char-count file-char-count.c
+==18564== 
+566
+==18564== 
+==18564== HEAP SUMMARY:
+==18564==     in use at exit: 552 bytes in 1 blocks
+==18564==   total heap usage: 3 allocs, 2 frees, 5,672 bytes allocated
+==18564== 
+==18564== LEAK SUMMARY:
+==18564==    definitely lost: 0 bytes in 0 blocks
+==18564==    indirectly lost: 0 bytes in 0 blocks
+==18564==      possibly lost: 0 bytes in 0 blocks
+==18564==    still reachable: 552 bytes in 1 blocks
+==18564==         suppressed: 0 bytes in 0 blocks
+==18564== Rerun with --leak-check=full to see details of leaked memory
+==18564== 
+==18564== For counts of detected and suppressed errors, rerun with: -v
+==18564== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-char-count$ nano file-char-count.c
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-char-count$ make
+gcc -g -Wall -std=c11    file-char-count.c   -o file-char-count
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-char-count$ valgrind ./file-char-count file-char-count.c
+==18603== Memcheck, a memory error detector
+==18603== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==18603== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==18603== Command: ./file-char-count file-char-count.c
+==18603== 
+580
+==18603== 
+==18603== HEAP SUMMARY:
+==18603==     in use at exit: 0 bytes in 0 blocks
+==18603==   total heap usage: 3 allocs, 3 frees, 5,672 bytes allocated
+==18603== 
+==18603== All heap blocks were freed -- no leaks are possible
+==18603== 
+==18603== For counts of detected and suppressed errors, rerun with: -v
+==18603== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+EX3:
+file-copy  file-copy.c  Makefile
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ ./file-copy file-copy.c t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ ls
+file-copy  file-copy.c  Makefile  t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ cmp file-copy.c t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ ./file-copy Makefile t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ cmp Makefile t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ chmod a-w t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ ./file-copy Makefile t
+cannot write t: Permission denied
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ cmp Makefile t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ cat file-copy.c
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static void
+doCopy(const char *inName, FILE *in, const char *outName, FILE *out)
+{
+  int c;
+  while ((c = fgetc(in)) != EOF) {
+    if (fputc(c, out) == EOF) {
+      fprintf(stderr, "error writing to %s: %s\n", outName, strerror(errno));
+      exit(1);
+    }
+  }
+}
+
+/** Output number of chars in file specified by single command-line
+ *  argument.
+ */
+int
+main(int argc, const char *argv[])
+{
+  if (argc != 3) {
+    fprintf(stderr, "usage: %s SRC_NAME DEST_NAME\n", argv[0]);
+    exit(1);
+  }
+  const char *srcName = argv[1];
+  const char *destName = argv[2];
+  FILE *in = fopen(srcName, "r");
+  if (!in) {
+    fprintf(stderr, "cannot read %s: %s\n", srcName, strerror(errno));
+    exit(1);
+  }
+  FILE *out = fopen(destName, "w");
+  if (!out) {
+    fprintf(stderr, "cannot write %s: %s\n", destName, strerror(errno));
+    exit(1);
+  }
+  doCopy(srcName, in, destName, out);
+  if (fclose(in) != 0) {
+    fprintf(stderr, "cannot close %s: %s\n", srcName, strerror(errno));
+    exit(1);
+  }
+  if (fclose(out) != 0) {
+    fprintf(stderr, "cannot close %s: %s\n", destName, strerror(errno));
+    exit(1);
+  }
+  return 0;
+}
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ man ferror
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ nano file-copy.c
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ make
+gcc -g -Wall -std=c11    file-copy.c   -o file-copy
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ ./file-copy Makefile t
+cannot write t: Permission denied
+
+EX4:
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ rm -f t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ nano file-copy.c
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ make
+gcc -g -Wall -std=c11    file-copy.c   -o file-copy
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ ./file-copy file-copy.c t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ ./file-copy Makefile t
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ wc -l file-copy.c Makefile 
+  50 file-copy.c
+  10 Makefile
+  60 total
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/file-copy$ wc -l t
+60 t
+
+EX5:
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/no-buffer-copy$ make
+gcc -g -Wall -std=c11    no-buffer-copy.c   -o no-buffer-copy
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/no-buffer-copy$ time ./no-buffer-copy 'which gcc' /dev/null 1
+cannot read which gcc: No such file or directory
+
+real	0m0.003s
+user	0m0.001s
+sys	0m0.002s
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/no-buffer-copy$ time ./no-buffer-copy 'which gcc' /dev/null 0
+cannot read which gcc: No such file or directory
+
+real	0m0.003s
+user	0m0.002s
+sys	0m0.001s
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/no-buffer-copy$ time ./no-buffer-copy 'which gcc' /dev/null 0
+cannot read which gcc: No such file or directory
+
+real	0m0.003s
+user	0m0.001s
+sys	0m0.003s
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/no-buffer-copy$ time ./no-buffer-copy 'which gcc' /dev/null 0
+cannot read which gcc: No such file or directory
+
+real	0m0.003s
+user	0m0.003s
+sys	0m0.001s
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/no-buffer-copy$ time ./no-buffer-copy 'which gcc' /dev/null 0
+cannot read which gcc: No such file or directory
+
+real	0m0.004s
+user	0m0.001s
+sys	0m0.003s
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/no-buffer-copy$ time ./no-buffer-copy 'which gcc' /dev/null 1
+cannot read which gcc: No such file or directory
+
+real	0m0.003s
+user	0m0.003s
+sys	0m0.000s
+
+EX6:
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ cat gen-rand-points.c 
+#include <errno.h>
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "point2.h"
+
+static void __attribute__((noreturn))
+usage(const char *progName)
+{
+  fprintf(stderr, "usage: %s N_POINTS OUT_FILE\n", progName);
+  exit(1);
+}
+
+static int
+randCoord(void)
+{
+  enum { MAX = 1000 }; //exclusive
+  //statistically unsound; see
+  //<https://stackoverflow.com/questions/4195958/how-do-i-scale-down-numbers-from-rand>
+  return rand() % MAX;
+}
+
+int
+main(int argc, const char *argv[])
+{
+  if (argc != 3) usage(argv[0]);
+  int nPoints = atoi(argv[1]);
+  if (nPoints <= 0) usage(argv[0]);
+  const char *outName = argv[2];
+  FILE *out = fopen(outName, "w");
+  if (!out) {
+    fprintf(stderr, "cannot write %s: %s\n", outName, strerror(errno));
+    exit(1);
+  }
+  double sum = 0.0;
+  for (int i = 0; i < nPoints; i++) {
+    Point2 point2 = { .x = randCoord(), .y = randCoord(), };
+    if (fwrite(&point2, sizeof(Point2), 1, out) != 1) {
+      fprintf(stderr, "cannot write Point2(%d, %d) to %s: %s\n",
+              point2.x, point2.y, outName, strerror(errno));
+      exit(1);
+    }
+    double mag = magnitudePoint2(&point2);
+    sum += mag;
+  }
+  fprintf(stderr, "average magnitude = %g\n", sum/nPoints);
+  if (fclose(out) != 0) {
+    fprintf(stderr, "cannot close %s: %s\n", outName, strerror(errno));
+    exit(1);
+  }
+  return 0;
+}
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ make
+gcc -g -Wall -std=c11   -c -o gen-rand-points.o gen-rand-points.c
+gcc   gen-rand-points.o  -lm -o gen-rand-points
+gcc -g -Wall -std=c11   -c -o stat-points.o stat-points.c
+gcc -g -Wall -std=c11   -c -o dyn-array.o dyn-array.c
+gcc   stat-points.o dyn-array.o  -lm -o stat-points
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ ./gen-rand-points 100 points.dat
+average magnitude = 752.156
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ cat point
+point2.h    points.dat  
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ cat points.dat 
+v	�O����j�;������p7�^{C��":E���
+    *�u���D;r�[��i^��1�TGP�N�9Y|F!.o�l+�W(�H�����<�p�
+                                        �J^:�z�Ya�=���-�a��k��ua����7X�aJ�2��pg�=�p��T��j�N��+{���I^��"�|��X���m[��'����yZ���2��
+                               �rutvik@rutvik-aspire-e5-575:stat-points /lab13/files/rec-io$ ./ 
+usage: ./stat-points BINARY_POINTS_FILE
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ ./stat-points points.dat 
+min = 43.4166
+average = 752.156
+median = 773.59
+max = 1306.49
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ nano gen-rand-points
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ !!.c
+nano gen-rand-points.c
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ nano stat-points.c
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ make
+gcc -g -Wall -std=c11   -c -o gen-rand-points.o gen-rand-points.c
+gcc   gen-rand-points.o  -lm -o gen-rand-points
+gcc -g -Wall -std=c11   -c -o stat-points.o stat-points.c
+gcc   stat-points.o dyn-array.o  -lm -o stat-points
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ ./gen-rand-points 
+usage: ./gen-rand-points N_POINTS OUT_FILE
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ ./gen-rand-points 300
+usage: ./gen-rand-points N_POINTS OUT_FILE
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ ./gen-rand-points 300 points.dat
+average magnitude = 767.05
+rutvik@rutvik-aspire-e5-575:~/i220a/work/lab13/files/rec-io$ ./stat-points points.dat 
+min = 38.8973
+average = 767.05
+median = 785.138
+max = 1353.85
+
