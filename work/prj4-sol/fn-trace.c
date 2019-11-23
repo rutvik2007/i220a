@@ -48,7 +48,6 @@ int comparator(const void *p, const void *q){
  *  from the function whose address is rootFn.
  */
 void traceFns(void *rootFn, FnsData *fns){
-  printf("Entered\n");
   int currentIndex=fns->numFns;
   if(currentIndex==fns->size){
     if(fns->size==0){
@@ -69,13 +68,11 @@ void traceFns(void *rootFn, FnsData *fns){
   int currentLength = get_op_length(current);
   while(!is_ret(*current)){
     if(is_call(*current)){
-      printf("Entered2\n");
       fns->fns[currentIndex].nOutCalls++;
       int offset = *(int *)(current+1);
       void *nextFn = offset+current+currentLength;
       int isIn = inFnsData(nextFn,fns);
       if(isIn==-1){
-        printf("Entered3\n");
         traceFns(nextFn, fns);
       }
       else{
@@ -98,9 +95,6 @@ new_fns_data(void *rootFn)
   fns = calloc(sizeof(FnsData),1);
   traceFns(rootFn, fns);
   qsort((void*)fns->fns, fns->numFns, sizeof(FnInfo), comparator);
-  for(int i=0;i<fns->numFns;i++){
-    printf("%p\n", fns->fns[i].address);
-  }
   return fns;
 }
 
@@ -131,6 +125,13 @@ free_fns_data(FnsData *fnsData)
 const FnInfo *
 next_fn_info(const FnsData *fnsData, const FnInfo *lastFnInfo)
 {
-  //@TODO
-  return NULL;
+  if(lastFnInfo==NULL){
+    return fnsData->fns;
+  }
+  else if(lastFnInfo!=&fnsData->fns[fnsData->numFns-1]){
+    return &lastFnInfo[1];
+  }
+  else{
+    return NULL;
+  }
 }
