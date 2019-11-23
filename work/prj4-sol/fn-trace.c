@@ -36,7 +36,7 @@ int inFnsData(void* fnPtr, FnsData *fns){
  */
 void traceFns(void *rootFn, FnsData *fns){
   int currentIndex=fns->numFns;
-  if(currentIndex==size){
+  if(currentIndex==fns->size){
     if(size==0){
       fns->fns = calloc(sizeof(FnInfo),1);
       fns->size=1;
