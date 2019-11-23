@@ -51,11 +51,11 @@ void traceFns(void *rootFn, FnsData *fns){
   int currentIndex=fns->numFns;
   if(currentIndex==fns->size){
     if(fns->size==0){
-      fns->fns = calloc(sizeof(FnInfo),1);
+      fns->fns = callocChk(sizeof(FnInfo),1);
       fns->size=1;
     }
     else{
-      fns->fns = realloc(fns->fns, 2*fns->size*sizeof(FnInfo));
+      fns->fns = reallocChk(fns->fns, 2*fns->size*sizeof(FnInfo));
       fns->size*=2;
     }
   }
@@ -93,7 +93,7 @@ new_fns_data(void *rootFn)
   //verify assumption used when decoding call address
   assert(sizeof(int) == 4);
   FnsData *fns = NULL;
-  fns = calloc(sizeof(FnsData),1);
+  fns = callocChk(sizeof(FnsData),1);
   traceFns(rootFn, fns);
   qsort((void*)fns->fns, fns->numFns, sizeof(FnInfo), comparator);
   return fns;
