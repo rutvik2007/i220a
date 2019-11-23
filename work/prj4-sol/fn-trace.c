@@ -131,7 +131,7 @@ next_fn_info(const FnsData *fnsData, const FnInfo *lastFnInfo)
   else if(lastFnInfo!=&fnsData->fns[fnsData->numFns-1]){
     return &lastFnInfo[1];
   }
-  else{
+  /*else{
     return NULL;
-  }
+  }*/
 }
