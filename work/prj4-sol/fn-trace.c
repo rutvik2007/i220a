@@ -30,28 +30,6 @@ void traceFns(void *rootFn, FnsData *fns){
     unsigned char *current = rootFn;
     int currentLength = get_op_length(current);
     while(!(currentLength<0)){
-<<<<<<< HEAD
-        if((is_ret(*current) || is_call(*current))){
-          if(is_ret(*current)) return;
-          else{
-            if(fns == NULL){
-              fns = calloc(sizeof(FnsData),1);
-              fns -> numFns = 1;
-              printf("%ld",*current);
-            }
-            else{
-              
-            }
-          }
-        }
-        for(int i=0; i<currentLength; i++){
-        unsigned char c = *(current+i);
-        printf("%x ", c);
-        }
-        current = current + currentLength;
-        currentLength = get_op_length(current);
-        printf("\n");
-=======
     if(is_ret(*current)) return;
     else if(is_call(*current)){
       if(fns == NULL){
@@ -67,7 +45,6 @@ void traceFns(void *rootFn, FnsData *fns){
       //printf("%x ", c);
     //}
         
->>>>>>> e08c735e4e36df26e692408a8a2ce0d91e52f263
   }
   return NULL;
 }
