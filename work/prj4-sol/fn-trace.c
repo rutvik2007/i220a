@@ -30,8 +30,8 @@ int inFnsData(void* fnPtr, FnsData *fns){
 }
 
 int comparator(const void *p, const void *q){ 
-    FnInfo p1 = *(((FnInfo *)p)->address; 
-    FnInfo q1 = *(((FnInfo *)q)->address; 
+    FnInfo p1 = *(((FnInfo *)p)->address); 
+    FnInfo q1 = *(((FnInfo *)q)->address); 
     if(p1>q1){
       return 1;
     }
@@ -104,7 +104,7 @@ new_fns_data(void *rootFn)
   return fns;
 }
 
-/** Free all resources occupied by fnsData. fnsData must have been
+/** Free all resources occupied by fnsData. fnsData must have been  
  *  returned by new_fns_data().  It is not ok to use to fnsData after
  *  this call.
  */
