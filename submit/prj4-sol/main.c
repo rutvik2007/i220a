@@ -109,8 +109,6 @@ main(int argc, const char *argv[]) {
   FILE *out = stdout;
   out_fn_call_result(out, module, fn, f);
   out_fn_trace(out, f, isRelative);
-
   dlclose(handle);
-
   return 0;
 }
