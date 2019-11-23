@@ -62,6 +62,7 @@ void traceFns(void *rootFn, FnsData *fns){
       void *nextFn = offset+current+currentLength;
       int isIn = inFnsData(nextFn,fns);
       if(isIn==-1){
+        printf("Entered3\n");
         traceFns(nextFn, fns);
       }
       else{
