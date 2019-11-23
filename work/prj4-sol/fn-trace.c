@@ -29,6 +29,19 @@ int inFnsData(void* fnPtr, FnsData *fns){
   return -1;
 }
 
+int comparator(const void *p, const void *q){ 
+    FnInfo p1 = *(((FnInfo *)p)->address; 
+    FnInfo q1 = *(((FnInfo *)q)->address; 
+    if(p1>q1){
+      return 1;
+    }
+    if(p1==q1){
+      return 0;
+    }
+    return -1;
+} 
+
+
 
 /** Return pointer to opaque data structure containing collection of
  *  FnInfo's for functions which are callable directly or indirectly
@@ -84,6 +97,10 @@ new_fns_data(void *rootFn)
   FnsData *fns = NULL;
   fns = calloc(sizeof(FnsData),1);
   traceFns(rootFn, fns);
+  qsort((void*)fns->fns, fns->numFns, sizeof(FnInfo), comparator);
+  for(int i=0;i<fns->numFns;i++){
+    printf("%p\n", fns->fns[i].address);
+  }
   return fns;
 }
 
@@ -94,7 +111,8 @@ new_fns_data(void *rootFn)
 void
 free_fns_data(FnsData *fnsData)
 {
-  //@TODO
+  free(fnsData->fns);
+  free(fnsData);
 }
 
 /** Iterate over all FnInfo's in fnsData.  Make initial call with NULL
