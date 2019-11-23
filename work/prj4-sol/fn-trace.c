@@ -67,6 +67,7 @@ void traceFns(void *rootFn, FnsData *fns){
   unsigned char *current = rootFn;
   int currentLength = get_op_length(current);
   while(!is_ret(*current)){
+    fns->fns[currentIndex].length+=currentLength;
     if(is_call(*current)){
       fns->fns[currentIndex].nOutCalls++;
       int offset = *(int *)(current+1);
@@ -80,7 +81,7 @@ void traceFns(void *rootFn, FnsData *fns){
       }
     }
     current = current + currentLength;
-    currentLength = get_op_length(current);    
+    currentLength = get_op_length(current);   
   }
   return;
 }
