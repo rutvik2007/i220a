@@ -35,10 +35,10 @@ int inFnsData(void* fnPtr, FnsData *fns){
  *  from the function whose address is rootFn.
  */
 void traceFns(void *rootFn, FnsData *fns){
-  currentIndex=fns->numFns;
+  int currentIndex=fns->numFns;
   if(currentIndex==size){
     if(size==0){
-      fns->fns = calloc(sizeof(FnInfo));
+      fns->fns = calloc(sizeof(FnInfo),1);
       fns->size=1;
     }
     else{
@@ -58,7 +58,7 @@ void traceFns(void *rootFn, FnsData *fns){
       fns->fns[currentIndex].nOutCalls++;
       int offset = *(int *)(current+1);
       void *nextFn = offset+current+currentLength;
-      int isIn = inFnsData(nextFn);
+      int isIn = inFnsData(nextFn,fns);
       if(isIn==-1){
         traceFns(nextFn, fns);
       }
