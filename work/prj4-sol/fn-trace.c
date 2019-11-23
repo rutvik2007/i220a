@@ -30,29 +30,21 @@ void getTrace(void *rootFn, FnsData *fns){
     unsigned char *current = rootFn;
     int currentLength = get_op_length(current);
     while(!(currentLength<0)){
-        if(!(is_ret(*current) || is_call(*current))){
-            current = current + currentLength;
-            currentLength = get_op_length(current);
-            continue;
-        }
-        if(is_ret(*current)) return;
-        else{
-            if(fns == NULL){
-                fns = calloc(sizeof(FnsData),1);
-                fns -> numFns = 1;
-                printf("%ld",*current);
-            }
-            else{
-
-            }
-        }
-        for(int i=0; i<currentLength; i++){
-        unsigned char c = *(current+i);
-        printf("%x ", c);
-        }
-        current = current + currentLength;
-        currentLength = get_op_length(current);
-        printf("\n");
+    if(is_ret(*current)) return;
+    else if(is_call(*current)){
+      if(fns == NULL){
+        fns = calloc(sizeof(FnsData),1);
+        fns -> numFns = 1;
+        printf("%lx",*current);
+      }
+    } 
+    current = current + currentLength;
+    currentLength = get_op_length(current);  
+    //for(int i=0; i<currentLength; i++){
+    //  unsigned char c = *(current+i);
+      //printf("%x ", c);
+    //}
+        
   }
   return NULL;
 }
@@ -63,7 +55,7 @@ new_fns_data(void *rootFn)
   //verify assumption used when decoding call address
   assert(sizeof(int) == 4);
   FnsData *fns = NULL;
-  const FnsData* traceFns(rootFn, fns);
+  const FnsData* getTrace(rootFn, fns);
 }
 
 /** Free all resources occupied by fnsData. fnsData must have been
